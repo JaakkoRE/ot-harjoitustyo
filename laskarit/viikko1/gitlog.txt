@@ -1,0 +1,79 @@
+commit 898766df8b363febece9bb7fdfb239b1233e16a2
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:33:23 2020 +0200
+
+    muutos
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ba1d34345522de15cb54e78e892347823beffd40
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:25:06 2020 +0200
+
+    tiedostot
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit fcf889926277d42ae403e1584b613c71b2044e96
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:20:22 2020 +0200
+
+    joo
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit c68d2392a82519c2701cb4157515fe14c35e0972
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:18:24 2020 +0200
+
+    uudelleen nimeäminen
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9f808899fa8fe2e17caf49731c11ac46d0b346e3
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:17:23 2020 +0200
+
+    poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 349cf8b85c161e761d5f692647ed90fdae37deb9
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:16:15 2020 +0200
+
+    isoLisays
+
+ kolmas.txt      | 1 +
+ stuff/juttu.txt | 0
+ toinen.txt      | 1 +
+ 3 files changed, 2 insertions(+)
+
+commit 3135f9c9b1ce5be657fdff3e91359015cc5ac289
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 13:02:10 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 2 ++
+ toinen.txt   | 0
+ 2 files changed, 2 insertions(+)
+
+commit 6f0fa26fcd1d92f0ec4da7d3dd8324fa2ab64e23
+Author: JaakkoRE <jaakko.rantaeskola@gmail.com>
+Date:   Fri Mar 13 12:56:45 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+

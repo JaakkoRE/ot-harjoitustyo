@@ -8,7 +8,7 @@ Sovelluksella pystyy luomaan graafisia käyriä funktioiden avulla,hoitaa perus 
 
 ## Käyttöliittymäluonnos
 Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokanta asetuksiin. Mahdollisesti lisätään yleinen asetus valikoima tähän. 
-
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Kaavio.png" width="1000">
 
 ## Perusversioin toiminnallisuus
 ### Alkunäkymä 

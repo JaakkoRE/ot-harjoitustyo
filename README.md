@@ -3,8 +3,8 @@
 ### Viikko1
 Asia on niin.
 
-<strong> että joo </strong> <em> näin on </em> <br>
-muutos.
+<strong> Testi </strong> <em> muutos. </em> <br>
+
 
 
 [gitlog.txt](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)

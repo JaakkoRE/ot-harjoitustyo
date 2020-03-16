@@ -1,9 +1,9 @@
 # Ohjelmistotekniikka, Harjoitustyö
 ## Tehtävät
 ### Viikko1
-Asia on niin.
 
-<strong> Testi </strong> <em> muutos. </em> <br>
+
+<strong> Testi </strong> <br> <em> muutos. </em>
 
 
 

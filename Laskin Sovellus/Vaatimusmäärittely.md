@@ -23,7 +23,8 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
 
 ### Laskin näkymä
 - toiminnalisuuksia vasemmalla (mahdollisesti voi minimoida)
-  - tietojen talletus, erilaiset monimutkaisemmat toiminnot
+  - tietojen talletus 
+  - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
 - pikavalikko
   - perus symbolit kuten tulo merkit, neepperin luku, itseisarvo symbolit jne.

@@ -1,7 +1,7 @@
 # Ohjelmistotekniikka, Harjoitustyö
 
 ## Projektityö
-[Projektikansio](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus)
+[Projektikansio](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus) <br>
 [Vaativuusmäärittely](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Vaatimusm%C3%A4%C3%A4rittely.md)
 ## Tehtävät
 

@@ -2,7 +2,8 @@
 
 ## Projektityö
 [Projektikansio](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus) <br>
-[Dokumentaatio](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus/Dokumentaatio)
+[Dokumentaatio](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus/Dokumentaatio) <br>
+[Laskin Ohjelma](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/Laskin%20Sovellus/CalculatorProgram)
 ## Tehtävät
 
 ### Viikko1

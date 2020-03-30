@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+CalculatorProgram,com.mycompany.calculatorprogram,main,14,0,0,0,5,0,2,0,2,0
+CalculatorProgram,com.mycompany.calculatorprogram,Calculator.Exceptions,7,0,0,0,3,0,1,0,1,0
+CalculatorProgram,com.mycompany.calculatorprogram,Calculator,472,952,92,96,90,157,60,47,2,11
+CalculatorProgram,com.mycompany.calculatorprogram,UserInterface,2362,0,80,0,410,0,96,0,56,0
+CalculatorProgram,com.mycompany.calculatorprogram,GraphicCalculator,3,0,0,0,1,0,1,0,1,0

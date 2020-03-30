@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CalculatorProgram</a> &gt; <a href="index.source.html" class="el_package">com.mycompany.calculatorprogram</a> &gt; <span class="el_source">Calculator.java</span></div><h1>Calculator.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.calculatorprogram;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ *
+ * @author Jaakko
+ */
+public class Calculator {
+
+    private ArrayDeque&lt;String&gt; calculationStack;
+    private ArrayList&lt;String&gt; calculationArrayList;
+    private HashMap&lt;Integer, Integer&gt; parenthesis;
+    private boolean brackets;
+    private boolean absoluteValue;
+
+<span class="fc" id="L25">    public Calculator() {</span>
+<span class="fc" id="L26">        this.calculationStack = new ArrayDeque&lt;&gt;();</span>
+<span class="fc" id="L27">        this.calculationArrayList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L28">    }</span>
+
+    public double StackCalc(String text) throws Exceptions {
+<span class="nc" id="L31">        boolean error = false;</span>
+<span class="nc" id="L32">        boolean calculated = false;</span>
+<span class="nc" id="L33">        Splitter(text);</span>
+
+<span class="nc" id="L35">        boolean firstNumberFilled = false;</span>
+<span class="nc" id="L36">        boolean secondNumberFilled = false;</span>
+<span class="nc" id="L37">        double secondNumber = 0;</span>
+<span class="nc" id="L38">        double calculationResult = 0;</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        while (!calculated &amp;&amp; !error) {</span>
+
+            //if the first part is number.
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (firstNumberFilled == false) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if (isNumber(calculationStack.getFirst())) {</span>
+<span class="nc" id="L44">                    calculationResult = Double.valueOf(calculationStack.getFirst());</span>
+<span class="nc" id="L45">                    calculationStack.removeFirst();</span>
+<span class="nc" id="L46">                    firstNumberFilled = true;</span>
+                } else {
+<span class="nc" id="L48">                    error = true;</span>
+                }
+            } else {
+                //if the first part is operation
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (calculationStack.getFirst().equals(&quot;+&quot;)) {</span>
+<span class="nc" id="L53">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L54" title="All 4 branches missed.">                    if (isNumber(calculationStack.getFirst()) &amp;&amp; !calculationStack.isEmpty()) {</span>
+<span class="nc" id="L55">                        secondNumber = Double.valueOf(calculationStack.getFirst());</span>
+                    } else {
+<span class="nc" id="L57">                        error = true;</span>
+                    }
+<span class="nc" id="L59">                    calculationResult = sum(calculationResult, secondNumber);</span>
+<span class="nc" id="L60">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                } else if (calculationStack.getFirst().equals(&quot;-&quot;)) {</span>
+<span class="nc" id="L62">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L63" title="All 4 branches missed.">                    if (isNumber(calculationStack.getFirst()) &amp;&amp; !calculationStack.isEmpty()) {</span>
+<span class="nc" id="L64">                        secondNumber = Double.valueOf(calculationStack.getFirst());</span>
+                    } else {
+<span class="nc" id="L66">                        error = true;</span>
+                    }
+<span class="nc" id="L68">                    calculationResult = differential(calculationResult, -secondNumber);</span>
+<span class="nc" id="L69">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                } else if (calculationStack.getFirst().equals(&quot;*&quot;)) {</span>
+<span class="nc" id="L71">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L72" title="All 4 branches missed.">                    if (isNumber(calculationStack.getFirst()) &amp;&amp; !calculationStack.isEmpty()) {</span>
+<span class="nc" id="L73">                        secondNumber = Double.valueOf(calculationStack.getFirst());</span>
+                    } else {
+<span class="nc" id="L75">                        error = true;</span>
+                    }
+<span class="nc" id="L77">                    calculationResult = product(calculationResult, secondNumber);</span>
+<span class="nc" id="L78">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                } else if (calculationStack.getFirst().equals(&quot;:&quot;)) {</span>
+<span class="nc" id="L80">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L81" title="All 4 branches missed.">                    if (isNumber(calculationStack.getFirst()) &amp;&amp; !calculationStack.isEmpty()) {</span>
+<span class="nc" id="L82">                        secondNumber = Double.valueOf(calculationStack.getFirst());</span>
+                    } else {
+<span class="nc" id="L84">                        error = true;</span>
+                    }
+<span class="nc" id="L86">                    calculationResult = quotient(calculationResult, secondNumber);</span>
+<span class="nc" id="L87">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">                } else if (calculationStack.getFirst().equals(&quot;^&quot;)) {</span>
+<span class="nc" id="L89">                    calculationStack.removeFirst();</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">                    if (isNumber(calculationStack.getFirst()) &amp;&amp; !calculationStack.isEmpty()) {</span>
+<span class="nc" id="L91">                        secondNumber = Double.valueOf(calculationStack.getFirst());</span>
+                    } else {
+<span class="nc" id="L93">                        error = true;</span>
+                    }
+<span class="nc" id="L95">                    calculationResult = power(calculationResult, secondNumber);</span>
+<span class="nc" id="L96">                    calculationStack.removeFirst();</span>
+                } else {
+<span class="nc" id="L98">                    error = true;</span>
+                }
+            }
+
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            if (calculationStack.isEmpty()) {</span>
+<span class="nc" id="L103">                calculated = true;</span>
+            }
+        }
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!error) {</span>
+<span class="nc" id="L107">            return calculationResult;</span>
+        }
+<span class="nc" id="L109">        return -1;</span>
+    }
+
+    public String calcArrayList(String text) throws Exceptions {
+<span class="fc" id="L113">        brackets = false;</span>
+<span class="fc" id="L114">        this.calculationArrayList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L115">        this.parenthesis = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L116">        Splitter(text);</span>
+<span class="pc bpc" id="L117" title="1 of 4 branches missed.">        if (!brackets &amp;&amp; !absoluteValue) {</span>
+<span class="fc" id="L118">            return calculate(this.calculationArrayList);</span>
+        } else {
+            //solves absolute value before calculation  
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            if (absoluteValue) {</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">                while (absoluteValue) {</span>
+<span class="nc" id="L123">                    int absoluteValueStartIndex = -1;</span>
+<span class="nc" id="L124">                    int absoluteValueEndIndex = -1;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                    for (int i = 0; i &lt; calculationArrayList.size(); i++) {</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">                        if (calculationArrayList.get(i).equals(&quot;|&quot;)) {</span>
+<span class="nc" id="L127">                            absoluteValueStartIndex = i;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                            for (int j = i + 1; j &lt; calculationArrayList.size(); j++) {</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                                if (calculationArrayList.get(j).equals(&quot;|&quot;)) {</span>
+<span class="nc" id="L130">                                    absoluteValueEndIndex = j;</span>
+<span class="nc" id="L131">                                    break;</span>
+                                }
+                            }
+<span class="nc" id="L134">                            break;</span>
+
+                        }
+                    }
+<span class="nc bnc" id="L138" title="All 4 branches missed.">                    if (absoluteValueStartIndex == -1 || absoluteValueEndIndex == -1) {</span>
+<span class="nc" id="L139">                        absoluteValue = false;</span>
+<span class="nc" id="L140">                        break;</span>
+                    }
+
+<span class="nc" id="L143">                    List&lt;String&gt; calculationArrayListParts = calculationArrayList.subList(absoluteValueStartIndex + 1, absoluteValueEndIndex);</span>
+<span class="nc" id="L144">                    calculate(calculationArrayListParts);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">                    if (Double.valueOf(calculationArrayList.get(absoluteValueStartIndex + 1)) &lt; 0) {</span>
+<span class="nc" id="L146">                        calculationArrayList.add(absoluteValueStartIndex + 1, &quot;&quot; + product(-1, Double.valueOf(calculationArrayList.get(absoluteValueStartIndex + 1))));</span>
+<span class="nc" id="L147">                        calculationArrayList.remove(absoluteValueStartIndex + 2);</span>
+                    }
+<span class="nc" id="L149">                    calculationArrayList.remove(absoluteValueStartIndex + 2);</span>
+<span class="nc" id="L150">                    calculationArrayList.remove(absoluteValueStartIndex);</span>
+<span class="nc" id="L151">                }</span>
+            }
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">            if (brackets) //solves brackets before calculation  </span>
+            {
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">                while (brackets) {</span>
+<span class="fc" id="L156">                    int bracketStartIndex = -1;</span>
+<span class="fc" id="L157">                    int bracketEndIndex = -1;</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">                    for (int i = 0; i &lt; calculationArrayList.size(); i++) {</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">                        if (calculationArrayList.get(i).equals(&quot;)&quot;)) {</span>
+<span class="fc" id="L160">                            bracketEndIndex = i;</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">                            for (int j = i; j &gt;= 0; j--) {</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                                if (calculationArrayList.get(j).equals(&quot;(&quot;)) {</span>
+<span class="fc" id="L163">                                    bracketStartIndex = j;</span>
+<span class="fc" id="L164">                                    break;</span>
+                                }
+                            }
+<span class="fc" id="L167">                            break;</span>
+
+                        }
+                    }
+<span class="pc bpc" id="L171" title="1 of 4 branches missed.">                    if (bracketStartIndex == -1 || bracketEndIndex == -1) {</span>
+<span class="fc" id="L172">                        brackets = false;</span>
+<span class="fc" id="L173">                        break;</span>
+                    }
+
+<span class="fc" id="L176">                    List&lt;String&gt; calculationArrayListPart = calculationArrayList.subList(bracketStartIndex + 1, bracketEndIndex);</span>
+<span class="fc" id="L177">                    calculate(calculationArrayListPart);</span>
+<span class="fc" id="L178">                    int removeIndex = bracketStartIndex + 2;</span>
+<span class="fc" id="L179">                    calculationArrayList.remove(bracketStartIndex + 2);</span>
+<span class="fc" id="L180">                    calculationArrayList.remove(bracketStartIndex);</span>
+<span class="fc" id="L181">                }</span>
+            }
+<span class="fc" id="L183">            calculate(calculationArrayList);</span>
+
+<span class="fc" id="L185">            return calculationArrayList.get(0);</span>
+        }
+    }
+
+    public String calculate(List&lt;String&gt; calculatableArrayList) throws Exceptions {
+<span class="fc" id="L190">        double firstValue = 0;</span>
+<span class="fc" id="L191">        double secondValue = 0;</span>
+        //checks if the virst value is negative
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (calculatableArrayList.get(0).equals(&quot;-&quot;)) {</span>
+<span class="fc" id="L194">            calculatableArrayList.add(0, -Double.valueOf(calculatableArrayList.get(1)) + &quot;&quot;);</span>
+<span class="fc" id="L195">            calculatableArrayList.remove(1);</span>
+<span class="fc" id="L196">            calculatableArrayList.remove(1);</span>
+        }
+        //percent conversion, π and e conversions
+<span class="fc bfc" id="L199" title="All 2 branches covered."> for (int i = 0; i &lt; calculatableArrayList.size(); i++) {</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">            if (calculatableArrayList.get(i).equals(&quot;%&quot;)) {</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1))) {</span>
+<span class="nc" id="L202">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+<span class="nc" id="L203">                    calculatableArrayList.add(i + 1, firstValue/100 + &quot;&quot;);</span>
+<span class="nc" id="L204">                    calculatableArrayList.remove(i);</span>
+<span class="nc" id="L205">                    calculatableArrayList.remove(i - 1);</span>
+<span class="nc" id="L206">                    i--;</span>
+<span class="nc" id="L207">                    i--;</span>
+                }
+            }
+        }
+
+        //factorial
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        for (int i = 0; i &lt; calculatableArrayList.size(); i++) {</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">            if (calculatableArrayList.get(i).equals(&quot;!&quot;)) {</span>
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1))) {</span>
+<span class="fc" id="L216">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+<span class="fc" id="L217">                    calculatableArrayList.add(i + 1, factorial(firstValue) + &quot;&quot;);</span>
+<span class="fc" id="L218">                    calculatableArrayList.remove(i);</span>
+<span class="fc" id="L219">                    calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L220">                    i--;</span>
+<span class="fc" id="L221">                    i--;</span>
+                }
+            }
+        }
+        //power
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        for (int i = 0; i &lt; calculatableArrayList.size(); i++) {</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">            if (calculatableArrayList.get(i).equals(&quot;^&quot;)) {</span>
+<span class="pc bpc" id="L228" title="2 of 4 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1)) &amp;&amp; isNumber(calculatableArrayList.get(i + 1))) {</span>
+<span class="fc" id="L229">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+<span class="fc" id="L230">                    secondValue = Double.valueOf(calculatableArrayList.get(i + 1));</span>
+<span class="fc" id="L231">                    calculatableArrayList.remove(i + 1);</span>
+<span class="fc" id="L232">                    calculatableArrayList.add(i + 1, power(firstValue, secondValue) + &quot;&quot;);</span>
+<span class="fc" id="L233">                    calculatableArrayList.remove(i);</span>
+<span class="fc" id="L234">                    calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L235">                    i--;</span>
+<span class="fc" id="L236">                    i--;</span>
+                }
+            }
+        }
+<span class="fc bfc" id="L240" title="All 2 branches covered.">        for (int i = 0; i &lt; calculatableArrayList.size(); i++) {</span>
+
+            //Product and quotient
+<span class="fc bfc" id="L243" title="All 2 branches covered.">            if (calculatableArrayList.get(i).equals(&quot;*&quot;)) {</span>
+<span class="pc bpc" id="L244" title="2 of 4 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1)) &amp;&amp; isNumber(calculatableArrayList.get(i + 1))) {</span>
+<span class="fc" id="L245">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+<span class="fc" id="L246">                    secondValue = Double.valueOf(calculatableArrayList.get(i + 1));</span>
+<span class="fc" id="L247">                    calculatableArrayList.remove(i + 1);</span>
+<span class="fc" id="L248">                    calculatableArrayList.add(i + 1, product(firstValue, secondValue) + &quot;&quot;);</span>
+<span class="fc" id="L249">                    calculatableArrayList.remove(i);</span>
+<span class="fc" id="L250">                    calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L251">                    i--;</span>
+<span class="fc" id="L252">                    i--;</span>
+                }
+<span class="pc bpc" id="L254" title="1 of 6 branches missed.">            } else if (!calculatableArrayList.isEmpty() &amp;&amp; (calculatableArrayList.get(i).equals(&quot;:&quot;) || calculatableArrayList.get(i).equals(&quot;/&quot;))) {</span>
+<span class="pc bpc" id="L255" title="2 of 4 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1)) &amp;&amp; isNumber(calculatableArrayList.get(i + 1))) {</span>
+<span class="fc" id="L256">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+                }
+<span class="fc" id="L258">                secondValue = Double.valueOf(calculatableArrayList.get(i + 1));</span>
+<span class="fc" id="L259">                calculatableArrayList.remove(i + 1);</span>
+<span class="fc" id="L260">                calculatableArrayList.add(i + 1, quotient(firstValue, secondValue) + &quot;&quot;);</span>
+<span class="fc" id="L261">                calculatableArrayList.remove(i);</span>
+<span class="fc" id="L262">                calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L263">                i--;</span>
+<span class="fc" id="L264">                i--;</span>
+            }
+        }
+        //sum
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        for (int i = 0; i &lt; calculatableArrayList.size(); i++) {</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">            if (calculatableArrayList.get(i).equals(&quot;+&quot;)) {</span>
+<span class="pc bpc" id="L270" title="2 of 4 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1)) &amp;&amp; isNumber(calculatableArrayList.get(i + 1))) {</span>
+<span class="fc" id="L271">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+<span class="fc" id="L272">                    secondValue = Double.valueOf(calculatableArrayList.get(i + 1));</span>
+<span class="fc" id="L273">                    calculatableArrayList.remove(i + 1);</span>
+<span class="fc" id="L274">                    calculatableArrayList.add(i + 1, sum(firstValue, secondValue) + &quot;&quot;);</span>
+<span class="fc" id="L275">                    calculatableArrayList.remove(i);</span>
+<span class="fc" id="L276">                    calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L277">                    i--;</span>
+<span class="fc" id="L278">                    i--;</span>
+                }
+<span class="pc bpc" id="L280" title="1 of 4 branches missed.">            } else if (!calculatableArrayList.isEmpty() &amp;&amp; calculatableArrayList.get(i).equals(&quot;-&quot;)) {</span>
+<span class="pc bpc" id="L281" title="2 of 4 branches missed.">                if (isNumber(calculatableArrayList.get(i - 1)) &amp;&amp; isNumber(calculatableArrayList.get(i + 1))) {</span>
+<span class="fc" id="L282">                    firstValue = Double.valueOf(calculatableArrayList.get(i - 1));</span>
+                }
+<span class="fc" id="L284">                secondValue = Double.valueOf(calculatableArrayList.get(i + 1));</span>
+<span class="fc" id="L285">                calculatableArrayList.remove(i + 1);</span>
+<span class="fc" id="L286">                calculatableArrayList.add(i + 1, sum(firstValue, -secondValue) + &quot;&quot;);</span>
+<span class="fc" id="L287">                calculatableArrayList.remove(i);</span>
+<span class="fc" id="L288">                calculatableArrayList.remove(i - 1);</span>
+<span class="fc" id="L289">                i--;</span>
+<span class="fc" id="L290">                i--;</span>
+            }
+        }
+<span class="fc" id="L293">        return calculatableArrayList.get(0);</span>
+    }
+
+    public static boolean isNumber(String number) {
+
+        try {
+<span class="fc" id="L299">            double num = Double.parseDouble(number);</span>
+<span class="fc" id="L300">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L301">            return false;</span>
+<span class="fc" id="L302">        }</span>
+<span class="fc" id="L303">        return true;</span>
+    }
+
+    public void Splitter(String text) {
+<span class="fc" id="L307">        String[] parts = text.split(&quot;(?&lt;=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e])|(?=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e])&quot;);</span>
+
+<span class="fc bfc" id="L309" title="All 2 branches covered.">        for (int i = 0; i &lt; parts.length; i++) {</span>
+<span class="fc bfc" id="L310" title="All 2 branches covered.">            if (i &gt; 0) {</span>
+<span class="pc bpc" id="L311" title="1 of 12 branches missed.">                if ((parts[i].equals(&quot;(&quot;)||parts[i].equals(&quot;e&quot;)||parts[i].equals(&quot;π&quot;))&amp;&amp; (isNumber(parts[i - 1])||parts[i - 1].equals(&quot;e&quot;) ||parts[i - 1].equals(&quot;π&quot;) )) {</span>
+<span class="fc" id="L312">                    calculationArrayList.add(&quot;*&quot;);</span>
+                }
+
+            }
+<span class="fc bfc" id="L316" title="All 2 branches covered.">            if (parts[i].equals(&quot;)&quot;)) {</span>
+<span class="fc" id="L317">                brackets = true;</span>
+            }
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">            if (parts[i].equals(&quot;|&quot;)) {</span>
+<span class="nc" id="L320">                absoluteValue = true;</span>
+            }
+            
+<span class="fc bfc" id="L323" title="All 2 branches covered.">            if(parts[i].equals(&quot;π&quot;)){</span>
+<span class="fc" id="L324">                 calculationArrayList.add(3.1415926+&quot;&quot;);</span>
+            }
+<span class="fc bfc" id="L326" title="All 2 branches covered.">            else if(parts[i].equals(&quot;e&quot;)){</span>
+<span class="fc" id="L327">                 calculationArrayList.add(2.7182818+&quot;&quot;);</span>
+            }else
+<span class="fc" id="L329">            calculationArrayList.add(parts[i]);</span>
+
+        }
+<span class="fc" id="L332">    }</span>
+
+    public double sum(double x, double y) {
+<span class="fc" id="L335">        return x + y;</span>
+    }
+
+    public double differential(double x, double y) {
+<span class="nc" id="L339">        return x + y;</span>
+    }
+
+    public double product(double x, double y) {
+<span class="fc" id="L343">        return x * y;</span>
+    }
+
+    public double quotient(double x, double y) {
+<span class="fc" id="L347">        return x / y;</span>
+    }
+
+    public double power(double x, double y) {
+<span class="fc" id="L351">        double a = Math.pow(x, y);</span>
+<span class="fc" id="L352">        return  a;</span>
+    }
+     public double binomial(double x, double y) {
+<span class="fc bfc" id="L355" title="All 2 branches covered.">          if(x&lt;0){</span>
+<span class="fc" id="L356">            x=product(x,-1);</span>
+        }
+<span class="fc bfc" id="L358" title="All 2 branches covered.">        if(y&lt;0){</span>
+<span class="fc" id="L359">            y=product(y,-1);</span>
+        }
+        
+        try {
+<span class="pc bpc" id="L363" title="7 of 8 branches missed.">            if (!(x == Math.floor(x)) &amp;&amp; !Double.isInfinite(x)&amp;&amp;!(y == Math.floor(y)) &amp;&amp;!Double.isInfinite(y)) {</span>
+<span class="nc" id="L364">                throw new Exceptions(&quot;permutaation arvo ei ole kokonaisluku&quot;);</span>
+            }
+<span class="nc" id="L366">        } catch (Exception e) {</span>
+
+<span class="fc" id="L368">        }</span>
+    
+       
+<span class="fc" id="L371">         int binomialX = (int) x;</span>
+<span class="fc" id="L372">         int binomialY = (int) y;</span>
+<span class="fc" id="L373">         double[][] binom=new double[binomialX+1][binomialY+1];</span>
+<span class="fc" id="L374">         binom[0][0] = 1;</span>
+<span class="fc bfc" id="L375" title="All 2 branches covered.">         for(int i =1;i&lt;=binomialX;i++){</span>
+<span class="fc" id="L376">             binom[i][0] = 1;</span>
+<span class="fc bfc" id="L377" title="All 2 branches covered.">             for(int j=1; j&lt;=binomialY; j++){</span>
+<span class="fc" id="L378">                 binom[i][j] = binom[i-1][j-1]+binom[i-1][j];</span>
+             }
+             
+         }
+<span class="fc" id="L382">        return binom[binomialX][binomialY];</span>
+     }
+
+    public double factorial(double x) {
+        try {
+<span class="pc bpc" id="L387" title="3 of 4 branches missed.">            if (!(x == Math.floor(x)) &amp;&amp; !Double.isInfinite(x)) {</span>
+<span class="nc" id="L388">                throw new Exceptions(&quot;permutaation arvo ei ole kokonaisluku&quot;);</span>
+            }
+<span class="nc" id="L390">        } catch (Exception e) {</span>
+
+<span class="fc" id="L392">        }</span>
+<span class="fc" id="L393">        int factorial = (int) x;</span>
+<span class="fc bfc" id="L394" title="All 2 branches covered.">        if (x == 0) {</span>
+<span class="fc" id="L395">            return 1;</span>
+        }
+<span class="fc bfc" id="L397" title="All 2 branches covered.">        if (x &lt; 0) {</span>
+<span class="fc" id="L398">            x = product(x, -1);</span>
+<span class="fc bfc" id="L399" title="All 2 branches covered.">            for (int i = (int) x - 1; i &gt; 0; i--) {</span>
+<span class="fc" id="L400">                factorial *= i;</span>
+            }
+<span class="fc" id="L402">            return factorial;</span>
+        } else {
+<span class="fc bfc" id="L404" title="All 2 branches covered.">            for (int i = (int) x - 1; i &gt; 0; i--) {</span>
+<span class="fc" id="L405">                factorial *= i;</span>
+            }
+<span class="fc" id="L407">            return factorial;</span>
+        }
+    }
+
+    public class Exceptions extends Exception {
+
+<span class="nc" id="L413">        public Exceptions(String errorMessage) {</span>
+<span class="nc" id="L414">            super(errorMessage);</span>
+<span class="nc" id="L415">        }</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

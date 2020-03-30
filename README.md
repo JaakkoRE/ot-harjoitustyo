@@ -19,4 +19,6 @@ ja
 [komentorivi.txt](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 ### Viikko2
 [Viikko2](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/laskarit/viikko2)
+### Viikko3
+[Viikko3](https://github.com/JaakkoRE/ot-harjoitustyo/tree/master/laskarit/viikko3)
 

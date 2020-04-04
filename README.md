@@ -15,4 +15,13 @@ Testit suoritetaan komennolla
 ```
 mvn test
 ```
+Testikattavuusraportti luodaan komennolla
+```
+mvn jacoco:report
+```
+### Checkstyle
 
+Tiedostoon määrittelemät tarkistukset suoritetaan komennolla
+```
+ mvn jxr:jxr checkstyle:checkstyle
+```

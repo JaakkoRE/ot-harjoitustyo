@@ -1,5 +1,5 @@
-# Ohjelmistotekniikka, Harjoitustyö
-
+# Ohjelmistotekniikka harjoitustyö, calculator program
+Sovelluksen tarkoitus on hoitaa perus graafisia ja ei graafisia laskutoimituksia.
 
 
 ## Dokumentaatio

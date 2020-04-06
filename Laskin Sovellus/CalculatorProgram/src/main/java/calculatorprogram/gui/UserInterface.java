@@ -750,8 +750,6 @@ public class UserInterface extends Application {
                     System.out.println("h" + graphInd);
                 }
             if (result<=yUpperBound&&result>=yLowerBound){
-               // System.out.println(result);
-                System.out.println(result);
                 if (graphInd == 1)
             resultsSeries1.getData().add(new XYChart.Data(i,results.get(index)));
                 if (graphInd == 2)

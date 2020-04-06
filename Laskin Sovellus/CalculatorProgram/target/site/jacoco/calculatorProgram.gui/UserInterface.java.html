@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fi"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserInterface.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CalculatorProgram</a> &gt; <a href="index.source.html" class="el_package">calculatorProgram.gui</a> &gt; <span class="el_source">UserInterface.java</span></div><h1>UserInterface.java</h1><pre class="source lang-java linenums">package calculatorProgram.gui;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Jaakko
+ */
+
+import calculatorprogram.calculators.Calculator;
+import calculatorprogram.calculators.GraphicCalculator;
+import java.util.ArrayList;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+<span class="nc" id="L31">public class UserInterface extends Application {</span>
+    public int bintextField;
+    public int graphInd;
+    public void interFaceStart() {
+<span class="nc" id="L35">        launch(UserInterface.class);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public void start(Stage window) throws Calculator.Exceptions {
+
+<span class="nc" id="L41">        BorderPane Layout = new BorderPane();</span>
+        //Starting screen gui
+
+<span class="nc" id="L44">        BorderPane startingLayout = new BorderPane();</span>
+<span class="nc" id="L45">        VBox menuButtons = new VBox();</span>
+<span class="nc" id="L46">        menuButtons.setSpacing(20);</span>
+
+<span class="nc" id="L48">        Button databaseButton = new Button(&quot;Tietokannan hallinta&quot;);</span>
+<span class="nc" id="L49">        Button calcButton = new Button(&quot;Laskin&quot;);</span>
+<span class="nc" id="L50">        Button graphCalcButton = new Button(&quot;Graafinen laskin&quot;);</span>
+        //Back to menu
+<span class="nc" id="L52">        Button backToStartScreen = new Button(&quot;Takaisin&quot;);</span>
+
+<span class="nc" id="L54">        menuButtons.getChildren().add(databaseButton);</span>
+<span class="nc" id="L55">        menuButtons.getChildren().add(calcButton);</span>
+<span class="nc" id="L56">        menuButtons.getChildren().add(graphCalcButton);</span>
+
+<span class="nc" id="L58">        startingLayout.setTop(new Label(&quot;Tervetuloa&quot;));</span>
+<span class="nc" id="L59">        startingLayout.setCenter(menuButtons);</span>
+<span class="nc" id="L60">        Layout.setCenter(startingLayout);</span>
+        //Database layout
+
+<span class="nc" id="L63">        BorderPane databaseLayout = new BorderPane();</span>
+
+        //calc layout
+        //previous results
+<span class="nc" id="L67">        HBox previousResults = new HBox();</span>
+<span class="nc" id="L68">        previousResults.setSpacing(135);</span>
+<span class="nc" id="L69">        VBox previousResultsVBox = new VBox();</span>
+<span class="nc" id="L70">        Label empty = new Label(&quot;&quot;);</span>
+<span class="nc" id="L71">        Label previousResult1 = new Label();</span>
+<span class="nc" id="L72">        Label previousResult2 = new Label();</span>
+<span class="nc" id="L73">        Label previousResult3 = new Label();</span>
+<span class="nc" id="L74">        Label previousResult4 = new Label();</span>
+<span class="nc" id="L75">        Label previousResult5 = new Label();</span>
+<span class="nc" id="L76">        previousResultsVBox.getChildren().addAll(previousResult5, previousResult4, previousResult3, previousResult2, previousResult1);</span>
+<span class="nc" id="L77">        previousResults.getChildren().add(empty);</span>
+<span class="nc" id="L78">        previousResults.getChildren().add(previousResultsVBox);</span>
+        //calc default layout
+<span class="nc" id="L80">        BorderPane calcLayout = new BorderPane();</span>
+<span class="nc" id="L81">        VBox calcFieldAndButton = new VBox();</span>
+<span class="nc" id="L82">        HBox calculationField = new HBox();</span>
+<span class="nc" id="L83">        TextField calculatable = new TextField();</span>
+<span class="nc" id="L84">        Label resultText = new Label();</span>
+<span class="nc" id="L85">        calculationField.getChildren().add(calculatable);</span>
+<span class="nc" id="L86">        calculationField.getChildren().add(resultText);</span>
+<span class="nc" id="L87">        Button calculate = new Button(&quot;Laske&quot;);</span>
+<span class="nc" id="L88">        calculationField.getChildren().add(calculate);</span>
+        
+        //Calculator quick buttons
+<span class="nc" id="L91">        calcFieldAndButton.getChildren().add(calculationField);</span>
+<span class="nc" id="L92">        VBox buttonRows = new VBox();</span>
+<span class="nc" id="L93">        HBox buttonRow1 = new HBox();</span>
+<span class="nc" id="L94">        Button quickButton1 = new Button(&quot;1&quot;);</span>
+<span class="nc" id="L95">        Button quickButton2 = new Button(&quot;2&quot;);</span>
+<span class="nc" id="L96">        Button quickButton3 = new Button(&quot;3&quot;);</span>
+<span class="nc" id="L97">        Button quickButtonSum = new Button(&quot;+&quot;);</span>
+<span class="nc" id="L98">        Button quickButtonNeg = new Button(&quot;-&quot;);</span>
+<span class="nc" id="L99">        Button quickButtonProd = new Button(&quot;*&quot;);</span>
+<span class="nc" id="L100">        Button quickButtonQue = new Button(&quot;/&quot;);</span>
+<span class="nc" id="L101">        Button quickButtonPow = new Button(&quot;^&quot;);</span>
+<span class="nc" id="L102">        Button quickButtonDot = new Button(&quot;.&quot;);</span>
+<span class="nc" id="L103">        Button quickButtonπ = new Button(&quot;π&quot;);</span>
+<span class="nc" id="L104">        Button quickButtone = new Button(&quot;e&quot;);</span>
+<span class="nc" id="L105">        buttonRow1.getChildren().addAll(quickButton1, quickButton2, quickButton3, quickButtonDot, quickButtonSum, quickButtonNeg, quickButtonProd, quickButtonQue, quickButtonPow, quickButtonπ, quickButtone);</span>
+
+<span class="nc" id="L107">        HBox buttonRow2 = new HBox();</span>
+<span class="nc" id="L108">        Button quickButton4 = new Button(&quot;4&quot;);</span>
+<span class="nc" id="L109">        Button quickButton5 = new Button(&quot;5&quot;);</span>
+<span class="nc" id="L110">        Button quickButton6 = new Button(&quot;6&quot;);</span>
+<span class="nc" id="L111">        Button quickButtonFac = new Button(&quot;!&quot;);</span>
+<span class="nc" id="L112">        Button quickButtonAbs = new Button(&quot;||&quot;);</span>
+<span class="nc" id="L113">        Button quickButtonPerc = new Button(&quot;%&quot;);</span>
+<span class="nc" id="L114">        Button quickButtonAns = new Button(&quot; Edellinen vastaus&quot;);</span>
+<span class="nc" id="L115">        buttonRow2.getChildren().addAll(quickButton4, quickButton5, quickButton6, quickButtonFac,quickButtonPerc, quickButtonAbs, quickButtonAns);</span>
+
+<span class="nc" id="L117">        HBox buttonRow3 = new HBox();</span>
+<span class="nc" id="L118">        Button quickButton7 = new Button(&quot;7&quot;);</span>
+<span class="nc" id="L119">        Button quickButton8 = new Button(&quot;8&quot;);</span>
+<span class="nc" id="L120">        Button quickButton9 = new Button(&quot;9&quot;);</span>
+<span class="nc" id="L121">        Button quickButton0 = new Button(&quot;0&quot;);</span>
+<span class="nc" id="L122">        Button quickButtonPar1 = new Button(&quot;(&quot;);</span>
+<span class="nc" id="L123">        Button quickButtonPar2 = new Button(&quot;)&quot;);</span>
+<span class="nc" id="L124">        Button quickButtonRemoveLastChar = new Button(&quot;Poista&quot;);</span>
+<span class="nc" id="L125">        Button emptyFields = new Button(&quot; Tyhjennä&quot;);</span>
+<span class="nc" id="L126">        buttonRow3.getChildren().addAll(quickButton7, quickButton8, quickButton9, quickButton0, quickButtonPar1, quickButtonPar2, quickButtonRemoveLastChar, emptyFields);</span>
+
+<span class="nc" id="L128">        buttonRows.getChildren().addAll(buttonRow1, buttonRow2, buttonRow3);</span>
+<span class="nc" id="L129">        calcFieldAndButton.getChildren().add(buttonRows);</span>
+
+        //button effects
+<span class="nc" id="L132">        calculate.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L133">            Calculator calc = new Calculator();</span>
+<span class="nc" id="L134">            String calculationResult = &quot;&quot;;</span>
+<span class="nc" id="L135">            boolean noError = true;</span>
+            try {
+<span class="nc" id="L137">                calculationResult = calc.calcArrayList(calculatable.getText());</span>
+<span class="nc" id="L138">            } catch (Exception e) {</span>
+<span class="nc" id="L139">                String result1=previousResult1.getText();</span>
+<span class="nc" id="L140">                String result2=previousResult2.getText();</span>
+<span class="nc" id="L141">                String result3=previousResult3.getText();</span>
+<span class="nc" id="L142">                String result4=previousResult4.getText();</span>
+
+<span class="nc" id="L144">                previousResult5.setText(result4);</span>
+<span class="nc" id="L145">                previousResult4.setText(result3);</span>
+<span class="nc" id="L146">                previousResult3.setText(result2);</span>
+<span class="nc" id="L147">                previousResult2.setText(result1);</span>
+<span class="nc" id="L148">                previousResult1.setText(&quot;Virheellinen syöte&quot;);</span>
+<span class="nc" id="L149">                noError = false;</span>
+<span class="nc" id="L150">            }</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">            if (noError) {</span>
+          //      resultText.setText(calculationResult + &quot;&quot;);
+<span class="nc" id="L153">                String result1 = previousResult1.getText();</span>
+<span class="nc" id="L154">                String result2 = previousResult2.getText();</span>
+<span class="nc" id="L155">                String result3 = previousResult3.getText();</span>
+<span class="nc" id="L156">                String result4 = previousResult4.getText();</span>
+
+<span class="nc" id="L158">                previousResult5.setText(result4);</span>
+<span class="nc" id="L159">                previousResult4.setText(result3);</span>
+<span class="nc" id="L160">                previousResult3.setText(result2);</span>
+<span class="nc" id="L161">                previousResult2.setText(result1);</span>
+<span class="nc" id="L162">                String[] parts = calculationResult.split(&quot;\\.&quot;);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">                if (parts.length &gt; 1) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                    if (parts[1].equals(&quot;0&quot;))</span>
+<span class="nc" id="L165">                        previousResult1.setText(parts[0] + &quot;&quot;); </span>
+                    else
+<span class="nc" id="L167">                        previousResult1.setText(calculationResult + &quot;&quot;);</span>
+                } else
+<span class="nc" id="L169">                    previousResult1.setText(calculationResult + &quot;&quot;);</span>
+            }
+<span class="nc" id="L171">        });</span>
+<span class="nc" id="L172">        quickButton1.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L173">            calculatable.setText(calculatable.getText() + &quot;1&quot;);</span>
+<span class="nc" id="L174">        });</span>
+<span class="nc" id="L175">        quickButton2.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L176">            calculatable.setText(calculatable.getText() + &quot;2&quot;);</span>
+<span class="nc" id="L177">        });</span>
+<span class="nc" id="L178">        quickButton3.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L179">            calculatable.setText(calculatable.getText() + &quot;3&quot;);</span>
+<span class="nc" id="L180">        });</span>
+<span class="nc" id="L181">        quickButton4.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L182">            calculatable.setText(calculatable.getText() + &quot;4&quot;);</span>
+<span class="nc" id="L183">        });</span>
+<span class="nc" id="L184">        quickButton5.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L185">            calculatable.setText(calculatable.getText() + &quot;5&quot;);</span>
+<span class="nc" id="L186">        });</span>
+<span class="nc" id="L187">        quickButton6.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L188">            calculatable.setText(calculatable.getText() + &quot;6&quot;);</span>
+<span class="nc" id="L189">        });</span>
+<span class="nc" id="L190">        quickButton7.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L191">            calculatable.setText(calculatable.getText() + &quot;7&quot;);</span>
+
+<span class="nc" id="L193">        });</span>
+<span class="nc" id="L194">        quickButton8.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L195">            calculatable.setText(calculatable.getText() + &quot;8&quot;);</span>
+<span class="nc" id="L196">        });</span>
+<span class="nc" id="L197">        quickButton9.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L198">            calculatable.setText(calculatable.getText() + &quot;9&quot;);</span>
+
+<span class="nc" id="L200">        });</span>
+<span class="nc" id="L201">        quickButtonDot.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L202">            calculatable.setText(calculatable.getText() + &quot;.&quot;);</span>
+
+<span class="nc" id="L204">        });</span>
+<span class="nc" id="L205">        quickButtonSum.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L206">            calculatable.setText(calculatable.getText() + &quot;+&quot;);</span>
+
+<span class="nc" id="L208">        });</span>
+<span class="nc" id="L209">        quickButtonNeg.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L210">            calculatable.setText(calculatable.getText() + &quot;-&quot;);</span>
+
+<span class="nc" id="L212">        });</span>
+<span class="nc" id="L213">        quickButtonProd.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L214">            calculatable.setText(calculatable.getText() + &quot;*&quot;);</span>
+<span class="nc" id="L215">        });</span>
+<span class="nc" id="L216">        quickButtonQue.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L217">            calculatable.setText(calculatable.getText() + &quot;/&quot;);</span>
+<span class="nc" id="L218">        });</span>
+<span class="nc" id="L219">        quickButtonPow.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L220">            calculatable.setText(calculatable.getText() + &quot;^&quot;);</span>
+<span class="nc" id="L221">        });</span>
+<span class="nc" id="L222">        quickButtonFac.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L223">            calculatable.setText(calculatable.getText() + &quot;!&quot;);</span>
+<span class="nc" id="L224">        });</span>
+<span class="nc" id="L225">        quickButtonAbs.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L226">            calculatable.setText(calculatable.getText() + &quot;|&quot;);</span>
+<span class="nc" id="L227">        });</span>
+<span class="nc" id="L228">        quickButtonPar1.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L229">            calculatable.setText(calculatable.getText() + &quot;(&quot;);</span>
+<span class="nc" id="L230">        });</span>
+<span class="nc" id="L231">        quickButtonPar2.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L232">            calculatable.setText(calculatable.getText() + &quot;)&quot;);</span>
+<span class="nc" id="L233">        });</span>
+<span class="nc" id="L234">        quickButton0.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L235">            calculatable.setText(calculatable.getText() + &quot;0&quot;);</span>
+<span class="nc" id="L236">        });</span>
+<span class="nc" id="L237">        quickButtonPerc.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L238">            calculatable.setText(calculatable.getText() + &quot;%&quot;);</span>
+<span class="nc" id="L239">        });</span>
+<span class="nc" id="L240">        quickButtonπ.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L241">           calculatable.setText(calculatable.getText() + &quot;π&quot;);</span>
+<span class="nc" id="L242">        });</span>
+<span class="nc" id="L243">        quickButtone.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L244">           calculatable.setText(calculatable.getText() + &quot;e&quot;);</span>
+<span class="nc" id="L245">        });</span>
+<span class="nc" id="L246">        quickButtonAns.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">            if (!previousResult1.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L248">                calculatable.setText(calculatable.getText() + previousResult1.getText());</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">            else if (!previousResult2.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L250">                calculatable.setText(calculatable.getText() + previousResult2.getText());</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">            else if (!previousResult3.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L252">                calculatable.setText(calculatable.getText() + previousResult3.getText());</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">            else if (!previousResult4.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L254">                calculatable.setText(calculatable.getText() + previousResult4.getText());</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">            else if (!previousResult5.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L256">                calculatable.setText(calculatable.getText() + previousResult5.getText());</span>
+<span class="nc" id="L257">        });</span>
+<span class="nc" id="L258">        quickButtonRemoveLastChar.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">            if (calculatable.getText().length() &gt; 0) {</span>
+<span class="nc" id="L260">                String calcText = calculatable.getText().substring(0, calculatable.getText().length() - 1);</span>
+<span class="nc" id="L261">                calculatable.setText(calcText);</span>
+            }
+<span class="nc" id="L263">        });</span>
+<span class="nc" id="L264">        emptyFields.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L265">            calculatable.setText(&quot;&quot;);</span>
+<span class="nc" id="L266">            resultText.setText(&quot;&quot;);</span>
+<span class="nc" id="L267">        });</span>
+        //bin calc layout
+        
+<span class="nc" id="L270">        VBox binomialLayout = new VBox();</span>
+<span class="nc" id="L271">        HBox binomialCalculationField = new HBox();</span>
+<span class="nc" id="L272">        Label ncr = new Label(&quot;nCr(&quot;);</span>
+<span class="nc" id="L273">        TextField binomialn = new TextField();</span>
+<span class="nc" id="L274">        Label divider = new Label(&quot;,&quot;);</span>
+<span class="nc" id="L275">        TextField binomialk = new TextField();</span>
+<span class="nc" id="L276">        Label binParEnd = new Label(&quot;)&quot;);</span>
+<span class="nc" id="L277">        Button binCalculate = new Button(&quot;Laske&quot;);</span>
+<span class="nc" id="L278">        Label binResultField = new Label(&quot;&quot;);</span>
+<span class="nc" id="L279">        binomialCalculationField.getChildren().addAll(ncr, binomialn, divider, binomialk, binParEnd, binCalculate, binResultField);</span>
+        
+<span class="nc" id="L281">        HBox binButtonFieldRow1 = new HBox();</span>
+<span class="nc" id="L282">        Button binQuickButton1 = new Button(&quot;1&quot;);</span>
+<span class="nc" id="L283">        Button binQuickButton2 = new Button(&quot;2&quot;);</span>
+<span class="nc" id="L284">        Button binQuickButton3 = new Button(&quot;3&quot;);</span>
+<span class="nc" id="L285">        Button binQuickButton4 = new Button(&quot;4&quot;);</span>
+<span class="nc" id="L286">        Button binQuickButton5 = new Button(&quot;5&quot;);</span>
+<span class="nc" id="L287">        binButtonFieldRow1.getChildren().addAll(binQuickButton1, binQuickButton2, binQuickButton3, binQuickButton4, binQuickButton5);</span>
+
+<span class="nc" id="L289">        HBox binButtonFieldRow2 = new HBox();</span>
+<span class="nc" id="L290">        Button binQuickButton6 = new Button(&quot;6&quot;);</span>
+<span class="nc" id="L291">        Button binQuickButton7 = new Button(&quot;7&quot;);</span>
+<span class="nc" id="L292">        Button binQuickButton8 = new Button(&quot;8&quot;);</span>
+<span class="nc" id="L293">        Button binQuickButton9 = new Button(&quot;9&quot;);</span>
+<span class="nc" id="L294">        Button binQuickButton0 = new Button(&quot;0&quot;);</span>
+<span class="nc" id="L295">        binButtonFieldRow2.getChildren().addAll(binQuickButton6, binQuickButton7, binQuickButton8, binQuickButton9, binQuickButton0);</span>
+         
+<span class="nc" id="L297">        HBox binButtonFieldRow3 = new HBox();</span>
+<span class="nc" id="L298">        Button binScreenSwitch1 = new Button(&quot;-&gt;&quot;);</span>
+<span class="nc" id="L299">        Button binScreenSwitch2 = new Button(&quot;&lt;-&quot;);</span>
+<span class="nc" id="L300">        Button binEmpty = new Button(&quot;Tyhjennä&quot;);</span>
+<span class="nc" id="L301">        Button binQuickButtonAns = new Button(&quot;Edellinen vastaus&quot;);</span>
+<span class="nc" id="L302">        Button binDeleteLastChar = new Button(&quot;Poista&quot;);</span>
+<span class="nc" id="L303">        binButtonFieldRow3.getChildren().addAll(binScreenSwitch1,binScreenSwitch2,binEmpty,binDeleteLastChar,binQuickButtonAns);</span>
+   
+<span class="nc" id="L305">        binomialLayout.getChildren().addAll(binomialCalculationField,binButtonFieldRow1);</span>
+<span class="nc" id="L306">        binomialLayout.getChildren().addAll(binButtonFieldRow2,binButtonFieldRow3);</span>
+<span class="nc" id="L307">        binCalculate.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L308">            Calculator calc = new Calculator();</span>
+<span class="nc bnc" id="L309" title="All 4 branches missed.">            if(calc.isNumber(binomialn.getText())&amp;&amp;calc.isNumber(binomialk.getText())){</span>
+<span class="nc" id="L310">                int calculationResult = 0;</span>
+<span class="nc" id="L311">                boolean error = false;</span>
+                try{
+<span class="nc" id="L313">                    calculationResult = calc.binomial(Integer.valueOf(binomialn.getText()), Integer.valueOf(binomialk.getText()));</span>
+<span class="nc" id="L314">                } catch (Exception e) {</span>
+<span class="nc" id="L315">                    error = true;</span>
+<span class="nc" id="L316">                }</span>
+         //   binResultField.setText(calculationResult+&quot;&quot;);
+<span class="nc" id="L318">            String Result1=previousResult1.getText();</span>
+<span class="nc" id="L319">            String Result2=previousResult2.getText();</span>
+<span class="nc" id="L320">            String Result3=previousResult3.getText();</span>
+<span class="nc" id="L321">            String Result4=previousResult4.getText();</span>
+
+<span class="nc" id="L323">            previousResult5.setText(Result4);</span>
+<span class="nc" id="L324">            previousResult4.setText(Result3);</span>
+<span class="nc" id="L325">            previousResult3.setText(Result2);</span>
+<span class="nc" id="L326">            previousResult2.setText(Result1);</span>
+<span class="nc" id="L327">            String calculationResultS=&quot;&quot;;</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">            if(!error)</span>
+<span class="nc" id="L329">                calculationResultS=calculationResult+&quot;&quot;;</span>
+            else{
+<span class="nc" id="L331">                calculationResultS=&quot;Virheellinen syöte&quot;;</span>
+            }
+<span class="nc" id="L333">            String[] parts = calculationResultS.split(&quot;\\.&quot;);</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">            if(parts.length&gt;1){</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">                if(parts[1].equals(&quot;0&quot;))</span>
+<span class="nc" id="L336">                    previousResult1.setText(parts[0]+&quot;&quot;); </span>
+                else
+<span class="nc" id="L338">                    previousResult1.setText(calculationResult+&quot;&quot;);</span>
+            }else
+<span class="nc" id="L340">                previousResult1.setText(calculationResult+&quot;&quot;);</span>
+     
+<span class="nc" id="L342">            }else{</span>
+<span class="nc" id="L343">                String result1=previousResult1.getText();</span>
+<span class="nc" id="L344">                String result2=previousResult2.getText();</span>
+<span class="nc" id="L345">                String result3=previousResult3.getText();</span>
+<span class="nc" id="L346">                String result4=previousResult4.getText();</span>
+
+<span class="nc" id="L348">                previousResult5.setText(result4);</span>
+<span class="nc" id="L349">                previousResult4.setText(result3);</span>
+<span class="nc" id="L350">                previousResult3.setText(result2);</span>
+<span class="nc" id="L351">                previousResult2.setText(result1);</span>
+<span class="nc" id="L352">                previousResult1.setText(&quot;Virheellinen syöte&quot;);</span>
+            }
+<span class="nc" id="L354">         });</span>
+<span class="nc" id="L355">        binScreenSwitch1.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L356">            BinTextField(2);</span>
+<span class="nc" id="L357">        });</span>
+<span class="nc" id="L358">        binScreenSwitch2.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L359">            BinTextField(1);</span>
+<span class="nc" id="L360">        });</span>
+<span class="nc" id="L361">        binEmpty.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L362">            binomialn.setText(&quot;&quot;);</span>
+<span class="nc" id="L363">            binomialk.setText(&quot;&quot;);</span>
+<span class="nc" id="L364">            binResultField.setText(&quot;&quot;);</span>
+<span class="nc" id="L365">        });</span>
+<span class="nc" id="L366">        bintextField=1;</span>
+<span class="nc" id="L367">        binQuickButton1.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">            if(bintextField==1)</span>
+<span class="nc" id="L369">                binomialn.setText(binomialn.getText() + &quot;1&quot;);</span>
+            else
+<span class="nc" id="L371">                 binomialk.setText(binomialk.getText() + &quot;1&quot;);</span>
+                
+                
+<span class="nc" id="L374">        });</span>
+<span class="nc" id="L375">        binQuickButton2.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L376" title="All 2 branches missed.">             if(bintextField==1)</span>
+<span class="nc" id="L377">                binomialn.setText(binomialn.getText() + &quot;2&quot;);</span>
+            else
+<span class="nc" id="L379">                 binomialk.setText(binomialk.getText() + &quot;2&quot;);</span>
+<span class="nc" id="L380">        });</span>
+<span class="nc" id="L381">        binQuickButton3.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L382" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L383">                binomialn.setText(binomialn.getText() + &quot;3&quot;);</span>
+            else
+<span class="nc" id="L385">                 binomialk.setText(binomialk.getText() + &quot;3&quot;);</span>
+<span class="nc" id="L386">        });</span>
+<span class="nc" id="L387">        binQuickButton4.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L388" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L389">                binomialn.setText(binomialn.getText() + &quot;4&quot;);</span>
+            else
+<span class="nc" id="L391">                 binomialk.setText(binomialk.getText() + &quot;4&quot;);</span>
+<span class="nc" id="L392">        });</span>
+<span class="nc" id="L393">        binQuickButton5.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L394" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L395">                binomialn.setText(binomialn.getText() + &quot;5&quot;);</span>
+            else
+<span class="nc" id="L397">                 binomialk.setText(binomialk.getText() + &quot;5&quot;);</span>
+<span class="nc" id="L398">        });</span>
+<span class="nc" id="L399">        binQuickButton6.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L400" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L401">                binomialn.setText(binomialn.getText() + &quot;6&quot;);</span>
+            else
+<span class="nc" id="L403">                 binomialk.setText(binomialk.getText() + &quot;6&quot;);</span>
+<span class="nc" id="L404">        });</span>
+<span class="nc" id="L405">        binQuickButton7.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L407">                binomialn.setText(binomialn.getText() + &quot;7&quot;);</span>
+            else
+<span class="nc" id="L409">                binomialk.setText(binomialk.getText() + &quot;7&quot;);</span>
+
+<span class="nc" id="L411">        });</span>
+<span class="nc" id="L412">        binQuickButton8.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L413" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L414">                binomialn.setText(binomialn.getText() + &quot;8&quot;);</span>
+            else
+<span class="nc" id="L416">                binomialk.setText(binomialk.getText() + &quot;8&quot;);</span>
+<span class="nc" id="L417">        });</span>
+<span class="nc" id="L418">        binQuickButton9.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L420">                binomialn.setText(binomialn.getText() + &quot;9&quot;);</span>
+            else
+<span class="nc" id="L422">                binomialk.setText(binomialk.getText() + &quot;9&quot;);</span>
+<span class="nc" id="L423">         });</span>
+<span class="nc" id="L424">         binQuickButton0.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">             if(bintextField == 1)</span>
+<span class="nc" id="L426">                binomialn.setText(binomialn.getText() + &quot;0&quot;);</span>
+            else
+<span class="nc" id="L428">                binomialk.setText(binomialk.getText() + &quot;0&quot;);</span>
+<span class="nc" id="L429">         });</span>
+<span class="nc" id="L430">         binQuickButtonAns.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">            if(bintextField == 1){</span>
+<span class="nc bnc" id="L432" title="All 2 branches missed.">                if(!previousResult1.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L433">                    binomialn.setText(binomialn.getText() + previousResult1.getText());</span>
+<span class="nc bnc" id="L434" title="All 2 branches missed.">                else if(!previousResult2.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L435">                    binomialn.setText(binomialn.getText() + previousResult2.getText());</span>
+<span class="nc bnc" id="L436" title="All 2 branches missed.">                else if(!previousResult3.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L437">                    binomialn.setText(binomialn.getText() + previousResult3.getText());</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">                else if(!previousResult4.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L439">                    binomialn.setText(binomialn.getText() + previousResult4.getText());</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">                else if(!previousResult5.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L441">                    binomialn.setText(binomialn.getText() + previousResult5.getText());    </span>
+             }
+<span class="nc bnc" id="L443" title="All 2 branches missed.">            if(bintextField == 2){</span>
+<span class="nc bnc" id="L444" title="All 2 branches missed.">                if(!previousResult1.getText().equals(&quot;Virheellinen syöte&quot;))     </span>
+<span class="nc" id="L445">                    binomialk.setText(binomialk.getText() + previousResult1.getText());</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">                else if(!previousResult2.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L447">                    binomialk.setText(binomialk.getText() + previousResult2.getText());</span>
+<span class="nc bnc" id="L448" title="All 2 branches missed.">                else if(!previousResult3.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L449">                    binomialk.setText(binomialk.getText() + previousResult3.getText());</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">                else if(!previousResult4.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L451">                    binomialk.setText(binomialk.getText() + previousResult4.getText());</span>
+<span class="nc bnc" id="L452" title="All 2 branches missed.">                else if(!previousResult5.getText().equals(&quot;Virheellinen syöte&quot;))</span>
+<span class="nc" id="L453">                    binomialk.setText(binomialk.getText() + previousResult5.getText());   </span>
+             }
+<span class="nc" id="L455">         });</span>
+<span class="nc" id="L456">         binDeleteLastChar.setOnAction((event) -&gt; {</span>
+<span class="nc bnc" id="L457" title="All 2 branches missed.">            if(bintextField == 1){</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">                if (binomialn.getText().length() &gt; 0) {</span>
+<span class="nc" id="L459">                    String calcText = binomialn.getText().substring(0, binomialn.getText().length() - 1);</span>
+<span class="nc" id="L460">                    binomialn.setText(calcText);</span>
+                }
+            }    
+<span class="nc bnc" id="L463" title="All 2 branches missed.">            if(bintextField == 2){</span>
+<span class="nc bnc" id="L464" title="All 2 branches missed.">                if (binomialk.getText().length() &gt; 0) {</span>
+<span class="nc" id="L465">                    String calcText = binomialk.getText().substring(0, binomialk.getText().length() - 1);</span>
+<span class="nc" id="L466">                    binomialk.setText(calcText);</span>
+                }
+            }
+<span class="nc" id="L469">        });</span>
+         
+         
+
+        //more options
+<span class="nc" id="L474">        VBox optionButtons = new VBox();</span>
+<span class="nc" id="L475">        Button openOptions = new Button(&quot;Lisää&quot;);</span>
+<span class="nc" id="L476">        optionButtons.getChildren().add(openOptions);</span>
+        //once openOptions opened.
+<span class="nc" id="L478">        VBox optionsOpened = new VBox();</span>
+<span class="nc" id="L479">        Button backFromSelection = new Button(&quot;Pois valikosta&quot;);</span>
+<span class="nc" id="L480">        Button basicCalcOperations = new Button(&quot;Perus laskin toimitukset&quot;);</span>
+<span class="nc" id="L481">        Button binomialCalcOpen = new Button(&quot;Binomi laskin&quot;);</span>
+<span class="nc" id="L482">        optionsOpened.getChildren().addAll(backFromSelection,basicCalcOperations,binomialCalcOpen);</span>
+        
+        //add
+<span class="nc" id="L485">        calcLayout.setCenter(calcFieldAndButton);</span>
+<span class="nc" id="L486">        calcLayout.setLeft(optionButtons);</span>
+<span class="nc" id="L487">        calcLayout.setTop(previousResults);</span>
+        
+<span class="nc" id="L489">        openOptions.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L490">            calcLayout.setLeft(optionsOpened);</span>
+<span class="nc" id="L491">        });</span>
+<span class="nc" id="L492">        backFromSelection.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L493">            calcLayout.setLeft(optionButtons);</span>
+<span class="nc" id="L494">        });</span>
+<span class="nc" id="L495">        basicCalcOperations.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L496">            calcLayout.setCenter(calcFieldAndButton);</span>
+<span class="nc" id="L497">        });</span>
+<span class="nc" id="L498">        binomialCalcOpen.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L499">            calcLayout.setCenter(binomialLayout);</span>
+<span class="nc" id="L500">        });</span>
+        
+        //graphCalc layout
+<span class="nc" id="L503">        BorderPane graphCalcLayout = new BorderPane();</span>
+<span class="nc" id="L504">        GraphicCalculator GraphCalc = new GraphicCalculator();</span>
+        //graphCalc calculationField
+<span class="nc" id="L506">        graphInd = 1;</span>
+<span class="nc" id="L507">        VBox graphCalcFields = new VBox();</span>
+<span class="nc" id="L508">        Label graphErrorField = new Label(&quot;&quot;);</span>
+<span class="nc" id="L509">        HBox graphCalculationField = new HBox();</span>
+<span class="nc" id="L510">        Label fx = new Label(&quot;F(x)=&quot;);</span>
+<span class="nc" id="L511">        TextField graphTextField = new TextField();</span>
+<span class="nc" id="L512">        Button graphCalcCalculate = new Button(&quot;Laske&quot;);</span>
+<span class="nc" id="L513">        Button graphCalcEmpty = new Button(&quot;Tyhjennä&quot;);</span>
+<span class="nc" id="L514">        Slider graphPrecision = new Slider();</span>
+<span class="nc" id="L515">        Label graphPrecisionExplanationLabel = new Label(&quot;     X tarkkuus&quot;);</span>
+<span class="nc" id="L516">        graphPrecision.setMin(1);</span>
+<span class="nc" id="L517">        graphPrecision.setMax(4);</span>
+<span class="nc" id="L518">        graphPrecision.setMinorTickCount(0);</span>
+<span class="nc" id="L519">        graphPrecision.setSnapToTicks(true);</span>
+<span class="nc" id="L520">        graphPrecision.setShowTickMarks(true);</span>
+<span class="nc" id="L521">        graphPrecision.setMajorTickUnit(1);</span>
+<span class="nc" id="L522">        Label graphPrecisionLabel = new Label(&quot;0.01&quot;);</span>
+<span class="nc" id="L523">        Label graphPrecisionLabelWarning = new Label(&quot;&quot;);</span>
+<span class="nc" id="L524">        graphPrecision.setOnMouseReleased(e -&gt; {</span>
+<span class="nc" id="L525">            double value = graphPrecision.getValue();</span>
+<span class="nc bnc" id="L526" title="All 2 branches missed.">            if (value == 1)</span>
+<span class="nc" id="L527">                graphPrecisionLabelWarning.setText(&quot;        varoitus hidas&quot;);</span>
+            
+            else
+<span class="nc" id="L530">                graphPrecisionLabelWarning.setText(&quot;&quot;);</span>
+<span class="nc bnc" id="L531" title="All 2 branches missed.">            if (value == 1)</span>
+<span class="nc" id="L532">                graphPrecisionLabel.setText(&quot;0.001&quot;);</span>
+<span class="nc bnc" id="L533" title="All 2 branches missed.">            if (value == 2)</span>
+<span class="nc" id="L534">                graphPrecisionLabel.setText(&quot;0.01&quot;);</span>
+<span class="nc bnc" id="L535" title="All 2 branches missed.">            if (value == 3)</span>
+<span class="nc" id="L536">                graphPrecisionLabel.setText(&quot;0.1&quot;);</span>
+<span class="nc bnc" id="L537" title="All 2 branches missed.">            if (value == 4)</span>
+<span class="nc" id="L538">                graphPrecisionLabel.setText(&quot;1&quot;);</span>
+<span class="nc" id="L539">         });</span>
+<span class="nc" id="L540">        graphPrecision.setValue(2);</span>
+<span class="nc" id="L541">        graphCalculationField.getChildren().addAll(fx, graphTextField, graphCalcCalculate, graphCalcEmpty,</span>
+        graphPrecisionExplanationLabel, graphPrecision, graphPrecisionLabel, graphPrecisionLabelWarning);
+        
+<span class="nc" id="L544">        HBox graphCalculationBoundsX = new HBox();</span>
+<span class="nc" id="L545">        Label xboundLabel = new Label(&quot;X koordinaattien Rajat          &quot;);</span>
+<span class="nc" id="L546">        Label xLowerBoundLabel = new Label(&quot; Alaraja &quot;);</span>
+<span class="nc" id="L547">        TextField xLowerBoundTextField = new TextField();</span>
+<span class="nc" id="L548">        Label xUpperBoundLabel = new Label(&quot; Yläraja&quot; );</span>
+<span class="nc" id="L549">        TextField xUpperBoundTextField = new TextField();</span>
+<span class="nc" id="L550">        graphCalculationBoundsX.getChildren().addAll(xboundLabel, xLowerBoundTextField, xLowerBoundLabel, xUpperBoundTextField, xUpperBoundLabel);</span>
+        
+<span class="nc" id="L552">        HBox graphCalculationBoundsY = new HBox();</span>
+<span class="nc" id="L553">        Label yboundLabel = new Label(&quot;Y koordinaattien Rajat          &quot;);</span>
+<span class="nc" id="L554">        Label yLowerBoundLabel = new Label(&quot; Alaraja &quot;);</span>
+<span class="nc" id="L555">        TextField yLowerBoundTextField = new TextField();</span>
+<span class="nc" id="L556">        Label yUpperBoundLabel = new Label(&quot; Yläraja &quot;);</span>
+<span class="nc" id="L557">        TextField yUpperBoundTextField = new TextField();</span>
+<span class="nc" id="L558">        Button graphCalcZoom = new Button(&quot;Tarkenna väliin&quot;);</span>
+<span class="nc" id="L559">        graphCalculationBoundsY.getChildren().addAll(yboundLabel, yLowerBoundTextField, yLowerBoundLabel, yUpperBoundTextField, yUpperBoundLabel, graphCalcZoom);</span>
+
+<span class="nc" id="L561">        graphCalcFields.getChildren().addAll(graphErrorField, graphCalculationField, graphCalculationBoundsX, graphCalculationBoundsY);</span>
+<span class="nc" id="L562">        graphCalcLayout.setTop(graphCalcFields);</span>
+        //cord setup
+<span class="nc" id="L564">        NumberAxis xCords = new NumberAxis(-20,20,1);</span>
+<span class="nc" id="L565">        NumberAxis yCords = new NumberAxis(-20,20,1);</span>
+
+<span class="nc" id="L567">        xCords.setLabel(&quot;X&quot;);</span>
+<span class="nc" id="L568">        yCords.setLabel(&quot;Y&quot;);</span>
+
+<span class="nc" id="L570">        LineChart&lt;Number, Number&gt; cordLineChart = new LineChart&lt;&gt;(xCords, yCords);</span>
+<span class="nc" id="L571">        cordLineChart.setCreateSymbols(false);</span>
+<span class="nc" id="L572">        cordLineChart.setLegendVisible(false);</span>
+<span class="nc" id="L573">        cordLineChart.setAnimated(false);</span>
+        
+       
+<span class="nc" id="L576">        graphCalcEmpty.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L577">            xCords.setLowerBound(-20);</span>
+<span class="nc" id="L578">            xCords.setUpperBound(20);</span>
+<span class="nc" id="L579">            yCords.setLowerBound(-20);</span>
+<span class="nc" id="L580">            yCords.setUpperBound(20);</span>
+<span class="nc" id="L581">            cordLineChart.getData().clear();</span>
+<span class="nc" id="L582">            graphInd = 1;</span>
+<span class="nc" id="L583">        });</span>
+           
+<span class="nc" id="L585">        graphCalcZoom.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L586">            Boolean error = false;</span>
+<span class="nc" id="L587">            int yLowerBound = 0;</span>
+            try{
+<span class="nc bnc" id="L589" title="All 2 branches missed.">                if (yLowerBoundTextField.getText().isBlank()) {</span>
+<span class="nc" id="L590">                    yLowerBound = -20;</span>
+                }else
+<span class="nc" id="L592">            yLowerBound = Integer.valueOf(yLowerBoundTextField.getText());</span>
+                
+<span class="nc" id="L594">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L595">            error = true;</span>
+<span class="nc" id="L596">            graphErrorField.setText(&quot;Virheellinen Y alaraja&quot;);</span>
+                        
+<span class="nc" id="L598">            }</span>
+            
+<span class="nc" id="L600">            int yUpperBound = 0;</span>
+            try{
+<span class="nc bnc" id="L602" title="All 2 branches missed.">                if (yUpperBoundTextField.getText().isBlank()) {</span>
+<span class="nc" id="L603">                    yUpperBound = 20;</span>
+                }else
+<span class="nc" id="L605">            yUpperBound = Integer.valueOf(yUpperBoundTextField.getText());</span>
+                
+<span class="nc" id="L607">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L608">                error = true;</span>
+<span class="nc" id="L609">                graphErrorField.setText(&quot;Virheellinen Y yläraja&quot;);</span>
+                        
+<span class="nc" id="L611">            }</span>
+            
+<span class="nc" id="L613">            int xLowerBound = 0;</span>
+            try{
+<span class="nc bnc" id="L615" title="All 2 branches missed.">                if (xLowerBoundTextField.getText().isBlank()) {</span>
+<span class="nc" id="L616">                    xLowerBound = -20;</span>
+                }else
+<span class="nc" id="L618">            xLowerBound = Integer.valueOf(xLowerBoundTextField.getText());</span>
+                
+<span class="nc" id="L620">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L621">               error = true;</span>
+<span class="nc" id="L622">               graphErrorField.setText(&quot;Virheellinen X alaraja&quot;);</span>
+                        
+<span class="nc" id="L624">            }</span>
+            
+<span class="nc" id="L626">            int xUpperBound=0;</span>
+            try{
+<span class="nc bnc" id="L628" title="All 2 branches missed.">                if (xUpperBoundTextField.getText().isBlank()) {</span>
+<span class="nc" id="L629">                    xUpperBound=20;</span>
+                }else
+<span class="nc" id="L631">                    xUpperBound = Integer.valueOf(xUpperBoundTextField.getText());</span>
+                
+<span class="nc" id="L633">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L634">                error = true;</span>
+<span class="nc" id="L635">                graphErrorField.setText(&quot;Virheellinen X yläraja&quot;);</span>
+                        
+<span class="nc" id="L637">            }</span>
+<span class="nc bnc" id="L638" title="All 4 branches missed.">            if(xUpperBound &lt;= xLowerBound || yUpperBound &lt;= yLowerBound) {</span>
+<span class="nc" id="L639">                graphErrorField.setText(&quot;Yläraja ei voi olla pienempi kuin alaraja&quot;);</span>
+<span class="nc" id="L640">                error = true;</span>
+            }
+<span class="nc bnc" id="L642" title="All 2 branches missed.">            if(!error){</span>
+<span class="nc" id="L643">                xCords.setLowerBound(xLowerBound);</span>
+<span class="nc" id="L644">                xCords.setUpperBound(xUpperBound);</span>
+<span class="nc" id="L645">                yCords.setLowerBound(yLowerBound);</span>
+<span class="nc" id="L646">                yCords.setUpperBound(yUpperBound);</span>
+            }
+<span class="nc" id="L648">        });</span>
+        
+<span class="nc" id="L650">         graphCalcCalculate.setOnAction((event) -&gt; {</span>
+             
+<span class="nc" id="L652">            XYChart.Series resultsSeries1 = new XYChart.Series();</span>
+<span class="nc" id="L653">            XYChart.Series resultsSeries2 = new XYChart.Series();</span>
+<span class="nc" id="L654">            XYChart.Series resultsSeries3 = new XYChart.Series();</span>
+<span class="nc" id="L655">            XYChart.Series resultsSeries4 = new XYChart.Series();</span>
+<span class="nc" id="L656">            XYChart.Series resultsSeries5 = new XYChart.Series();</span>
+<span class="nc" id="L657">            XYChart.Series resultsSeries6 = new XYChart.Series();</span>
+<span class="nc" id="L658">            XYChart.Series resultsSeries7 = new XYChart.Series();</span>
+<span class="nc" id="L659">            XYChart.Series resultsSeries8 = new XYChart.Series();</span>
+<span class="nc" id="L660">            XYChart.Series resultsSeries9 = new XYChart.Series();</span>
+<span class="nc" id="L661">            XYChart.Series resultsSeries10 = new XYChart.Series();</span>
+            
+<span class="nc" id="L663">            graphErrorField.setText(&quot;&quot;);</span>
+<span class="nc" id="L664">            Boolean error = false;</span>
+          
+            
+            //bounds
+<span class="nc" id="L668">            int yLowerBound = 0;</span>
+            try{
+<span class="nc bnc" id="L670" title="All 2 branches missed.">                if(yLowerBoundTextField.getText().isBlank()){</span>
+<span class="nc" id="L671">                    yLowerBound =- 20;</span>
+                }else
+<span class="nc" id="L673">            yLowerBound = Integer.valueOf(yLowerBoundTextField.getText());</span>
+                
+<span class="nc" id="L675">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L676">                error = true;</span>
+<span class="nc" id="L677">                graphErrorField.setText(&quot;Virheellinen Y alaraja&quot;);</span>
+                        
+<span class="nc" id="L679">            }</span>
+            
+<span class="nc" id="L681">            int yUpperBound = 0;</span>
+            try{
+<span class="nc bnc" id="L683" title="All 2 branches missed.">                if (yUpperBoundTextField.getText().isBlank()) {</span>
+<span class="nc" id="L684">                    yUpperBound = 20;</span>
+                }else
+<span class="nc" id="L686">                    yUpperBound = Integer.valueOf(yUpperBoundTextField.getText());</span>
+                
+<span class="nc" id="L688">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L689">               error = true;</span>
+<span class="nc" id="L690">               graphErrorField.setText(&quot;Virheellinen Y yläraja&quot;);</span>
+<span class="nc" id="L691">            }</span>
+            
+<span class="nc" id="L693">            int xLowerBound = 0;</span>
+            try{
+<span class="nc bnc" id="L695" title="All 2 branches missed.">                if(xLowerBoundTextField.getText().isBlank()){</span>
+<span class="nc" id="L696">                    xLowerBound = -20;</span>
+                }else
+<span class="nc" id="L698">                    xLowerBound = Integer.valueOf(xLowerBoundTextField.getText());</span>
+                
+<span class="nc" id="L700">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L701">                error = true;</span>
+<span class="nc" id="L702">                graphErrorField.setText(&quot;Virheellinen X alaraja&quot;);</span>
+                        
+<span class="nc" id="L704">            }</span>
+            
+<span class="nc" id="L706">            int xUpperBound = 0;</span>
+            try{
+<span class="nc bnc" id="L708" title="All 2 branches missed.">                if(xUpperBoundTextField.getText().isBlank()){</span>
+<span class="nc" id="L709">                    xUpperBound = 20;</span>
+                }else
+<span class="nc" id="L711">                    xUpperBound = Integer.valueOf(xUpperBoundTextField.getText());</span>
+                
+<span class="nc" id="L713">            }catch(NumberFormatException e){</span>
+<span class="nc" id="L714">                error=true;</span>
+<span class="nc" id="L715">                graphErrorField.setText(&quot;Virheellinen X yläraja&quot;);</span>
+                        
+<span class="nc" id="L717">            }</span>
+<span class="nc bnc" id="L718" title="All 4 branches missed.">            if (xUpperBound &lt;= xLowerBound || yUpperBound &lt;= yLowerBound) {</span>
+<span class="nc" id="L719">                graphErrorField.setText(&quot;Yläraja ei voi olla pienempi kuin alaraja&quot;);</span>
+<span class="nc" id="L720">                error=true;</span>
+            }
+            
+            //calculation 
+<span class="nc" id="L724">            ArrayList&lt;Double&gt; results = null;</span>
+<span class="nc" id="L725">            double precision = 0.1;</span>
+<span class="nc bnc" id="L726" title="All 2 branches missed.">            if(!error){</span>
+            try {
+<span class="nc" id="L728">                precision = Double.valueOf(graphPrecisionLabel.getText());</span>
+<span class="nc" id="L729">                results = GraphCalc.results(graphTextField.getText(),xUpperBound+2,xLowerBound-2,precision);</span>
+<span class="nc" id="L730">            } catch (Calculator.Exceptions ex) {</span>
+               
+            
+<span class="nc" id="L733">            }catch(Exception e){</span>
+<span class="nc" id="L734">                graphErrorField.setText(&quot;Virheellinen syöte&quot;);</span>
+<span class="nc" id="L735">                error = true;</span>
+                
+<span class="nc" id="L737">            }</span>
+            }
+<span class="nc bnc" id="L739" title="All 2 branches missed.">            if(!error){</span>
+<span class="nc" id="L740">                xCords.setLowerBound(xLowerBound);</span>
+<span class="nc" id="L741">                xCords.setUpperBound(xUpperBound);</span>
+<span class="nc" id="L742">                yCords.setLowerBound(yLowerBound);</span>
+<span class="nc" id="L743">                yCords.setUpperBound(yUpperBound);  </span>
+                
+<span class="nc" id="L745">        int index = 0;</span>
+<span class="nc bnc" id="L746" title="All 2 branches missed.">        for(double i = xLowerBound - 2; i &lt;= xUpperBound + 2; i += precision){</span>
+<span class="nc" id="L747">            Double result = results.get(index);</span>
+<span class="nc bnc" id="L748" title="All 2 branches missed.">            if (result==200000){</span>
+<span class="nc" id="L749">                    graphInd++;</span>
+<span class="nc" id="L750">                    System.out.println(&quot;h&quot; + graphInd);</span>
+                }
+<span class="nc bnc" id="L752" title="All 4 branches missed.">            if (result&lt;=yUpperBound&amp;&amp;result&gt;=yLowerBound){</span>
+               // System.out.println(result);
+<span class="nc" id="L754">                System.out.println(result);</span>
+<span class="nc bnc" id="L755" title="All 2 branches missed.">                if (graphInd == 1)</span>
+<span class="nc" id="L756">            resultsSeries1.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L757" title="All 2 branches missed.">                if (graphInd == 2)</span>
+<span class="nc" id="L758">            resultsSeries2.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L759" title="All 2 branches missed.">                if (graphInd == 3)</span>
+<span class="nc" id="L760">            resultsSeries3.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L761" title="All 2 branches missed.">                if (graphInd == 4)</span>
+<span class="nc" id="L762">            resultsSeries4.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L763" title="All 2 branches missed.">                if (graphInd == 5)</span>
+<span class="nc" id="L764">            resultsSeries5.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L765" title="All 2 branches missed.">                if (graphInd == 6)</span>
+<span class="nc" id="L766">            resultsSeries6.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L767" title="All 2 branches missed.">                if (graphInd == 7)</span>
+<span class="nc" id="L768">            resultsSeries7.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L769" title="All 2 branches missed.">                if (graphInd == 8 )</span>
+<span class="nc" id="L770">            resultsSeries8.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L771" title="All 2 branches missed.">                if (graphInd == 9)</span>
+<span class="nc" id="L772">            resultsSeries9.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L773" title="All 2 branches missed.">                if (graphInd == 10)</span>
+<span class="nc" id="L774">            resultsSeries10.getData().add(new XYChart.Data(i,results.get(index)));</span>
+<span class="nc bnc" id="L775" title="All 2 branches missed.">                if (graphInd &gt; 10) </span>
+<span class="nc" id="L776">                    graphErrorField.setText(&quot;Täynnä&quot;);</span>
+            }
+           
+<span class="nc" id="L779">            index++;</span>
+        }
+<span class="nc" id="L781">        graphInd++;</span>
+        
+           
+            //cordLineChart.getData().add(resultsSeries1);
+<span class="nc" id="L785">            cordLineChart.getData().addAll(resultsSeries1, resultsSeries2, resultsSeries3, resultsSeries4, resultsSeries5, resultsSeries6,</span>
+            resultsSeries7, resultsSeries8, resultsSeries9, resultsSeries10);
+      
+            }
+<span class="nc" id="L789">         });</span>
+         
+        
+       
+<span class="nc" id="L793">        graphCalcLayout.setCenter(cordLineChart);</span>
+       
+        
+        //Button layout change
+<span class="nc" id="L797">        backToStartScreen.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L798">            Layout.setCenter(startingLayout);</span>
+<span class="nc" id="L799">            Layout.setTop(null);</span>
+<span class="nc" id="L800">            window.setWidth(450);</span>
+<span class="nc" id="L801">            window.setHeight(300);</span>
+<span class="nc" id="L802">        });</span>
+<span class="nc" id="L803">        Layout.setCenter(startingLayout);</span>
+<span class="nc" id="L804">        databaseButton.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L805">            Layout.setCenter(databaseLayout);</span>
+<span class="nc" id="L806">            Layout.setTop(backToStartScreen);</span>
+            
+<span class="nc" id="L808">        });</span>
+
+<span class="nc" id="L810">        calcButton.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L811">            Layout.setCenter(calcLayout);</span>
+<span class="nc" id="L812">            Layout.setTop(backToStartScreen);</span>
+<span class="nc" id="L813">            window.setWidth(600);</span>
+<span class="nc" id="L814">            window.setHeight(400);</span>
+<span class="nc" id="L815">        });</span>
+
+<span class="nc" id="L817">        graphCalcButton.setOnAction((event) -&gt; {</span>
+<span class="nc" id="L818">            Layout.setCenter(graphCalcLayout);</span>
+<span class="nc" id="L819">            Layout.setTop(backToStartScreen);</span>
+<span class="nc" id="L820">            window.setWidth(750);</span>
+<span class="nc" id="L821">            window.setHeight(750);</span>
+
+<span class="nc" id="L823">        });</span>
+
+<span class="nc" id="L825">        Scene view = new Scene(Layout, 450, 300);</span>
+<span class="nc" id="L826">        window.setScene(view);</span>
+<span class="nc" id="L827">        window.show();</span>
+<span class="nc" id="L828">    }</span>
+    public void BinTextField(int i){
+<span class="nc" id="L830">        bintextField = i;</span>
+<span class="nc" id="L831">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

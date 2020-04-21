@@ -7,6 +7,7 @@ package calculatorprogram.calculators;
 
 
 
+import calculatorprogram.database.Database;
 import java.util.ArrayList;
 
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
  */
 public class GraphicCalculator {
     Calculator calc;
+    Database database;
     ArrayList<Double> resultList;
     private ArrayList<String> calculationArrayList;
     private ArrayList<String> calculationArrayListClone;
@@ -24,7 +26,7 @@ public class GraphicCalculator {
     
     public GraphicCalculator() {
         calc = new Calculator();
-         
+        database = new Database(); 
     }
     
     public ArrayList<Double> results(String calculatable, int upperBound, int lowerBound, double precision) throws Calculator.Exceptions {
@@ -96,19 +98,34 @@ public class GraphicCalculator {
                 calculationArrayList.add("*");
             }
         }
-        if (parts[i].equals(")")) {
-            brackets = true;
-        }
-        if (parts[i].equals("|")) {
-            absoluteValue = true;
-        }
+        partsContainsBracketsOrAbsoluteValX(parts[i]);
         if (parts[i].equals("π")) {
             calculationArrayList.add(3.1415926 + "");
         } else if (parts[i].equals("e")) {
             calculationArrayList.add(2.7182818 + "");
+        } else if (parts[i].matches("[a-zA-Z]+") && !parts[i].equals("x")) {
+            parts[i] = partsDataBaseCheckerX(parts[i]);
         } else {
             calculationArrayList.add(parts[i]);
         }
+    }
+    
+    public void partsContainsBracketsOrAbsoluteValX(String s) {
+        if (s.equals(")")) {
+            brackets = true;
+        }
+        if (s.equals("|")) {
+            absoluteValue = true;
+        }   
+    }
+    
+    public String partsDataBaseCheckerX(String s) {
+        s = database.getValue(s);
+        if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
+            s = "0";
+        }
+        calculationArrayList.add(s);
+        return s;
     }
     
     public void cloneArrayList() {

@@ -45,13 +45,13 @@ public class CalculatorTest {
 
     }
  @Test
-    public void binomial() {
-       assertEquals(calc.binomial(-5,2), 15.0,0.1);
-       assertEquals(calc.binomial(5,-2), 0.0,0.1);
-       assertEquals(calc.binomial(-5,-2), 0.0,0.1);
-       assertEquals(calc.binomial(12,4), 495,0.1);
-       assertEquals(calc.binomial(4,12), 0.0,0.1);
-       assertEquals(calc.binomial(0,0), 1.0,0.1);
+    public void binomial() throws Exception {
+       assertEquals(calc.binomial("-5","2"), 15.0,0.1);
+       assertEquals(calc.binomial("5","-2"), 0.0,0.1);
+       assertEquals(calc.binomial("-5","-2"), 0.0,0.1);
+       assertEquals(calc.binomial("12","4"), 495,0.1);
+       assertEquals(calc.binomial("4","12"), 0.0,0.1);
+       assertEquals(calc.binomial("0","0"), 1.0,0.1);
     }
 
     @Test

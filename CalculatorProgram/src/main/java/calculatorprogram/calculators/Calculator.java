@@ -5,8 +5,10 @@
  */
 package calculatorprogram.calculators;
 
+import calculatorprogram.database.Database;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,8 +22,10 @@ public class Calculator {
     private boolean brackets;
     private boolean absoluteValue;
     private boolean inf;
+    private Database database;
 
     public Calculator() {
+        this.database = new Database();
         this.calculationStack = new ArrayDeque<>();
         this.calculationArrayList = new ArrayList<>();
     }
@@ -57,42 +61,34 @@ public class Calculator {
                 calculationArrayList.add("*");
             }
         }
-        if (parts[i].equals(")")) {
-            brackets = true;
-        }
-        if (parts[i].equals("|")) {
-            absoluteValue = true;
-        }
+        partsContainsBracketsOrAbsoluteVal(parts[i]);
         if (parts[i].equals("π")) {
             calculationArrayList.add(3.1415926 + "");
         } else if (parts[i].equals("e")) {
             calculationArrayList.add(2.7182818 + "");
+        } else if (parts[i].matches("[a-zA-Z]+")) {
+            parts[i] = partsDataBaseChecker(parts[i]);
         } else {
             calculationArrayList.add(parts[i]);
         }
     }
-    public void checker(int i, String[] parts) {
-        if (i > 0) {
-            if ((parts[i].equals("(") || parts[i].equals("e") || parts[i].equals("π")) && (isNumber(parts[i - 1]) || parts[i - 1].equals("e") || parts[i - 1].equals("π"))) {
-                calculationArrayList.add("*");
-            }
-        } 
-        if (parts[i].equals(")")) {
+    public void partsContainsBracketsOrAbsoluteVal(String s) {
+        if (s.equals(")")) {
             brackets = true;
-        } 
-        if (parts[i].equals("|")) {
-            absoluteValue = true;
-        } 
-        if (parts[i].equals("π")) {
-            calculationArrayList.add(3.1415926 + "");
-        } else if (parts[i].equals("e")) {
-            calculationArrayList.add(2.7182818 + "");
-        } else {
-            calculationArrayList.add(parts[i]);
         }
-    }    
-    
-    
+        if (s.equals("|")) {
+            absoluteValue = true;
+        }   
+    }
+    public String partsDataBaseChecker(String s) {
+        s = database.getValue(s);
+        if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
+            s = "0";
+        }
+        calculationArrayList.add(s);
+        return s;
+    }
+   
     
     public ArrayList<String> absoluteValueSolver(ArrayList<String> calcArrayList, boolean absValue) {
         while (true) {
@@ -338,7 +334,9 @@ public class Calculator {
         return  a;
     }
     
-    public int binomial(int x, int y) {
+    public int binomial(String xS, String yS) throws Exception {
+        int y = binomialValCorrector(yS);
+        int x = binomialValCorrector(xS);
         if (y < 0) {
             return 0;
         }
@@ -355,6 +353,26 @@ public class Calculator {
              
         }
         return binom[x][y];
+    }
+    public int binomialValCorrector(String s) throws Exception {
+        if (s.matches("[a-zA-Z]+")) {
+            s = database.getValue(s);
+            if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
+                s = "0";
+            }
+            String[] split = s.split("\\.");
+            if (split[1].equals("0")) {
+                return Integer.valueOf(split[0]);
+            } else {
+                throw new Exception();
+            }    
+        }
+        try { 
+            Integer.parseInt(s); 
+            return Integer.valueOf(s);
+        } catch (Exception e) { 
+            throw new Exception();
+        }   
     }
 
     public double factorial(double x) {

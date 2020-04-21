@@ -9,5 +9,8 @@
 | 29.3. | 6    | Graafisen laskimen toiminnalisuuden luonti |
 | 30.3. | 5    | Käyttöliittymän luonti ja graafisen laskimen toiminnaliisuden parannus|
 | 4.4.  | 3    | Todella paljon checkstylen mukaista koodin parannusta, metodien pilkkomista pienempiin osiin ja muita parannuksia|
-| 6.4. | 1     | Nollalla jaon käyttäytymisen muutosta graafisessa- ja perus laskimessa|
-| yht   | 27   |
+| 6.4.  | 1    | Nollalla jaon käyttäytymisen muutosta graafisessa- ja perus laskimessa|
+| 13.4. | 5    | Käyttöliittymän perus koodi
+| 14.4. | 6    | Tietokannan yhdistäminen laskin toimintoihin
+| 16.4. | 3    | Tietokannan viimeistelyä ja kyky kirjoittaa nimen perusteella tietokannan arvoja laskukenttiin ja graafiset näppäimet
+| yht   | 41   |

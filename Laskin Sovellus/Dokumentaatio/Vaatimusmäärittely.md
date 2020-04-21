@@ -12,36 +12,34 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
 
 ## Perusversioin toiminnallisuus
 ### Alkunäkymä 
-- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään
+- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään (Tehty)
  ### Tietokannan hallintanäkymä
 - jos salasana on asetettu, pitää kirjautua
-- voi poistaa eri tietoja
-- mahdollisesti nähdä mitä tietoa tallennettu
+- voi poistaa eri tietoja (Tehty)
+- mahdollisesti nähdä mitä tietoa tallennettu (Tehty)
 - Voi asettaa tietokannan salasanan
   - Salasana tulee olla 5-10 merkkiä
   - Suojaa tietokantaa sovelluksen kautta tehdyistä tahattomista muutoksista.
 
 ### Laskin näkymä
-- toiminnalisuuksia vasemmalla (mahdollisesti voi minimoida)
+- toiminnalisuuksia vasemmalla (mahdollisesti voi minimoida) (Tehty)
   - tietojen talletus 
   - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
-- pikavalikko
+- pikavalikko (Tehty)
   - perus symbolit kuten tulo merkit, neepperin luku, itseisarvo symbolit jne.
-- kirjoitus ja laskupohja
+- kirjoitus ja laskupohja (Tehty)
   - näkyy edelliset muutamat laskut
   - kirjoitus pohja seuraaville laskutoimituksille
-### Graafinenlaskin näkymä
+### Graafinenlaskin näkymä 
 - toiminnalisuuksia vasemmalla
   - tietojen talletus, erilaiset monimutkaisemmat toiminnot
-  - paluu alkunäyttöön
-- graafinen pohja josta näkee piirretyt funktiot
-- Pohja valikko
-  - pystyy valitsemaan eri funktiotyyppejä valmiiksi kuten y = ax^2 + b 
-- kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla)
+  - paluu alkunäyttöön (Tehty)
+- graafinen pohja josta näkee piirretyt funktiot (Tehty)
+- kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) (Tehty)
 
 ## Mahdollisia lisäyksiä
-- Mahdollisimman laaja graafinen laskin
+- Mahdollisimman laaja graafinen laskin  
   - Erilaisia pohjia ja funktio mahdollisuuksia. Mahdollisuus tarkastaa pisteitä ja zoomata.
 - Mahdollisimman paljon laskin ominaisuuksia
   - Erilaisten jonojen summa mahdollisuuksia, funktioidenratkaisija yms 

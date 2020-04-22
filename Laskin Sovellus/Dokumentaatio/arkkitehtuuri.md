@@ -11,9 +11,24 @@ Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa
 ## Sovelluslogiikka
 Pakettikaavio/logiikka
 <img src="https://user-images.githubusercontent.com/62024790/79855819-25e08d00-83d4-11ea-9907-0f4b96360171.png" width="1000"> <br>
-Calculator luokka tarjoaa eri lasku metodit kuten calcArrayList joka muuttaa String tyyppisen olion laskettavaan metodiin ja calculate joka laskee tämän tyylisen ArrayListin. Luokka tarjoaa myös permutaatio ja kombinaatio laskumetodit binomial ja permutational metodilla.
-Graafinen laskin hajottaa laskun itse ja sijottelee x.än arvot ja syöttää tämän funktion Calculator luokan calculatable metodille.
+Calculator luokka tarjoaa eri lasku metodit kuten 
+- calcArrayList(String text),  muuttaa String tyyppisen olion laskettavaan metodiin, lähettää laskun eteenpäin ja palauttaa tuloksen
+- calculate(List<String> calculatableArrayList), laskee edellisen metodin luoman tyylisen ArrayListin ja palauttaa tuloksen  
+- binomial(int n, int k),  laskee kombinaatioden määrän ja palauttaa arvon
+- permutational(int n, int k),  laskee permutaatioden määrän ja palauttaa arvon
+  
+Graafinen laskin hajottaa laskun itse ja sijottelee x.än arvot ja syöttää tämän funktion Calculator luokan calculatable metodille ja lisää eri x.än syötetyillä arvoilla saadut tulokset ArrayListiin jonka se palauttaa lopuksi. 
+
 Graafinen laskin ja perus laskin kutsuvat calculatorprogram.database paketin database luokan metodia getValue jolla ne muuttavat nimetyt arvot jotka on syötetty tietokantaan vakioiksi.
+
+Database tarjoaa eri tietokannan käsittely metodit kuten
+- creation(), luo tietokannan
+- addValueToDatabase(String name, double value) lisää arvon nimellä tietokantaan.
+- getValue(String name) palauttaa vakion nimen perusteella
+- deleteValue(String name) poistaa vakion nimen perusteella
+- addPassword(String password) lisää salasanan
+
+Jos salasana on tietokannassa ja käyttäjä ei ole syöttänyt salasanaa tietokannalle, arvoja ei voi lisätä, poistaa tai hakea tietokannasta.
 ## Tietojen pysyväistallennus
 calculatorprogram.database paketin database luokka käyttää sql tyylistä tietokantaa säilyttääkseen tietoja.
 

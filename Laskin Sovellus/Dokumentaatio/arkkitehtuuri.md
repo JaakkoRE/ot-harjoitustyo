@@ -14,7 +14,7 @@ Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa
 
 ## Sovelluslogiikka
 Pakettikaavio/logiikka
-<img src="https://user-images.githubusercontent.com/62024790/79855819-25e08d00-83d4-11ea-9907-0f4b96360171.png" width="1000"> <br>
+<img src="https://user-images.githubusercontent.com/62024790/80004349-e34dac00-84ca-11ea-8e94-4bcabf2cfcd7.jpg"> <br>
 Calculator luokka tarjoaa eri lasku metodit kuten 
 - calcArrayList(String text),  muuttaa String tyyppisen olion laskettavaan metodiin, lähettää laskun eteenpäin ja palauttaa tuloksen
 - calculate(List<String> calculatableArrayList), laskee edellisen metodin luoman tyylisen ArrayListin ja palauttaa tuloksen  
@@ -52,6 +52,13 @@ Esimerkki arvo taulusta
 3 molVolum 22.41383
 </pre>
 
-## Sekvenssikaavio
-Kuvaa miten graafinen laskin laskee 5x^2 välillä 2,3 tarkkudella 1.
+## Päätoiminnallisuudet
+### Miten graafinen laskin laskee funktion
+Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatable), x.n ylärajan (upperBound), x.n alarajan (lowerBound), x.n arvojen välin (precision) Esimerkissä on anettu 5x^2,3,2,1
 <img src="https://user-images.githubusercontent.com/62024790/79855777-14978080-83d4-11ea-8ca7-56aae35ba175.png" width="1000">
+Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.
+### Miten tietokannasta haetaan tietoa
+Tietokannassa on valmiiksi arvo 9.81 nimellä g ja salasana on annettu. Sekvenssikaavio kuvaa miten laskettavassa tekstissä oleva vakion nimi muunnetaan vakioksi
+<img src="https://user-images.githubusercontent.com/62024790/79855777-14978080-83d4-11ea-8ca7-56aae35ba175.png" width="1000">
+Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.
+

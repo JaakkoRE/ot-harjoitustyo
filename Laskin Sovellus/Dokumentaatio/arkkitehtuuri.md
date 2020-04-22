@@ -16,6 +16,7 @@ Graafinen laskin hajottaa laskun itse ja sijottelee x.än arvot ja syöttää t�
 Graafinen laskin ja perus laskin kutsuvat calculatorprogram.database paketin database luokan metodia getValue jolla ne muuttavat nimetyt arvot jotka on syötetty tietokantaan vakioiksi.
 ## Tietojen pysyväistallennus
 calculatorprogram.database paketin database luokka käyttää sql tyylistä tietokantaa säilyttääkseen tietoja. <br>
+Database luokkassa on kaikki metodit tietojen lisäämiseen,poistamiseen,hakemiseen,salasanan muuttamiseen ja poistamiseen.
 sql tietokannassa on 2 taulua. Toinen on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana, ja toinen taulu jossa arvot ovat kytketty nimeen.<br>
 Esimerkki salasana taulusta
 <pre>
@@ -29,7 +30,6 @@ Esimerkki arvo taulusta
 3 molVolum 22.41383
 </pre>
 
-<img src="https://user-images.githubusercontent.com/62024790/79855819-25e08d00-83d4-11ea-9907-0f4b96360171.png" width="1000"> <br>
 ## Sekvenssikaavio
 Kuvaa miten graafinen laskin laskee 5x^2 välillä 2,3 tarkkudella 1.
 <img src="https://user-images.githubusercontent.com/62024790/79855777-14978080-83d4-11ea-8ca7-56aae35ba175.png" width="1000">

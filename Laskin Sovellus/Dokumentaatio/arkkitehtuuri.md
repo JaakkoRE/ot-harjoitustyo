@@ -36,7 +36,7 @@ Jos salasana on tietokannassa ja käyttäjä ei ole syöttänyt salasanaa tietok
 ## Tietojen pysyväistallennus
 calculatorprogram.database paketin database luokka käyttää sql tyylistä tietokantaa säilyttääkseen tietoja.
 
-Database luokkassa on kaikki metodit tietojen lisäämiseen,poistamiseen,hakemiseen,salasanan muuttamiseen ja poistamiseen.
+Database luokkassa on kaikki metodit tietojen lisäämiseen,poistamiseen,hakemiseen,salasanan muuttamiseen ja poistamiseen jotka käyttävät eri sql komentoja.
 
 sql tietokannassa on 2 taulua. Ensimmäisessä taulussa on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana. Toisessa taulussa arvot ovat kytketty nimeen.
 

@@ -15,9 +15,11 @@ Calculator luokka tarjoaa eri lasku metodit kuten calcArrayList joka muuttaa Str
 Graafinen laskin hajottaa laskun itse ja sijottelee x.än arvot ja syöttää tämän funktion Calculator luokan calculatable metodille.
 Graafinen laskin ja perus laskin kutsuvat calculatorprogram.database paketin database luokan metodia getValue jolla ne muuttavat nimetyt arvot jotka on syötetty tietokantaan vakioiksi.
 ## Tietojen pysyväistallennus
-calculatorprogram.database paketin database luokka käyttää sql tyylistä tietokantaa säilyttääkseen tietoja. <br>
+calculatorprogram.database paketin database luokka käyttää sql tyylistä tietokantaa säilyttääkseen tietoja.
+
 Database luokkassa on kaikki metodit tietojen lisäämiseen,poistamiseen,hakemiseen,salasanan muuttamiseen ja poistamiseen.
-sql tietokannassa on 2 taulua. Toinen on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana, ja toinen taulu jossa arvot ovat kytketty nimeen.<br>
+
+sql tietokannassa on 2 taulua. Toinen on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana, ja toinen taulu jossa arvot ovat kytketty nimeen.
 Esimerkki salasana taulusta
 <pre>
 1 Salasana12345   

@@ -19,7 +19,7 @@ calculatorprogram.database paketin database luokka käyttää sql tyylistä tiet
 
 Database luokkassa on kaikki metodit tietojen lisäämiseen,poistamiseen,hakemiseen,salasanan muuttamiseen ja poistamiseen.
 
-sql tietokannassa on 2 taulua. Toinen on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana, ja toinen taulu jossa arvot ovat kytketty nimeen.
+sql tietokannassa on 2 taulua. Ensimmäisessä taulussa on salasana taulu jossa säilytetään tieto salasanasta ensimmäisellä rivillä ja toisella siittä onko käyttäjä syöttänyt salasanan istunnon aikana. Toisessa taulussa arvot ovat kytketty nimeen.
 Esimerkki salasana taulusta
 <pre>
 1 Salasana12345   

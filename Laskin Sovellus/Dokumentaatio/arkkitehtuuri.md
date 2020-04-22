@@ -6,7 +6,7 @@ Pakkausrakenne on seuraava:
 Pakkaus calculatorprogram.gui sisältää graafisen java fx tyylisen käyttöliittymän koodin, calculatorprogram.calculators sisältää laskinohjelmien sovelluslogiikan ja calculatorprogram.database sisältää tietokannan sovelluslogiikan
 
 ## Käyttöliittymä
-Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa luokassa UserInterface. Näkymien välillä on muutama yhtenäinen nappi kuten takaisin menuun. mutta käyttöliittymä kooskuu menun lisäksi 3 päänäkymästä, jotka ovat laskin-, graafinen laskin- ja tietokantanäkymä. Käyttöliittymä kutsuu paketin calculatorprogram.calculators ja calculatorprogram.database metodeja. Graafinen laskin käyttää javan LineChart oliota piirtämään annetusta ArrayLististä kuvaajia 
+Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa luokassa UserInterface. Näkymien välillä on muutama yhtenäinen nappi kuten takaisin menuun. mutta käyttöliittymä kooskuu menun lisäksi 3 päänäkymästä, jotka ovat laskin-, graafinen laskin- ja tietokantanäkymä. Käyttöliittymä kutsuu pakettien calculatorprogram.calculators ja calculatorprogram.database metodeja. Graafinen laskin käyttää javan LineChart oliota piirtämään annetusta ArrayLististä kuvaajia 
 
 ## Sovelluslogiikka
 Pakettikaavio/logiikka

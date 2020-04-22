@@ -54,7 +54,7 @@ Esimerkki arvo taulusta
 
 ## Päätoiminnallisuudet
 ### Miten graafinen laskin laskee funktion
-Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatable), x.n ylärajan (upperBound), x.n alarajan (lowerBound), x.n arvojen välin (precision) Esimerkissä on anettu 5x^2,3,2,1
+Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatable), x.n ylärajan (upperBound), x.n alarajan (lowerBound), x.n arvojen välin (precision) Esimerkissä on annettu 5x^2,3,2,1
 <img src="https://user-images.githubusercontent.com/62024790/80003742-1e9bab00-84ca-11ea-9eb2-f3ec748f95ae.png">
 
 Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.

@@ -56,9 +56,11 @@ Esimerkki arvo taulusta
 ### Miten graafinen laskin laskee funktion
 Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatable), x.n ylärajan (upperBound), x.n alarajan (lowerBound), x.n arvojen välin (precision) Esimerkissä on anettu 5x^2,3,2,1
 <img src="https://user-images.githubusercontent.com/62024790/80003742-1e9bab00-84ca-11ea-9eb2-f3ec748f95ae.png">
+
 Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.
 ### Miten tietokannasta haetaan tietoa
 Tietokannassa on valmiiksi arvo 9.81 nimellä g ja salasana on annettu. Sekvenssikaavio kuvaa miten laskettavassa tekstissä oleva vakion nimi muunnetaan vakioksi
 <img src="https://user-images.githubusercontent.com/62024790/79998131-f6f51480-84c2-11ea-8e9b-9732e7f8a9d0.png">
+
 Kun vakio on saatu tietokannasta, lasku jatketaan loppuun.
 

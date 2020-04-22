@@ -10,7 +10,9 @@ java -jar CalculatorProgram.jar
 ```
 ## Aloitusnäkymä
 Sovelluksen käynnistyksen jälkeen avautuu seuraava näkymä.
+
 <img src="https://user-images.githubusercontent.com/62024790/80006754-03cb3580-84ce-11ea-9937-8675642d44b3.png" width="400">
+
 Valikosta voi valita halutun toiminnallisuuden.
 
 

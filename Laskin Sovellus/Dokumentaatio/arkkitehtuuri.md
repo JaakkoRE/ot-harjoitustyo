@@ -28,8 +28,8 @@ Esimerkki salasana taulusta
 </pre>
 Esimerkki arvo taulusta
 <pre>
-1 g 9.81
-2 hs 550
+1 g        9.81
+2 hs       550
 3 molVolum 22.41383
 </pre>
 

@@ -3,7 +3,11 @@
 ## Rakenne
 Pakkausrakenne on seuraava:
 <img src="https://user-images.githubusercontent.com/62024790/79998265-286de000-84c3-11ea-8ddc-70dda3ba12e6.png" width="1000"> <br>
-Pakkaus calculatorprogram.gui sisältää graafisen java fx tyylisen käyttöliittymän koodin, calculatorprogram.calculators sisältää laskinohjelmien sovelluslogiikan ja calculatorprogram.database sisältää tietokannan sovelluslogiikan
+Pakkaus calculatorprogram.gui sisältää graafisen java fx tyylisen käyttöliittymän koodin. 
+
+Pakkaus calculatorprogram.calculators sisältää laskinohjelmien sovelluslogiikan.
+
+Pakkaus calculatorprogram.database sisältää tietokannan sovelluslogiikan.
 
 ## Käyttöliittymä
 Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa luokassa UserInterface. Näkymien välillä on muutama yhtenäinen nappi kuten takaisin menuun. mutta käyttöliittymä kooskuu menun lisäksi 3 päänäkymästä, jotka ovat laskin-, graafinen laskin- ja tietokantanäkymä. Käyttöliittymä kutsuu pakettien calculatorprogram.calculators ja calculatorprogram.database metodeja. Graafinen laskin käyttää javan LineChart oliota piirtämään annetusta ArrayLististä kuvaajia 

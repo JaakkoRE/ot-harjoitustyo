@@ -21,7 +21,7 @@ Kun painaa aloitusnäytöstä laskin nappia avautuu seuraava näkymä.
 
 <img src="https://user-images.githubusercontent.com/62024790/80006760-0463cc00-84ce-11ea-8467-ec5851aea48a.png" width="400">
 
-Kun painaa Lisää, vasemmalle ilmestyy eri laskin näkymät ja kun painaa näytä tietokannan arvot näkyy arvot jotka on syötetty tietokantaan seuraavalla tavalla:.
+Kun painaa lisää, vasemmalle ilmestyy eri laskin näkymät ja kun painaa näytä tietokannan arvot näkyy arvot jotka on syötetty tietokantaan seuraavalla tavalla:.
 
 <img src="https://user-images.githubusercontent.com/62024790/80006761-0463cc00-84ce-11ea-8a92-0a8687f4ce4b.png" width="400">
 

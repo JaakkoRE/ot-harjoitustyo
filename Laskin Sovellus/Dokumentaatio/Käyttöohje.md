@@ -1,6 +1,6 @@
 
 # Käyttöohje
-lataa tiedosto [CalculatorProgram.jar](https://github.com/mluukkai/OtmTodoApp/releases/tag/0.1)
+lataa tiedosto [CalculatorProgram.jar](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/viikko5)
 ## Ohjelman käynnistäminen
 
 Ohjelma käynnistetään komennolla 

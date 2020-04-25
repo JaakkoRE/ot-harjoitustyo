@@ -60,7 +60,7 @@ Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatabl
 Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.
 ### Miten tietokannasta haetaan tietoa
 Tietokannassa on valmiiksi arvo 9.81 nimellä g ja salasana on annettu. Sekvenssikaavio kuvaa miten laskettavassa tekstissä oleva vakion nimi muunnetaan vakioksi
-<img src="https://user-images.githubusercontent.com/62024790/79998131-f6f51480-84c2-11ea-8e9b-9732e7f8a9d0.png">
+<img src="https://user-images.githubusercontent.com/62024790/80286304-46417c00-8733-11ea-92be-b5d0e8ad9715.png">
 
 Kun vakio on saatu tietokannasta, lasku jatketaan loppuun.
 

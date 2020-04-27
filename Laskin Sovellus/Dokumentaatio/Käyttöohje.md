@@ -29,9 +29,10 @@ Laskukenttään voi kirjoittaii näppäimistöllä tai käyttää pikanäppäimi
 
 Muistiin tallennetut arvot voi saada painamalla lisää arvo nappia tai kirjoittamalla vakion nimen esimerkiksi: 5+g tuottaisi 14.81 arvon. Lasketun arvon voi lisätä muistiin painamalla lisää muistiin nappia.
 
+Seuraava näkymä tulee kun painaa binomi laskin nappia. 
 <img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/N%C3%A4kym%C3%A4t/n%C3%A4kym%C3%A44.png" width="400">
 
-Jos valitsee esimerkiksi Binomi laskin napin avautuu seuraava näkymä jossa voi laskea kombinaatiot.
+
 ## Graafinen laskin
 Kun painaa aloitusnäytöstä graafinen laskin nappia avautuu seuraava näkymä.
 

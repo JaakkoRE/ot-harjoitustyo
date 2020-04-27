@@ -13,4 +13,6 @@
 | 13.4. | 5    | Käyttöliittymän perus koodi
 | 14.4. | 6    | Tietokannan yhdistäminen laskin toimintoihin
 | 16.4. | 3    | Tietokannan viimeistelyä ja kyky kirjoittaa nimen perusteella tietokannan arvoja laskukenttiin ja graafiset näppäimet
-| yht   | 41   |
+| 22.4. | 5    | Salasanan lisäämis mahdollisuus
+| 22.4. | 3    | Tietokannanhallinan selventäminen ja laskin sovellus tunnistaa virheelliset syötteet paremmin ja laskin metodit uuteen luokkaan
+| yht   | 48   |

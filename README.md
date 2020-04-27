@@ -3,10 +3,14 @@ Sovelluksen tarkoitus on hoitaa perus graafisia ja ei graafisia laskutoimituksia
 
 
 ## Dokumentaatio
-[Käyttöohjeet](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/K%C3%A4ytt%C3%B6ohje.md) <br>
-[Työaikakirjanpito](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/Ty%C3%B6aikakirjanpito.md) <br>
-[Vaativuusmäärittely](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/Vaatimusm%C3%A4%C3%A4rittely.md) <br>
+[Käyttöohjeet](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/K%C3%A4ytt%C3%B6ohje.md)
+
+[Työaikakirjanpito](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/Ty%C3%B6aikakirjanpito.md) 
+
+[Vaativuusmäärittely](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/Vaatimusm%C3%A4%C3%A4rittely.md) 
+
 [Arkkitehtuurikuvaus](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/arkkitehtuuri.md)
+
 ## Releaset
 [Viikko5](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/viikko5) <br>
 [Viikko6](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/Viikko6)

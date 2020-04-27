@@ -14,5 +14,5 @@
 | 14.4. | 6    | Tietokannan yhdistäminen laskin toimintoihin
 | 16.4. | 3    | Tietokannan viimeistelyä ja kyky kirjoittaa nimen perusteella tietokannan arvoja laskukenttiin ja graafiset näppäimet
 | 22.4. | 5    | Salasanan lisäämis mahdollisuus
-| 22.4. | 4    | Tietokannanhallinan selventäminen, laskin sovellus tunnistaa virheelliset syötteet paremmin, laskenta metodit uuteen luokkaan calculationMethods ja kombinaatio laskimen lisääminen. Java docs
+| 25.4. | 4    | Tietokannanhallinan selventäminen, laskin sovellus tunnistaa virheelliset syötteet paremmin, laskenta metodit uuteen luokkaan calculationMethods ja kombinaatio laskimen lisääminen. Java docs
 | yht   | 50   |

@@ -28,32 +28,22 @@ public class CalculatorTest {
         calc = new Calculator();
 
     }
-
     @Test
-    public void basicOperations() {
-        assertEquals(calc.sum(5, 5), 10.0, 0.1);
-        assertEquals(calc.sum(5, -5), 0.0, 0.1);
-        assertEquals(calc.product(5, 5), 25.0, 0.1);
-        assertEquals(calc.product(5, -5), -25.0, 0.1);
-        assertEquals(calc.quotient(5, 5), 1.0, 0.1);
-        assertEquals(calc.quotient(5, -5), -1.0, 0.1);
-        assertEquals(calc.sum(1.55, -1), 0.55, 0.01);
-        assertEquals(calc.power(5, 2), 25.0, 0.1);
-        assertEquals(calc.factorial(5), 120.0, 0.1);
-        assertEquals(calc.factorial(-4), -24.0, 0.1);
-        assertEquals(calc.factorial(0), 1, 0.1);
-
+    public void isInputValid() {
+        calc.calcArrayList("5++");
+        assertEquals(calc.isInputValid(),false);
+        calc.calcArrayList("-5+5");
+        assertEquals(calc.isInputValid(),true);
+        calc.calcArrayList("5+2++4");
+        assertEquals(calc.isInputValid(),false);
+        calc.calcArrayList("5!!");
+        assertEquals(calc.isInputValid(),true);
+        calc.calcArrayList("5%%");
+        assertEquals(calc.isInputValid(),false);
+        calc.calcArrayList("5**5");
+        assertEquals(calc.isInputValid(),false);
     }
- @Test
-    public void binomial() throws Exception {
-       assertEquals(calc.binomial("-5","2"), 15.0,0.1);
-       assertEquals(calc.binomial("5","-2"), 0.0,0.1);
-       assertEquals(calc.binomial("-5","-2"), 0.0,0.1);
-       assertEquals(calc.binomial("12","4"), 495,0.1);
-       assertEquals(calc.binomial("4","12"), 0.0,0.1);
-       assertEquals(calc.binomial("0","0"), 1.0,0.1);
-    }
-
+   
     @Test
     public void calculateSums() {
         assertEquals(calc.calcArrayList("5+5"), "10.0");
@@ -95,9 +85,9 @@ public class CalculatorTest {
 
     @Test
     public void calculateFactorial() {
-        assertEquals(calc.calcArrayList("5!"), "120.0");
-        assertEquals(calc.calcArrayList("-5!"), "-120.0");
-        assertEquals(calc.calcArrayList("0!"), "1.0");
+        assertEquals(calc.calcArrayList("5!"), "120");
+        assertEquals(calc.calcArrayList("-5!"), "-120");
+        assertEquals(calc.calcArrayList("0!"), "1");
     }
 
     @Test

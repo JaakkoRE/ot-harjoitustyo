@@ -16,29 +16,55 @@ import java.util.ArrayList;
  * @author Jaakko
  */
 public class GraphicCalculator {
-    Calculator calc;
-    Database database;
-    ArrayList<Double> resultList;
+    private Calculator calc;
+    private Database database;
+    private ArrayList<Double> resultList;
     private ArrayList<String> calculationArrayList;
     private ArrayList<String> calculationArrayListClone;
     private boolean brackets;
     private boolean absoluteValue;
     
+    
     public GraphicCalculator() {
         calc = new Calculator();
         database = new Database(); 
     }
-    
+    /**
+    * Method initialises the calculation and returns calculation values
+    * 
+    * @param calculatable calculatable String for example "5x+2"
+    * @param upperBound highest x value that is calculated
+    * @param lowerBound lowest x value that is calculated
+    * @param precision what is the gap between different x values
+    * 
+    * @see brackets
+    * @see absoluteValue
+    * 
+    * @return ArrayList with coordinate values
+    */
     public ArrayList<Double> results(String calculatable, int upperBound, int lowerBound, double precision) throws Calculator.Exceptions {
-        resultList = new ArrayList<>();
+        this.resultList = new ArrayList<>();
+        this.calculationArrayList = new ArrayList<>();
+        this.calculationArrayListClone = new ArrayList<>();
         calcArrayListX(calculatable,  upperBound,  lowerBound,  precision);
         return resultList;
     }
+    /**
+    * Method initialises the calculation and returns calculation values
+    * 
+    * @param text calculatable String for example "5x+2"
+    * @param upperBound highest x value that is calculated
+    * @param lowerBound lowest x value that is calculated
+    * @param precision what is the gap between different x values
+    * 
+    * @see brackets
+    * @see absoluteValue
+    * 
+    * 
+    */
     public void calcArrayListX(String text, int upperBound, int lowerBound, double precision) throws Calculator.Exceptions {
-        this.calculationArrayList = new ArrayList<>();
-        this.calculationArrayListClone = new ArrayList<>();
-        ArrayList<Integer> whereXIndex = new ArrayList<>();
         //setting up arrayLists
+        ArrayList<Integer> whereXIndex = new ArrayList<>();
         splitterX(text);
         Boolean bracketsCopy = brackets;
         Boolean absoluteValueCopy = absoluteValue;
@@ -70,10 +96,10 @@ public class GraphicCalculator {
             } else {
                 //solves absolute values and brackets before calculation
                 if (absoluteValue) {
-                    calculationArrayList = calc.absoluteValueSolver(calculationArrayList, absoluteValue);
+                    calculationArrayList = calc.absoluteValueSolver(calculationArrayList);
                 }
                 if (brackets) {
-                    calculationArrayList = calc.bracketSolver(calculationArrayList, brackets);
+                    calculationArrayList = calc.bracketSolver(calculationArrayList);
                 }
                 String result = calc.calculate(calculationArrayList);
                 if (result.equals("ääretön")) {
@@ -86,12 +112,34 @@ public class GraphicCalculator {
             }   
         }
     }
+    
+    /**
+    * Method splits Text to ArrayList for example "x+3*2" turns into
+    * {x,+,3,*,2} 
+    * takes into account x, unlike method splitter in Calculator
+    * 
+    * @param text calculation in string format for example ("x+3*2)
+    * 
+    * @see calculationArrayList
+    */
     public void splitterX(String text) {
         String[] parts = text.split("(?<=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e,x])|(?=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e,x])");
         for (int i = 0; i < parts.length; i++) {
             partCheckerX(i, parts);
         }
     }
+    
+    /**
+    * Method adds * to for example "5(2)" so it calculates as 5*(2) 
+    * ,adds pi and e values and checks using partsContainsBracketsOrAbsoluteVal if absolutevalues and brackets exist
+    * and uses partsDataBaseChecker to check for database values
+    * takes into account x, unlike method splitter in Calculator
+    * 
+    * @param i works as iterator for parts
+    * @param parts is the list of split parts from splitter
+    * 
+    * @see calculationArrayList
+    */
     public void partCheckerX(int i, String[] parts) {
         if (i > 0) {
             if ((parts[i].equals("(") || parts[i].equals("e") || parts[i].equals("π") || parts[i].equals("x")) && (calc.isNumber(parts[i - 1]) || parts[i - 1].equals("e") || parts[i - 1].equals("π") || parts[i - 1].equals("x"))) {
@@ -99,17 +147,26 @@ public class GraphicCalculator {
             }
         }
         partsContainsBracketsOrAbsoluteValX(parts[i]);
-        if (parts[i].equals("π")) {
-            calculationArrayList.add(3.1415926 + "");
-        } else if (parts[i].equals("e")) {
-            calculationArrayList.add(2.7182818 + "");
-        } else if (parts[i].matches("[a-zA-Z]+") && !parts[i].equals("x")) {
-            parts[i] = partsDataBaseCheckerX(parts[i]);
-        } else {
-            calculationArrayList.add(parts[i]);
+        if (!parts[i].equals(parts[i].equals(" "))) {   
+            if (parts[i].equals("π")) {
+                calculationArrayList.add(3.1415926 + "");
+            } else if (parts[i].equals("e")) {
+                calculationArrayList.add(2.7182818 + "");
+            } else if (parts[i].matches("[a-zA-Z]+") && !parts[i].equals("x")) {
+                parts[i] = partsDataBaseCheckerX(parts[i]);
+            } else {
+                calculationArrayList.add(parts[i]);
+            }   
         }
     }
-    
+    /**
+    * Method checks if s is a bracket or absolutevalue symbol
+    * 
+    * @param s part from partcheckers parts[]
+    * 
+    * @see brackets
+    * @see absoluteValue
+    */
     public void partsContainsBracketsOrAbsoluteValX(String s) {
         if (s.equals(")")) {
             brackets = true;
@@ -118,7 +175,13 @@ public class GraphicCalculator {
             absoluteValue = true;
         }   
     }
-    
+    /**
+    * Method checks if s exists in the database (database only answers if the password has been given)
+    * 
+    * @param s part from partcheckers parts[]
+    * 
+    * @see database
+    */
     public String partsDataBaseCheckerX(String s) {
         s = database.getValue(s);
         if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
@@ -127,7 +190,11 @@ public class GraphicCalculator {
         calculationArrayList.add(s);
         return s;
     }
-    
+    /**
+    * Method clears calculatable ArrayList and clones the original
+    * 
+    * @see database
+    */
     public void cloneArrayList() {
         calculationArrayList.clear();
         for (String s: calculationArrayListClone) {
@@ -135,6 +202,11 @@ public class GraphicCalculator {
         }
        
     }
+    /**
+    * Method clones ArrayList that splitter doesnt have to be used more than once
+    *  
+    * @see calculationArrayListClone
+    */
     public void cloneArrayListOtherWay() {
         for (String s: calculationArrayList) {
             calculationArrayListClone.add(s);

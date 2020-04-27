@@ -7,6 +7,7 @@ package calculatorprogram;
 
 
 import calculatorProgram.gui.UserInterface;
+import java.sql.SQLException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +20,7 @@ import calculatorProgram.gui.UserInterface;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         UserInterface u = new UserInterface();
         u.interFaceStart();
 

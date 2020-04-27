@@ -23,38 +23,86 @@ public class Calculator {
     private boolean absoluteValue;
     private boolean inf;
     private Database database;
+    private boolean nameDoesntExistInDatabase;
+    private CalculationMethods cm;
+    private boolean isInputValid;
+
 
     public Calculator() {
+        cm = new CalculationMethods();
         this.database = new Database();
         this.calculationStack = new ArrayDeque<>();
         this.calculationArrayList = new ArrayList<>();
     }
     
+    /**
+    * Method splits calculation to parts with splitter´
+    * and with bracketSolver and absoluteValueSolver splits the calculation to multiple parts
+    * and uses calculate method to calculate the rest
+    * 
+    * @param text calculation in string format for example ("5+3*2)
+    * 
+    * @return String for example "11"
+    */
     public String calcArrayList(String text) {
-        this.calculationArrayList = new ArrayList<>();
-        splitter(text);
+        calcArrayListSetup(text);
+        if (nameDoesntExistInDatabase) {
+            return "Arvoa ei löytynyt muistista";
+        }
         if (!brackets && !absoluteValue) {
             calculate(this.calculationArrayList);
             return calculationArrayList.get(0);
         } else {
             if (brackets) {
-                bracketSolver(calculationArrayList, brackets);   
+                bracketSolver(calculationArrayList);   
             }
             if (absoluteValue) {
-                absoluteValueSolver(calculationArrayList, absoluteValue);
+                absoluteValueSolver(calculationArrayList);
             }
             calculate(calculationArrayList);
             return calculationArrayList.get(0);
         }
     }
-    
+    /**
+    * Method sets up modifiers to default values
+    * 
+    */
+    public void calcArrayListSetup(String text) {
+        brackets = false;
+        absoluteValue = false;
+        nameDoesntExistInDatabase = false;
+        this.calculationArrayList = new ArrayList<>();
+        splitter(text);
+    }
+    /**
+    * Method splits Text to ArrayList for example "5+3*2" turns into
+    * {5,+,3,*,2} 
+    * 
+    * @param text calculation in string format for example ("5+3*2)
+    * 
+    * @see calculationArrayList
+    */
     public void splitter(String text) {
         String[] parts = text.split("(?<=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e])|(?=[\\+,\\-,\\:,\\^,\\*,\\/,\\(,\\),\\|,\\!,\\%,\\π,e])");
         for (int i = 0; i < parts.length; i++) {
             partChecker(i, parts);
         }
+        isInputValid = isInputValid();
+        if (!isInputValid) {
+            calculationArrayList.clear();
+            calculationArrayList.add("Virheellinen syöte");
+        }
     }    
-    
+    /**
+    * Method adds * to for example "5(2)" so it calculates as 5*(2) 
+    * ,adds pi and e values and checks using partsContainsBracketsOrAbsoluteVal if absolutevalues and brackets exist
+    * and uses partsDataBaseChecker to check for database values
+    * 
+    * @param i works as iterator for parts
+    * @param parts is the list of split parts from splitter
+    * 
+    * @see calculationArrayList
+    */
     public void partChecker(int i, String[] parts) {
         if (i > 0) {
             if ((parts[i].equals("(") || parts[i].equals("e") || parts[i].equals("π")) && (isNumber(parts[i - 1]) || parts[i - 1].equals("e") || parts[i - 1].equals("π"))) {
@@ -62,16 +110,59 @@ public class Calculator {
             }
         }
         partsContainsBracketsOrAbsoluteVal(parts[i]);
-        if (parts[i].equals("π")) {
-            calculationArrayList.add(3.1415926 + "");
-        } else if (parts[i].equals("e")) {
-            calculationArrayList.add(2.7182818 + "");
-        } else if (parts[i].matches("[a-zA-Z]+")) {
-            parts[i] = partsDataBaseChecker(parts[i]);
-        } else {
-            calculationArrayList.add(parts[i]);
+        if (!parts[i].equals(parts[i].equals(" "))) {     
+            if (parts[i].equals("π")) {
+                calculationArrayList.add(3.1415926 + "");
+            } else if (parts[i].equals("e")) {
+                calculationArrayList.add(2.7182818 + "");
+            } else if (parts[i].matches("[a-zA-Z]+")) {
+                parts[i] = partsDataBaseChecker(parts[i]);
+            } else {
+                calculationArrayList.add(parts[i]);
+            }
         }
     }
+    
+     /**
+    * Method checks if the input given by the user is valid
+    * 
+    * 
+    */
+    public boolean isInputValid() {
+
+        if (!(isNumber(calculationArrayList.get(0)) || calculationArrayList.get(0).equals("-") || calculationArrayList.get(0).equals("(") || calculationArrayList.get(0).equals("|"))) {
+            return false;
+        }
+        return isInputValidMiddle();
+    }
+    public boolean isInputValidMiddle() {
+        for (int i = 1; i < calculationArrayList.size() - 1; i++) {
+            if (calculationArrayList.get(i).equals("+") || calculationArrayList.get(i).equals("*") || calculationArrayList.get(i).equals("/") || calculationArrayList.get(i).equals(":") || calculationArrayList.get(i).equals("^")) {
+                if (!((isNumber(calculationArrayList.get(i - 1)) || calculationArrayList.get(i - 1).equals(")") || calculationArrayList.get(i - 1).equals("|") || calculationArrayList.get(i - 1).equals("%") || calculationArrayList.get(i - 1).equals("!")) && isNumber(calculationArrayList.get(i + 1)) || calculationArrayList.get(i + 1).equals("(") || calculationArrayList.get(i + 1).equals("|"))) {        
+                    return false;
+                }
+            }
+            if (calculationArrayList.get(i).equals("%") || calculationArrayList.get(i).equals("!")) {
+                if (!(isNumber(calculationArrayList.get(i - 1)) || calculationArrayList.get(i - 1).equals(")") || calculationArrayList.get(i - 1).equals("|")) || isNumber(calculationArrayList.get(i + 1)) || calculationArrayList.get(i + 1).equals("%")) {
+                    return false;
+                }
+            }
+            if (calculationArrayList.get(i).equals("-")) {
+                if (!(calculationArrayList.get(i + 1).equals("(") || calculationArrayList.get(i + 1).equals("|") || isNumber(calculationArrayList.get(i + 1)))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }  
+    /**
+    * Method checks if s is a bracket or absolutevalue symbol
+    * 
+    * @param s part from partcheckers parts[]
+    * 
+    * @see brackets
+    * @see absoluteValue
+    */
     public void partsContainsBracketsOrAbsoluteVal(String s) {
         if (s.equals(")")) {
             brackets = true;
@@ -80,17 +171,31 @@ public class Calculator {
             absoluteValue = true;
         }   
     }
+    /**
+    * Method checks if s exists in the database (database only answers if the password has been given)
+    * 
+    * @param s part from partcheckers parts[]
+    * 
+    * @see database
+    */
     public String partsDataBaseChecker(String s) {
         s = database.getValue(s);
-        if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
+        if (!database.isPasswordGiven() || s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
             s = "0";
+            nameDoesntExistInDatabase = true;
         }
         calculationArrayList.add(s);
         return s;
     }
    
-    
-    public ArrayList<String> absoluteValueSolver(ArrayList<String> calcArrayList, boolean absValue) {
+    /**
+    * Method makes changes negative value to positive
+    * 
+    * @param calcArrayList ArrayList with calculation parts
+    * 
+    * @return ArrayList with solved value
+    */
+    public ArrayList<String> absoluteValueSolver(ArrayList<String> calcArrayList) {
         while (true) {
             int[] index = absoluteValueIndexSolver(calcArrayList);
             int absoluteValueStartIndex = index[0];
@@ -101,7 +206,7 @@ public class Calculator {
             List<String> calculationArrayListParts = calcArrayList.subList(absoluteValueStartIndex + 1, absoluteValueEndIndex);
             calculate(calculationArrayListParts);
             if (Double.valueOf(calcArrayList.get(absoluteValueStartIndex + 1)) < 0) {
-                calcArrayList.add(absoluteValueStartIndex + 1, "" + product(-1, Double.valueOf(calcArrayList.get(absoluteValueStartIndex + 1))));
+                calcArrayList.add(absoluteValueStartIndex + 1, "" + cm.product(-1, Double.valueOf(calcArrayList.get(absoluteValueStartIndex + 1))));
                 calcArrayList.remove(absoluteValueStartIndex + 2);
             }
             calcArrayList.remove(absoluteValueStartIndex + 2);
@@ -109,7 +214,13 @@ public class Calculator {
         }
         return calcArrayList; 
     }
-    
+    /**
+    * Method tells absoluteValueSolver where absolutevalue begins and ends
+    * 
+    * @param calcArrayList ArrayList with calculation parts
+    * 
+    * @return int with indexes where abs starts and where abs ends
+    */
     public int[] absoluteValueIndexSolver(ArrayList<String> calcArrayList) {
         int absoluteValueStartIndex = -1;
         int absoluteValueEndIndex = -1;
@@ -128,14 +239,19 @@ public class Calculator {
         int[] startEnd = new int[]{absoluteValueStartIndex, absoluteValueEndIndex};
         return startEnd;
     }
-    
-    public ArrayList<String> bracketSolver(ArrayList<String> calcArrayList, boolean brackets) {
+     /**
+    * Method calculates bracketet calculation
+    * 
+    * @param calcArrayList ArrayList with calculation parts
+    * 
+    * @return ArrayList with solved value
+    */
+    public ArrayList<String> bracketSolver(ArrayList<String> calcArrayList) {
         while (true) {
             int[] index = bracketIndexSolver(calcArrayList);
             int bracketStartIndex = index[0];
             int bracketEndIndex = index[1]; 
             if (bracketStartIndex == -1 || bracketEndIndex == -1) {
-                brackets = false;
                 break;
             }
 
@@ -146,6 +262,14 @@ public class Calculator {
         }
         return calcArrayList;       
     }
+    
+    /**
+    * Method tells bracketSolver where brackets begins and ends
+    * 
+    * @param calcArrayList ArrayList with calculation parts
+    * 
+    * @return int with indexes where abs starts and where abs ends
+    */
     public int[] bracketIndexSolver(ArrayList<String> calcArrayList) {
         int bracketStartIndex = -1;
         int bracketEndIndex = -1;
@@ -165,6 +289,14 @@ public class Calculator {
         return startEnd;        
     }
     
+    /**
+    * Method changes the first value to negative if it starts with - for example "-1+12"
+    * Method solves calculations in proper calculation order using calculation methods
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    * 
+    * @return String with calculation results for example "11"
+    */
     public String calculate(List<String> calculatableArrayList) {
         inf = false;
         //checks if the virst value is negative
@@ -178,13 +310,17 @@ public class Calculator {
         powerSolver(calculatableArrayList);
         prodAndEquSolver(calculatableArrayList);
         sumAndDiffSolver(calculatableArrayList);
-        if (inf == true) {
+        if (calculatableArrayList.get(0).equals("Infinity") || inf == true) {
             calculatableArrayList.set(0, "ääretön");
-            return "ääretön";
         }
         return calculatableArrayList.get(0);
     }
     
+    /**
+    * Method solves percentage calculations
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    */
     public void percentSolver(List<String> calculatableArrayList) {
         for (int i = 0; i < calculatableArrayList.size(); i++) {
             if (calculatableArrayList.get(i).equals("%")) {
@@ -200,12 +336,17 @@ public class Calculator {
         }
     }
     
+    /**
+    * Method solves factorial calculations
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    */
     public void factorialSolver(List<String> calculatableArrayList) {
         for (int i = 0; i < calculatableArrayList.size(); i++) {
             if (calculatableArrayList.get(i).equals("!")) {
                 if (isNumber(calculatableArrayList.get(i - 1))) {
                     double firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
-                    calculatableArrayList.add(i + 1, factorial(firstValue) + "");
+                    calculatableArrayList.add(i + 1, cm.factorial(firstValue) + "");
                     calculatableArrayList.remove(i);
                     calculatableArrayList.remove(i - 1);
                     i--;
@@ -214,7 +355,11 @@ public class Calculator {
             }
         }
     }
-    
+    /**
+    * Method solves power calculations
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    */
     public void powerSolver(List<String> calculatableArrayList) {
         for (int i = 0; i < calculatableArrayList.size(); i++) {
             if (calculatableArrayList.get(i).equals("^")) {
@@ -222,7 +367,7 @@ public class Calculator {
                     double  firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
                     double  secondValue = Double.valueOf(calculatableArrayList.get(i + 1));
                     calculatableArrayList.remove(i + 1);
-                    calculatableArrayList.add(i + 1, power(firstValue, secondValue) + "");
+                    calculatableArrayList.add(i + 1, cm.power(firstValue, secondValue) + "");
                     calculatableArrayList.remove(i);
                     calculatableArrayList.remove(i - 1);
                     i--;
@@ -231,7 +376,11 @@ public class Calculator {
             }
         }
     }
-    
+    /**
+    * Method uses product and equation solvers to calculate product and equation
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    */
     public void prodAndEquSolver(List<String> calculatableArrayList) {
         for (int i = 0; i < calculatableArrayList.size(); i++) {
             if (calculatableArrayList.get(i).equals("*")) {
@@ -246,7 +395,7 @@ public class Calculator {
             double firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
             double secondValue = Double.valueOf(calculatableArrayList.get(i + 1));
             calculatableArrayList.remove(i + 1);
-            calculatableArrayList.add(i + 1, product(firstValue, secondValue) + "");
+            calculatableArrayList.add(i + 1, cm.product(firstValue, secondValue) + "");
             calculatableArrayList.remove(i);
             calculatableArrayList.remove(i - 1);
             i -= 2;
@@ -258,13 +407,21 @@ public class Calculator {
             double  firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
             double secondValue = Double.valueOf(calculatableArrayList.get(i + 1));
             calculatableArrayList.remove(i + 1);
-            calculatableArrayList.add(i + 1, quotient(firstValue, secondValue) + "");
+            calculatableArrayList.add(i + 1, cm.quotient(firstValue, secondValue) + "");
             calculatableArrayList.remove(i);
             calculatableArrayList.remove(i - 1);
             i -= 2;
         }
+        if (cm.quotientInf()) {
+            inf = true;
+        }
         return i;
     }
+    /**
+    * Method uses sum and differential solvers to calculate product and equation
+    * 
+    * @param calculatableArrayList ArrayList with calculation parts
+    */
     public void sumAndDiffSolver(List<String> calculatableArrayList) {
         for (int i = 0; i < calculatableArrayList.size(); i++) {
             if (calculatableArrayList.get(i).equals("+")) {
@@ -279,7 +436,7 @@ public class Calculator {
             double firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
             double secondValue = Double.valueOf(calculatableArrayList.get(i + 1));
             calculatableArrayList.remove(i + 1);
-            calculatableArrayList.add(i + 1, sum(firstValue, secondValue) + "");
+            calculatableArrayList.add(i + 1, cm.sum(firstValue, secondValue) + "");
             calculatableArrayList.remove(i);
             calculatableArrayList.remove(i - 1);
             i -= 2;
@@ -291,14 +448,20 @@ public class Calculator {
             double firstValue = Double.valueOf(calculatableArrayList.get(i - 1));
             double secondValue = Double.valueOf(calculatableArrayList.get(i + 1));
             calculatableArrayList.remove(i + 1);
-            calculatableArrayList.add(i + 1, sum(firstValue, -secondValue) + "");
+            calculatableArrayList.add(i + 1, cm.sum(firstValue, -secondValue) + "");
             calculatableArrayList.remove(i);
             calculatableArrayList.remove(i - 1);
             i -= 2;
         }
         return i;
     }
-    
+    /**
+    * Method checks if given value is a number
+    * 
+    * @param number string with given value for example "5"
+    * 
+    * @return boolean true if is number else false
+    */
     public boolean isNumber(String number) {
         try {
             double num = Double.parseDouble(number);
@@ -307,97 +470,7 @@ public class Calculator {
         }
         return true;
     }
-    public double sum(double x, double y) {
-        return x + y;
-    }
-
-    public double differential(double x, double y) {
-        return x + y;
-    }
-
-    public double product(double x, double y) {
-        return x * y;
-    }
-
-    public double quotient(double x, double y) {
-        
-        if (Double.isInfinite(x / y)) {
-            inf = true;
-        }
-         
-        return x / y;
-        
-    }
-
-    public double power(double x, double y) {
-        double a = Math.pow(x, y);
-        return  a;
-    }
-    
-    public int binomial(String xS, String yS) throws Exception {
-        int y = binomialValCorrector(yS);
-        int x = binomialValCorrector(xS);
-        if (y < 0) {
-            return 0;
-        }
-        if (x < 0) {
-            x = -x + 1; 
-        }
-        int[][] binom = new int[x + 1][y + 1];
-        binom[0][0] = 1;
-        for (int i = 1; i <= x; i++) {
-            binom[i][0] = 1;
-            for (int j = 1; j <= y; j++) {
-                binom[i][j] = binom[i - 1][j - 1] + binom[i - 1][j];
-            }
-             
-        }
-        return binom[x][y];
-    }
-    public int binomialValCorrector(String s) throws Exception {
-        if (s.matches("[a-zA-Z]+")) {
-            s = database.getValue(s);
-            if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
-                s = "0";
-            }
-            String[] split = s.split("\\.");
-            if (split[1].equals("0")) {
-                return Integer.valueOf(split[0]);
-            } else {
-                throw new Exception();
-            }    
-        }
-        try { 
-            Integer.parseInt(s); 
-            return Integer.valueOf(s);
-        } catch (Exception e) { 
-            throw new Exception();
-        }   
-    }
-
-    public double factorial(double x) {
-//        try {
-//            if (!(x == Math.floor(x)) && !Double.isInfinite(x)) {
-//                throw new Exceptions("kertoman arvo ei ole kokonaisluku");
-//            }
-//        } catch (Exception e) {}
-        int factorial = (int) x;
-        if (x == 0) {
-            return 1;
-        }
-        if (x < 0) {
-            x = product(x, -1);
-            for (int i = (int) x - 1; i > 0; i--) {
-                factorial *= i;
-            }
-            return factorial;
-        } else {
-            for (int i = (int) x - 1; i > 0; i--) {
-                factorial *= i;
-            }
-            return factorial;
-        }
-    }
+   
 
     public class Exceptions extends Exception {
 

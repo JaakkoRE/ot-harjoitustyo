@@ -28,6 +28,7 @@ public class DatabaseTest {
         if (!database.isDatabase()) {
             database.creation();
         }
+        database.passwordStatusSetter(true);
         database.deleteValue("saasasasasrrrsasarppppggggffssssffff");
         database.deleteValue("arrtttyyyuuuiiioooopppssdddffffgg");
         database.addValueToDatabase("saasasasasrrrsasarppppggggffssssffff", 5.0);
@@ -37,8 +38,8 @@ public class DatabaseTest {
     public void addingValue() {
          assertEquals(database.addMemorizedNumber("arrtttyyyuuuiiioooopppssdddffffgg", 5.),"5.0 lisätty nimellä arrtttyyyuuuiiioooopppssdddffffgg");
          assertEquals(database.addMemorizedNumber("arrtttyyyuuuiiioooopppssdddffffgg", 5.),"Nimi on jo käytössä");
-         assertEquals(database.addMemorizedNumber("e", 5.),"Nimessä ei saa olla e.tä tai x.ää"); 
-         assertEquals(database.addMemorizedNumber("xar", 5.),"Nimessä ei saa olla e.tä tai x.ää");
+         assertEquals(database.addMemorizedNumber("e", 5.),"Nimessä ei saa olla e.tä, x.ää tai ääkkösiä"); 
+         assertEquals(database.addMemorizedNumber("xar", 5.),"Nimessä ei saa olla e.tä, x.ää tai ääkkösiä");
          assertEquals(database.addMemorizedNumber("saari2", 5.),"Anna nimi jossa on vain kirjaimia");
     }
     @Test

@@ -10,6 +10,7 @@ package calculatorProgram.gui;
  * @author Jaakko
  */
 
+import calculatorprogram.calculators.CalculationMethods;
 import calculatorprogram.database.Database;
 import calculatorprogram.calculators.Calculator;
 import calculatorprogram.calculators.GraphicCalculator;
@@ -32,12 +33,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class UserInterface extends Application {
-    public int binTextField;
-    public int graphInd;
-    public int dataInd;
-    public int dataIndCalc;
-    public int graphQuickInd;
-    public Database database;
+    private int binTextField;
+    private int permOrBin;
+    private int graphInd;
+    private int dataInd;
+    private int dataIndCalc;
+    private int graphQuickInd;
+    private CalculationMethods cm;
+    private Database database;
     public void interFaceStart() {
         launch(UserInterface.class);
     }
@@ -52,7 +55,7 @@ public class UserInterface extends Application {
         VBox menuButtons = new VBox();
         menuButtons.setSpacing(20);
 
-        Button databaseButton = new Button("Tietokannan hallinta");
+        Button databaseButton = new Button("Muistin hallinta");
         Button calcButton = new Button("Laskin");
         Button graphCalcButton = new Button("Graafinen laskin");
         Button exitProgram = new Button("Lopeta");
@@ -63,21 +66,39 @@ public class UserInterface extends Application {
         //Back to menu
         Button backToStartScreen = new Button("Takaisin");
 
-        menuButtons.getChildren().addAll(databaseButton,calcButton,graphCalcButton,exitProgram);
+        menuButtons.getChildren().addAll(calcButton,graphCalcButton,databaseButton,exitProgram);
 
         startingLayout.setTop(new Label("Tervetuloa"));
         startingLayout.setCenter(menuButtons);
         Layout.setCenter(startingLayout);
         //Database layout
+        
         database = new Database();
+        if(!database.isDatabase())
+            database.creation();
+        BorderPane databaseLayoutScreens = new BorderPane();
         BorderPane databaseLayout = new BorderPane();
         Label errorMessegeDatabase = new Label("");
+        
+        VBox guideSetUpAndError = new VBox();
+        guideSetUpAndError.setSpacing(5);
+        HBox openedGuideLayout = new HBox();
+        Button getGuideMessege = new Button("?");
+        BorderPane guideMessegeManager = new BorderPane();
+        Label guideMessege = new Label("Täällä voit poistaa ja lisätä arvoja muistiin, joita voit käyttää laskimissa." 
+                + " Voit käyttää arvoa laskimissa \nkirjottamalla arvon nimen lasku kenttään tai painamalla \"Näytä muistissa olevat arvot\" nappia. ");
+        Button closeGuideMessege = new Button("Ok");
+        openedGuideLayout.getChildren().addAll(guideMessege,closeGuideMessege);
+        
+        guideMessegeManager.setLeft(getGuideMessege);
+        guideSetUpAndError.getChildren().addAll(guideMessegeManager,errorMessegeDatabase);
+        
         VBox databaseManagment = new VBox();
         databaseManagment.setSpacing(10);
         Button createDatabase = new Button("Luo tietokanta");
         HBox valueAddingFields = new HBox();
         valueAddingFields.setSpacing(4);
-        Button addValueToDatabase = new Button("Lisää arvo");
+        Button addValueToDatabase = new Button("Lisää arvo muistiin");
         Label labelForName = new Label("Anna nimi");
         TextField textFieldForName = new TextField("");
         Label labelForValue = new Label("Anna arvo");
@@ -85,9 +106,9 @@ public class UserInterface extends Application {
         valueAddingFields.getChildren().addAll(labelForName,textFieldForName,labelForValue,textFieldForValue,addValueToDatabase);
         HBox getValuesOrDelete = new HBox();
         getValuesOrDelete.setSpacing(10);
-        Button getValues = new Button("Näytä arvot");
+        Button getValues = new Button("Näytä muistin arvot");
         BorderPane valueDeletion = new BorderPane();
-        Button DeleteAll = new Button("Poista kaikki arvot");
+        Button DeleteAll = new Button("Poista kaikki arvot muistista");
         HBox confirmDeletionDatabase = new HBox();
         confirmDeletionDatabase.setSpacing(5);
         Label areYousure = new Label("Oletko varma?");
@@ -130,25 +151,94 @@ public class UserInterface extends Application {
         Button databasedeleteValue5 = new Button("Poista");
         databasedeleteValue5.setVisible(false);
         databaseValueManagment5.getChildren().addAll(databaseValue5,databasedeleteValue5);
-
         
-        databaseManagment.getChildren().addAll(createDatabase,valueAddingFields,getValuesOrDelete,earlierValues,databaseValueManagment1,
+        databaseManagment.getChildren().addAll(valueAddingFields,getValuesOrDelete,earlierValues,databaseValueManagment1,
                 databaseValueManagment2,databaseValueManagment3,databaseValueManagment4,databaseValueManagment5,laterValues);
-        databaseLayout.setTop(errorMessegeDatabase);
+        databaseLayout.setTop(guideSetUpAndError);
         databaseLayout.setCenter(databaseManagment);
+        databaseLayoutScreens.setCenter(databaseLayout);
         
-        
-        
-        
+        getGuideMessege.setOnAction((event) -> {
+            guideMessegeManager.setLeft(openedGuideLayout);
+        });
+        closeGuideMessege.setOnAction((event) -> {
+            guideMessegeManager.setLeft(getGuideMessege);
+        });
+        //password ui
+        BorderPane passwordManagment = new BorderPane();
+        Button deletePassWord = new Button("Poista muistinhallinnan salasana");
+        HBox passwordView1 = new HBox();
+        Button addPassword = new Button("Lisää salasana muistinhallintaan");
+        passwordView1.getChildren().addAll(addPassword);
+        HBox passwordView2 = new HBox();
+        passwordView2.setSpacing(5);
+        Label passwordFieldExpl = new Label("Salasana:");
+        TextField passwordField = new TextField("");
+        Button confirmPassword = new Button("Lisää salasana");
+        Button cancelPassword = new Button("Peru");
+        passwordView2.getChildren().addAll(passwordFieldExpl,passwordField,confirmPassword,cancelPassword);
+        passwordManagment.setCenter(passwordView1);
+        if(database.getPassword().equals("Salasanaa ei ole olemassa") || database.getPassword().equals("Tietokantaa ei ole vielä luotu")) {
+            databaseLayout.setBottom(passwordManagment);
+            database.passwordStatusSetter(true);
+        } else {
+            //if password is set but not given by user
+            database.passwordStatusSetter(false);
+            BorderPane givePassword = new BorderPane(); 
+            HBox logInFields = new HBox();
+            Label givePasswordExpl = new Label("Anna salasana: ");
+            TextField passwordTextField = new TextField("");
+            Button logInPassword = new Button("Kirjaudu sisään");
+            Label logInError = new Label("");
+            logInFields.getChildren().addAll(givePasswordExpl,passwordTextField,logInPassword,logInError);
+            givePassword.setCenter(logInFields);
+            databaseLayoutScreens.setCenter(givePassword);
+            logInPassword.setOnAction((event) -> {
+                if(database.getPassword().equals(passwordTextField.getText())) {
+                    databaseLayoutScreens.setCenter(databaseLayout);
+                    database.passwordStatusSetter(true);
+                    databaseLayout.setBottom(deletePassWord);
+                } else {
+                   logInError.setText("  Virheellinen salasana");
+                }
+            });
+        }
+       
+        addPassword.setOnAction((event) -> {
+          passwordManagment.setCenter(passwordView2);
+        });
+        cancelPassword.setOnAction((event) -> {
+          passwordManagment.setCenter(passwordView1);
+        });
+        confirmPassword.setOnAction((event) -> {
+            errorMessegeDatabase.setText(database.addPassword(passwordField.getText()));
+            if(errorMessegeDatabase.getText().equals("Salasana lisätty")) {
+                 databaseLayout.setBottom(deletePassWord);
+            }
+        }); 
+       deletePassWord.setOnAction((event) -> {
+           database.deletePassword();
+           errorMessegeDatabase.setText("Salasana poistettu");
+           databaseLayout.setBottom(passwordManagment);
+           passwordField.setText("");
+           
+       });
         createDatabase.setOnAction((event) -> {
             errorMessegeDatabase.setText(database.creation());
         });
         addValueToDatabase.setOnAction((event) -> {
             try{
                 errorMessegeDatabase.setText(database.addMemorizedNumber(textFieldForName.getText(), Double.valueOf(textFieldForValue.getText())));
+               
             } catch (Exception e) {
                 errorMessegeDatabase.setText("Virheellinen arvo");
-            }    
+            }
+            if(errorMessegeDatabase.getText().contains("lisätty nimellä")) {
+               textFieldForName.setText("");
+               textFieldForValue.setText("");
+            }
+    
+            
         });
         dataInd=0;
         DeleteAll.setOnAction((event) -> {
@@ -185,8 +275,14 @@ public class UserInterface extends Application {
             ArrayList<String> Names = database.getNames();
             HashMap<String,Double> Values = database.getValuesWithNames();
             if(Values.isEmpty()) {
-                if(database.isDatabase())
+                if(database.isDatabase()) {
+                    if(database.isPasswordGiven()==false) {
+                        errorMessegeDatabase.setText("Salasanaa ei ole annettu");
+                    }
+                    else {
                     errorMessegeDatabase.setText("Arvoja ei ole vielä lisätty");
+                    }
+                }
                 else 
                     errorMessegeDatabase.setText("Tietokantaa ei ole vielä luotu");
             }
@@ -239,7 +335,12 @@ public class UserInterface extends Application {
             databaseValue4.setText("");
             databaseValue5.setText("");
             if(Values.isEmpty()) {
-                errorMessegeDatabase.setText("Arvoja ei ole vielä lisätty");
+            if(database.isPasswordGiven()==false) {
+                errorMessegeDatabase.setText("Salasanaa ei ole annettu");
+            }
+               else {
+                    errorMessegeDatabase.setText("Arvoja ei ole vielä lisätty");
+                    }
             }
             else{
                 errorMessegeDatabase.setText(""); 
@@ -304,8 +405,12 @@ public class UserInterface extends Application {
             ArrayList<String> Names = database.getNames();
             HashMap<String,Double> Values = database.getValuesWithNames();
             if(Values.isEmpty()) {
-                if(database.isDatabase())
+                if(database.isDatabase()) {
+                    if(database.isPasswordGiven()==false) {
+                        errorMessegeDatabase.setText("Salasanaa ei ole annettu");
+                    }
                     errorMessegeDatabase.setText("Arvoja ei ole vielä lisätty");
+                }
                 else
                     errorMessegeDatabase.setText("Tietokantaa ei ole vielä luotu");
             }
@@ -385,6 +490,7 @@ public class UserInterface extends Application {
             databasedeleteValue5.setVisible(false);
         });
         //calc layout
+        cm = new CalculationMethods();
         binTextField=0;
         //previous results and database ui calc
         HBox previousResults = new HBox();
@@ -394,31 +500,31 @@ public class UserInterface extends Application {
         HBox previousResAndButton1 = new HBox();
         previousResAndButton1.setSpacing(5);
         Label previousResult1 = new Label();
-        Button addToDataBaseRes1 = new Button("Lisää tietokantaan");
+        Button addToDataBaseRes1 = new Button("Lisää muistiin");
         addToDataBaseRes1.setVisible(false);
         previousResAndButton1.getChildren().addAll(previousResult1,addToDataBaseRes1);
         HBox previousResAndButton2 = new HBox();
         previousResAndButton2.setSpacing(5);
         Label previousResult2 = new Label();
-        Button addToDataBaseRes2 = new Button("Lisää tietokantaan");
+        Button addToDataBaseRes2 = new Button("Lisää muistiin");
         addToDataBaseRes2.setVisible(false);
         previousResAndButton2.getChildren().addAll(previousResult2,addToDataBaseRes2);
         HBox previousResAndButton3 = new HBox();
         previousResAndButton3.setSpacing(5);
         Label previousResult3 = new Label();
-        Button addToDataBaseRes3 = new Button("Lisää tietokantaan");
+        Button addToDataBaseRes3 = new Button("Lisää muistiin");
         addToDataBaseRes3.setVisible(false);
         previousResAndButton3.getChildren().addAll(previousResult3,addToDataBaseRes3);
         HBox previousResAndButton4 = new HBox();
         previousResAndButton4.setSpacing(5);
         Label previousResult4 = new Label();
-        Button addToDataBaseRes4 = new Button("Lisää tietokantaan");
+        Button addToDataBaseRes4 = new Button("Lisää muistiin");
         addToDataBaseRes4.setVisible(false);
         previousResAndButton4.getChildren().addAll(previousResult4,addToDataBaseRes4);
         HBox previousResAndButton5 = new HBox();
         previousResAndButton5.setSpacing(5);
         Label previousResult5 = new Label();
-        Button addToDataBaseRes5 = new Button("Lisää tietokantaan");
+        Button addToDataBaseRes5 = new Button("Lisää muistiin");
         addToDataBaseRes5.setVisible(false);
         previousResAndButton5.getChildren().addAll(previousResult5,addToDataBaseRes5);
         previousResultsVBox.getChildren().addAll(previousResAndButton5, previousResAndButton4, previousResAndButton3, previousResAndButton2,
@@ -579,15 +685,15 @@ public class UserInterface extends Application {
             if(!previousResult1.getText().isBlank())
                 addToDataBaseRes1.setVisible(true);
             
-            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().isBlank() || previousResult5.getText().equals("ääretön"))
+            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().isBlank() || previousResult5.getText().equals("ääretön") || previousResult5.getText().equals("Arvoa ei löytynyt muistista"))
                addToDataBaseRes5.setVisible(false); 
-            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().isBlank() || previousResult4.getText().equals("ääretön"))
+            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().isBlank() || previousResult4.getText().equals("ääretön") || previousResult4.getText().equals("Arvoa ei löytynyt muistista"))
                addToDataBaseRes4.setVisible(false); 
-            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().isBlank() || previousResult3.getText().equals("ääretön"))
+            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().isBlank() || previousResult3.getText().equals("ääretön") || previousResult3.getText().equals("Arvoa ei löytynyt muistista"))
                addToDataBaseRes3.setVisible(false); 
-            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().isBlank() || previousResult2.getText().equals("ääretön"))
+            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().isBlank() || previousResult2.getText().equals("ääretön") || previousResult2.getText().equals("Arvoa ei löytynyt muistista"))
                addToDataBaseRes2.setVisible(false); 
-            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().isBlank() || previousResult1.getText().equals("ääretön"))
+            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().isBlank() || previousResult1.getText().equals("ääretön") || previousResult1.getText().equals("Arvoa ei löytynyt muistista"))
                addToDataBaseRes1.setVisible(false); 
         });
         
@@ -696,15 +802,17 @@ public class UserInterface extends Application {
         //bin calc layout
         
         VBox binomialLayout = new VBox();
-        HBox binomialCalculationField = new HBox();
-        Label ncr = new Label("nCr(");
+        BorderPane binomialCalculationField = new BorderPane();
+        HBox binomialNCRCalculationField = new HBox();
+        Label binDescriptor = new Label("nCr(");
         TextField binomialn = new TextField();
         Label divider = new Label(",");
         TextField binomialk = new TextField();
         Label binParEnd = new Label(")");
         Button binCalculate = new Button("Laske");
         Label binResultField = new Label("");
-        binomialCalculationField.getChildren().addAll(ncr, binomialn, divider, binomialk, binParEnd, binCalculate, binResultField);
+        binomialCalculationField.setCenter(binomialNCRCalculationField);
+        binomialNCRCalculationField.getChildren().addAll(binDescriptor, binomialn, divider, binomialk, binParEnd, binCalculate, binResultField);
         
         HBox binButtonFieldRow1 = new HBox();
         Button binQuickButton1 = new Button("1");
@@ -737,7 +845,10 @@ public class UserInterface extends Application {
                 int calculationResult = 0;
                 boolean error = false;
                 try{
-                    calculationResult = calc.binomial(binomialn.getText(), binomialk.getText());
+                    if(permOrBin==1)
+                        calculationResult = cm.binomial(binomialn.getText(), binomialk.getText());
+                    if(permOrBin==2)
+                        calculationResult = cm.permutational(binomialn.getText(), binomialk.getText());
                 } catch (Exception e) {
                     error = true;
                 }
@@ -921,7 +1032,8 @@ public class UserInterface extends Application {
         Button backFromSelection = new Button("Pois valikosta");
         Button basicCalcOperations = new Button("Perus laskin toimitukset");
         Button binomialCalcOpen = new Button("Binomi laskin");
-        optionsOpened.getChildren().addAll(backFromSelection,basicCalcOperations,binomialCalcOpen);
+        Button permutationalCalcOpen = new Button("Permutaatio laskin");
+        optionsOpened.getChildren().addAll(backFromSelection,basicCalcOperations,binomialCalcOpen,permutationalCalcOpen);
         
         //add
         calcLayout.setCenter(calcFieldAndButton);
@@ -943,8 +1055,19 @@ public class UserInterface extends Application {
         binomialCalcOpen.setOnAction((event) -> {
             binTextField=1;
             calcLayout.setCenter(binomialLayout);
+            binDescriptor.setText("nCr(");
+            permOrBin=1;
+            binomialk.setStyle(null);
+            binomialn.setStyle(null);
         });
-        
+        permutationalCalcOpen.setOnAction((event) -> {
+            binTextField=1;
+            calcLayout.setCenter(binomialLayout);
+            binDescriptor.setText("nPr(");
+            permOrBin=2;
+            binomialk.setStyle(null);
+            binomialn.setStyle(null);
+        });
         
        
         //graphCalc layout
@@ -1640,7 +1763,7 @@ public class UserInterface extends Application {
             if (result==200000){
                     graphInd++;
                 }
-            if (result<=yUpperBound&&result>=yLowerBound){
+         //   if (result<=yUpperBound&&result>=yLowerBound){
                 if (graphInd == 1)
             resultsSeries1.getData().add(new XYChart.Data(i,results.get(index)));
                 if (graphInd == 2)
@@ -1663,7 +1786,7 @@ public class UserInterface extends Application {
             resultsSeries10.getData().add(new XYChart.Data(i,results.get(index)));
                 if (graphInd > 10) 
                     graphErrorField.setText("Täynnä");
-            }
+        //    }
            
             index++;
         }
@@ -1685,7 +1808,7 @@ public class UserInterface extends Application {
         
 
         Label errorMessegeDatabaseCalc = new Label("");
-        Button getValuesCalc = new Button("Näytä tietokannan arvot");
+        Button getValuesCalc = new Button("Näytä muistissa olevat arvot");
         Button earlierValuesCalc = new Button("Aiemmat");
         earlierValuesCalc.setVisible(false);
         Button laterValuesCalc = new Button("Myöhemmät");
@@ -1737,8 +1860,13 @@ public class UserInterface extends Application {
             HashMap<String,Double> Values = database.getValuesWithNames();
             
             if(Values.isEmpty()) {
-                if(database.isDatabase())
+                if(database.isDatabase()) {
+                    if(database.isPasswordGiven()==false) {
+                        errorMessegeDatabaseCalc.setText("Salasanaa ei ole annettu");
+                    } else {
                     errorMessegeDatabaseCalc.setText("Arvoja ei ole vielä lisätty");
+                    }
+                }
                 else
                     errorMessegeDatabaseCalc.setText("Tietokantaa ei ole vielä luotu");
             }
@@ -1791,8 +1919,13 @@ public class UserInterface extends Application {
                 calcValue4.setText("");
                 calcValue5.setText("");
             if(Values.isEmpty()) {
-                if(database.isDatabase())
+                if(database.isDatabase()) {
+                    if(database.isPasswordGiven()==false) {
+                        errorMessegeDatabaseCalc.setText("Salasanaa ei ole annettu");
+                    }else {
                     errorMessegeDatabaseCalc.setText("Arvoja ei ole vielä lisätty");
+                    }
+                }
                 else 
                     errorMessegeDatabaseCalc.setText("Tietokantaa ei ole vielä luotu");
             }
@@ -1963,8 +2096,15 @@ public class UserInterface extends Application {
             ArrayList<String> Names = database.getNames();
             HashMap<String,Double> Values = database.getValuesWithNames();
             if(Values.isEmpty()) {
-                if(database.isDatabase())
+                if(database.isDatabase()) {
+                    if(database.isPasswordGiven()==false) {
+                        
+                        errorMessegeDatabaseCalc.setText("Salasanaa ei ole annettu");
+                    }
+                    else {
                     errorMessegeDatabaseCalc.setText("Arvoja ei ole vielä lisätty");
+                    }
+                }
                 else 
                     errorMessegeDatabaseCalc.setText("Tietokantaa ei ole vielä luotu");
             }
@@ -2171,18 +2311,19 @@ public class UserInterface extends Application {
             graphQuickInd=1;
         });
         Layout.setCenter(startingLayout);
+        
         databaseButton.setOnAction((event) -> {
-            Layout.setCenter(databaseLayout);
+            Layout.setCenter(databaseLayoutScreens);
             Layout.setTop(backToStartScreen);
-            window.setWidth(550);
-            window.setHeight(450);
+            window.setWidth(695);
+            window.setHeight(475);
             
         });
         
         calcButton.setOnAction((event) -> {
             Layout.setCenter(calcLayout);
             Layout.setTop(backToStartScreen);
-            window.setWidth(725);
+            window.setWidth(810);
             window.setHeight(425);
             calcLayout.setRight(calculatorDatabase);
             binTextField=0;
@@ -2194,8 +2335,8 @@ public class UserInterface extends Application {
         graphCalcButton.setOnAction((event) -> {
             Layout.setCenter(graphCalcLayout);
             Layout.setTop(backToStartScreen);
-            window.setWidth(850);
-            window.setHeight(750);
+            window.setWidth(985);
+            window.setHeight(835);
             graphCalcLayout.setRight(calculatorDatabase);
             binTextField=3;
 

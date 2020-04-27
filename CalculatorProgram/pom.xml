@@ -39,6 +39,7 @@
                 <configuration>
                     <excludes>
                         <exclude>calculatorprogram/gui/*</exclude>
+                        <exclude>calculatorprogram/Main.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>

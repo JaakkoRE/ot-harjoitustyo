@@ -9,6 +9,7 @@ Sovelluksen tarkoitus on hoitaa perus graafisia ja ei graafisia laskutoimituksia
 [Arkkitehtuurikuvaus](https://github.com/JaakkoRE/ot-harjoitustyo/blob/master/Laskin%20Sovellus/Dokumentaatio/arkkitehtuuri.md)
 ## Releaset
 [Viikko5](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/viikko5)
+[Viikko6](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/Viikko6)
 ## Komentorivitoiminnot
 ### Testaus
 

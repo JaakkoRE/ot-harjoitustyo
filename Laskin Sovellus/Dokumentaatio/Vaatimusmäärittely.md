@@ -12,35 +12,35 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
 
 ## Perusversioin toiminnallisuus
 ### Alkunäkymä 
-- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään (Tehty)
+- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään **(Tehty)
  ### Tietokannan hallintanäkymä
-- jos salasana on asetettu, pitää kirjautua (tehty)
-- voi poistaa eri tietoja (Tehty)
-- mahdollisesti nähdä mitä tietoa tallennettu (Tehty)
-- Voi asettaa tietokannan salasanan (tehty)
+- jos salasana on asetettu, pitää kirjautua **(tehty)
+- voi poistaa eri tietoja **(Tehty)
+- mahdollisesti nähdä mitä tietoa tallennettu **(Tehty)
+- Voi asettaa tietokannan salasanan **(tehty)
   - Salasana tulee olla 5-12 merkkiä
   - Suojaa tietokantaa sovelluksen kautta tehdyistä tahattomista muutoksista.
 
 ### Laskin näkymä
-- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä (mahdollisesti voi minimoida) (Tehty)
+- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä (mahdollisesti voi minimoida) **(Tehty)
   - tietojen talletus 
   - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
-- pikavalikko (Tehty)
+- pikavalikko **(Tehty)
   - perus symbolit kuten tulo merkit, neepperin luku, itseisarvo symbolit jne.
-- kirjoitus ja laskupohja (Tehty)
+- kirjoitus ja laskupohja **(Tehty)
   - näkyy edelliset muutamat laskut
   - kirjoitus pohja seuraaville laskutoimituksille
 ### Graafinenlaskin näkymä 
-- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä
-  - paluu alkunäyttöön (Tehty)
-- graafinen pohja josta näkee piirretyt funktiot (Tehty)
-- kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) (Tehty)
+- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä **(Tehty)
+  - paluu alkunäyttöön 
+- graafinen pohja josta näkee piirretyt funktiot **(Tehty)
+- kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) **(Tehty)
 
 ## Mahdollisia lisäyksiä
 - Mahdollisimman laaja graafinen laskin  
   - Erilaisia pohjia ja funktio mahdollisuuksia.
-  - Mahdollisuus tarkastaa pisteitä ja zoomata. (tehty)
+  - Mahdollisuus tarkastaa pisteitä ja zoomata. **(tehty)
 - Mahdollisimman paljon laskin ominaisuuksia
   - Erilaisten jonojen summa mahdollisuuksia, funktioidenratkaisija yms 
 - Laajoja tietokannan selaus mahdollisuuksia

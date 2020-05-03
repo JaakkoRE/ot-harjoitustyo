@@ -33,7 +33,6 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
   - kirjoitus pohja seuraaville laskutoimituksille
 ### Graafinenlaskin näkymä 
 - toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä **(Tehty)**
-  - paluu alkunäyttöön 
 - graafinen pohja josta näkee piirretyt funktiot **(Tehty)**
 - kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) **(Tehty)**
 

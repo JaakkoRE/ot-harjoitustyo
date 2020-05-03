@@ -2,7 +2,7 @@
 # Arkkitehtuurikuvaus
 ## Rakenne
 Pakkausrakenne on seuraava:
-<img src="https://user-images.githubusercontent.com/62024790/79998265-286de000-84c3-11ea-8ddc-70dda3ba12e6.png" width="1000"> <br>
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/PakkausKaavio.png" width="1000"> <br>
 Pakkaus calculatorprogram.gui sisältää graafisen java fx tyylisen käyttöliittymän koodin. 
 
 Pakkaus calculatorprogram.calculators sisältää laskinohjelmien sovelluslogiikan.

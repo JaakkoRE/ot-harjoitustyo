@@ -22,7 +22,7 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
   - Suojaa tietokantaa sovelluksen kautta tehdyistä tahattomista muutoksista.
 
 ### Laskin näkymä
-- toiminnalisuuksia vasemmalla (mahdollisesti voi minimoida) (Tehty)
+- toiminnalisuuksia <s>vasemmallas</s> (mahdollisesti voi minimoida) (Tehty)
   - tietojen talletus 
   - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
@@ -33,7 +33,6 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
   - kirjoitus pohja seuraaville laskutoimituksille
 ### Graafinenlaskin näkymä 
 - toiminnalisuuksia vasemmalla
-  - tietojen talletus, erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön (Tehty)
 - graafinen pohja josta näkee piirretyt funktiot (Tehty)
 - kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) (Tehty)

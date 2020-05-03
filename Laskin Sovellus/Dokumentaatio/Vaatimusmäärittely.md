@@ -14,15 +14,15 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
 ### Alkunäkymä 
 - Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään (Tehty)
  ### Tietokannan hallintanäkymä
-- jos salasana on asetettu, pitää kirjautua
+- jos salasana on asetettu, pitää kirjautua (tehty)
 - voi poistaa eri tietoja (Tehty)
 - mahdollisesti nähdä mitä tietoa tallennettu (Tehty)
-- Voi asettaa tietokannan salasanan
-  - Salasana tulee olla 5-10 merkkiä
+- Voi asettaa tietokannan salasanan (tehty)
+  - Salasana tulee olla 5-12 merkkiä
   - Suojaa tietokantaa sovelluksen kautta tehdyistä tahattomista muutoksista.
 
 ### Laskin näkymä
-- toiminnalisuuksia <s>vasemmallas</s> (mahdollisesti voi minimoida) (Tehty)
+- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä (mahdollisesti voi minimoida) (Tehty)
   - tietojen talletus 
   - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
@@ -32,14 +32,15 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
   - näkyy edelliset muutamat laskut
   - kirjoitus pohja seuraaville laskutoimituksille
 ### Graafinenlaskin näkymä 
-- toiminnalisuuksia vasemmalla
+- toiminnalisuuksia <s>vasemmalla</s> käyttöliittymässä
   - paluu alkunäyttöön (Tehty)
 - graafinen pohja josta näkee piirretyt funktiot (Tehty)
 - kirjoitus pohja omille funktiolle (Tietyillä rajoituksilla) (Tehty)
 
 ## Mahdollisia lisäyksiä
 - Mahdollisimman laaja graafinen laskin  
-  - Erilaisia pohjia ja funktio mahdollisuuksia. Mahdollisuus tarkastaa pisteitä ja zoomata.
+  - Erilaisia pohjia ja funktio mahdollisuuksia.
+  - Mahdollisuus tarkastaa pisteitä ja zoomata. (tehty)
 - Mahdollisimman paljon laskin ominaisuuksia
   - Erilaisten jonojen summa mahdollisuuksia, funktioidenratkaisija yms 
 - Laajoja tietokannan selaus mahdollisuuksia

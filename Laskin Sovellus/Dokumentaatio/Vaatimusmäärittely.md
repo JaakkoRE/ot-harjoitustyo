@@ -26,9 +26,9 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
   - tietojen talletus 
   - erilaiset monimutkaisemmat toiminnot
   - paluu alkunäyttöön
-- pikavalikko **(Tehty)
+- pikavalikko **(Tehty)**
   - perus symbolit kuten tulo merkit, neepperin luku, itseisarvo symbolit jne.
-- kirjoitus ja laskupohja **(Tehty)
+- kirjoitus ja laskupohja **(Tehty)**
   - näkyy edelliset muutamat laskut
   - kirjoitus pohja seuraaville laskutoimituksille
 ### Graafinenlaskin näkymä 

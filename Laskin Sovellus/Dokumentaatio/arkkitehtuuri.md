@@ -14,7 +14,8 @@ Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa
 
 ## Sovelluslogiikka
 Pakettikaavio/logiikka
-<himg src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/SovellusLogiikka.png"> <br>
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/SovellusLogiikka.png"> <br>
+ <br>
 Calculator luokka tarjoaa eri lasku metodit kuten 
 - calcArrayList(String text),  muuttaa String tyyppisen olion laskettavaan metodiin, lähettää laskun eteenpäin ja palauttaa tuloksen
 - calculate(List<String> calculatableArrayList), laskee edellisen metodin luoman tyylisen ArrayListin ja palauttaa tuloksen  

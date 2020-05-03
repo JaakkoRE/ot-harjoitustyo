@@ -1,7 +1,7 @@
 
 # Testausdokumentti
 
-Ohjelmaa on testattu sekä automatisoiduin yksikkö- ja integraatiotestein JUnitilla.
+Ohjelman sovelluslogiikkaa on testattu sekä automatisoiduin yksikkö- ja integraatiotestein JUnitilla ja käyttöliittymän kautta ohjelmaa on testattu manuaalisesti.
 ## Yksikkö- ja integraatiotestaus
 ### Laskimien sovelluslogiikka testaus
 Laskimen ja graafisenlaskimen perustuvat pääosin integraatiotesteihin ja muutamaan yksikkötestiin. Testauksen hoitavat luokat CalculatorTest ja GraphicCalculatorTest. Laskinten sovelluslogiikan lisäksi CalculationMethodTestissä on luokan CalculationMethods perustuvia yksikkötestejä.

@@ -12,12 +12,12 @@ Aloitus näkymästä pääsee siirtymään eri laskin sovelluksiin tai tietokant
 
 ## Perusversioin toiminnallisuus
 ### Alkunäkymä 
-- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään **(Tehty)
+- Voi valita laskimen, graafisen laskimen tai mennä tietokannan hallintanäkymään **(Tehty)**
  ### Tietokannan hallintanäkymä
-- jos salasana on asetettu, pitää kirjautua **(tehty)
-- voi poistaa eri tietoja **(Tehty)
-- mahdollisesti nähdä mitä tietoa tallennettu **(Tehty)
-- Voi asettaa tietokannan salasanan **(tehty)
+- jos salasana on asetettu, pitää kirjautua **(tehty)**
+- voi poistaa eri tietoja **(Tehty)**
+- mahdollisesti nähdä mitä tietoa tallennettu **(Tehty)**
+- Voi asettaa tietokannan salasanan **(tehty)**
   - Salasana tulee olla 5-12 merkkiä
   - Suojaa tietokantaa sovelluksen kautta tehdyistä tahattomista muutoksista.
 

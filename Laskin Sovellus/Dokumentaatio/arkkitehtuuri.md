@@ -67,7 +67,7 @@ Kun vakio on saatu tietokannasta, lasku jatketaan loppuun.
 ### käyttöliittymä
 Käyttöliittymä on pääosin yhdessä metodissa Start jonka olisi voinut pilkkoa moneksi luokaksi/metodiksi. Luokka on erittäin pitkä ja vaikea tulkita. Nimeäminen on paikoin heikkoa. Käyttöliittymän logiikka myös perustuu jokseenkin luokkien syöttämien String arvojen tulkitsemiseen.
 ### Laskin
-Olen pyrkinyt löytämään mahdollisimman paljon erilaisia mahdollisia poikkeuksia ja korjaamaan niitä, mutta on hyvin todennäköistä että en ole onnistunut löytämään kaikkia.
+Olen pyrkinyt löytämään mahdollisimman paljon erilaisia mahdollisia poikkeuksia ja korjaamaan niitä, mutta on hyvin todennäköistä, että en ole onnistunut löytämään kaikkia.
 ### Graafinenlaskin
 Osittain hyvin samantyyppisiä luokkia kuin Calculator luokassa, erona se miten kirjainta x käsitellään. calcArrayListX on melko pitkä luokka. Graafinen laskin on myös melko hidas sillä en ole käyttänyt taylorin arviointi menetelmiä ja lasken jokaisen pisteen erikseen. Graafisella laskimella on myös heikkouksia joillain syötteillä jossa on paljon määrittämättömiä arvoja tietyissä desimaaleissa tai suuria hyppyjä. Laskin osaa jokseenkin tulkita esimerkiksi syöttellä 5/x milloin hajoittaa kuvaaja kahteen, mutta joissain monimutkaisemmissa tilanteissa tulee virheitä.
 

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package calculatorprogram.calculators;
 
 
@@ -15,10 +11,21 @@ import java.util.ArrayList;
  *
  * @author Jaakko
  */
+
+/**
+ * Class is meant for calculating set of y.values based on x cordinates.
+ */
 public class GraphicCalculator {
     private Calculator calc;
     private Database database;
+    private boolean isInputValid;
+    /**
+     * Stores calculation y values
+    */
     private ArrayList<Double> resultList;
+    /**
+     * Stores each piece of the calculation. For example 5+x-3 in ArrayList form is {5,+,x,-,3}
+    */
     private ArrayList<String> calculationArrayList;
     private ArrayList<String> calculationArrayListClone;
     private boolean brackets;
@@ -27,7 +34,7 @@ public class GraphicCalculator {
     
     public GraphicCalculator() {
         calc = new Calculator();
-        database = new Database(); 
+        database = new Database(false); 
     }
     /**
     * Method initialises the calculation and returns calculation values
@@ -37,8 +44,6 @@ public class GraphicCalculator {
     * @param lowerBound lowest x value that is calculated
     * @param precision what is the gap between different x values
     * 
-    * @see brackets
-    * @see absoluteValue
     * 
     * @return ArrayList with coordinate values
     */
@@ -66,8 +71,11 @@ public class GraphicCalculator {
         //setting up arrayLists
         ArrayList<Integer> whereXIndex = new ArrayList<>();
         splitterX(text);
-        Boolean bracketsCopy = brackets;
-        Boolean absoluteValueCopy = absoluteValue;
+        isInputValid = true;
+        isInputValidX();
+        if (!isInputValid) {
+            calculationArrayList.clear();
+        }
         cloneArrayListOtherWay();
         for (int i = 0; i < calculationArrayList.size(); i++) {
             if (calculationArrayList.get(i).equals("x")) {
@@ -78,8 +86,6 @@ public class GraphicCalculator {
         for (double k = lowerBound; k <= upperBound; k += precision) {
             k = Math.round(k * 100000.0) / 100000.0;
                 //clone values to original form
-            brackets = bracketsCopy;
-            absoluteValue = absoluteValueCopy;
             cloneArrayList();
             for (Integer index: whereXIndex) {    
                 calculationArrayList.set(index, k + "");
@@ -153,7 +159,8 @@ public class GraphicCalculator {
             } else if (parts[i].equals("e")) {
                 calculationArrayList.add(2.7182818 + "");
             } else if (parts[i].matches("[a-zA-Z]+") && !parts[i].equals("x")) {
-                parts[i] = partsDataBaseCheckerX(parts[i]);
+                parts[i] = calc.partsDataBaseChecker(parts[i]);
+                calculationArrayList.add(parts[i]);
             } else {
                 calculationArrayList.add(parts[i]);
             }   
@@ -186,10 +193,44 @@ public class GraphicCalculator {
         s = database.getValue(s);
         if (s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
             s = "0";
+            isInputValid = false;
         }
         calculationArrayList.add(s);
         return s;
     }
+    
+    /**
+    * Method checks if the input given by the user is valid
+    * 
+    * 
+    */
+    public void isInputValidX() {
+
+        if (!(calculationArrayList.get(0).equals("x") || calc.isNumber(calculationArrayList.get(0)) || calculationArrayList.get(0).equals("-") || calculationArrayList.get(0).equals("(") || calculationArrayList.get(0).equals("|"))) {
+            isInputValid = false; 
+        }
+        isInputValidMiddleX();
+    }
+    public void isInputValidMiddleX() {
+        for (int i = 1; i < calculationArrayList.size() - 1; i++) {
+            if (calculationArrayList.get(i).equals("+") || calculationArrayList.get(i).equals("*") || calculationArrayList.get(i).equals("/") || calculationArrayList.get(i).equals(":") || calculationArrayList.get(i).equals("^")) {
+                if (!((calculationArrayList.get(i - 1).equals("x") || calc.isNumber(calculationArrayList.get(i - 1)) || calculationArrayList.get(i - 1).equals(")") || calculationArrayList.get(i - 1).equals("|") || calculationArrayList.get(i - 1).equals("%") || calculationArrayList.get(i - 1).equals("!")) && calculationArrayList.get(i + 1).equals("x") || calc.isNumber(calculationArrayList.get(i + 1)) || calculationArrayList.get(i + 1).equals("(") || calculationArrayList.get(i + 1).equals("|"))) {   
+                    isInputValid = false;
+                }
+            }
+            if (calculationArrayList.get(i).equals("%") || calculationArrayList.get(i).equals("!")) {
+                if (!(calculationArrayList.get(i - 1).equals("x") || calc.isNumber(calculationArrayList.get(i - 1)) || calculationArrayList.get(i - 1).equals(")") || calculationArrayList.get(i - 1).equals("|")) || calculationArrayList.get(i + 1).equals("x") || calc.isNumber(calculationArrayList.get(i + 1)) || calculationArrayList.get(i + 1).equals("%")) {
+                    isInputValid = false;
+                }
+            }
+            if (calculationArrayList.get(i).equals("-")) {
+                if (!(calculationArrayList.get(i + 1).equals("(") || calculationArrayList.get(i + 1).equals("|") || calculationArrayList.get(i + 1).equals("x") || calc.isNumber(calculationArrayList.get(i + 1)))) {
+                    isInputValid = false;
+                }
+            }
+        }
+    } 
+    
     /**
     * Method clears calculatable ArrayList and clones the original
     * 
@@ -212,6 +253,6 @@ public class GraphicCalculator {
             calculationArrayListClone.add(s);
         }
     }   
-
+    
     
 }

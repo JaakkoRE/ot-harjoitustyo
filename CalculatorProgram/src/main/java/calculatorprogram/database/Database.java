@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package calculatorprogram.database;
 
 
@@ -20,21 +16,28 @@ import java.util.HashMap;
  * @author Jaakko
  */
 
+/**
+ * Class is meant for storing values given by the user such that the user can use them in calculator classes.
+ */
 public class Database {
     private PreparedStatement ps;
     private ResultSet rs;
     private Connection db;
-    public Database()  {
-        
-        try { 
-            this.db = DriverManager.getConnection("jdbc:sqlite:Database.db");
-        } catch (SQLException e) {
-        } finally {
-            try {
-                rs.close();
-                ps.close();
-            } catch (Exception e) {
-                
+    private boolean test;
+    public Database(boolean test)  {
+        if (test) {
+            try { 
+                this.db = DriverManager.getConnection("jdbc:sqlite:DatabaseTest.db");
+            } catch (SQLException e) {
+            } finally {
+                closeDatabase();   
+            }
+        } else {
+            try { 
+                this.db = DriverManager.getConnection("jdbc:sqlite:Database.db");
+            } catch (SQLException e) {
+            } finally {
+                closeDatabase();   
             }
         }
     }
@@ -64,11 +67,9 @@ public class Database {
             ps = db.prepareStatement("INSERT INTO Password (password) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, "");
             ps.executeUpdate();
-            rs = ps.getGeneratedKeys();
             ps = db.prepareStatement("INSERT INTO Password (password) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, "true");
             ps.executeUpdate();
-            rs = ps.getGeneratedKeys();
             passwordStatusSetter(true);
         } catch (SQLException e) {
         } finally {
@@ -232,7 +233,7 @@ public class Database {
     */
     public String addPassword(String password) {
         if (password.length() < 5 || password.length() > 12) {
-            return "salasanan tulee olla 5-12 kirjainta";
+            return "salasanan tulee olla 5-12 merkkiä";
         }
         emptyPassWordFields();
         try {

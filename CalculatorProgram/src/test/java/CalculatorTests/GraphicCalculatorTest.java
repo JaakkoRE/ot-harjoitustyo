@@ -9,10 +9,7 @@ package CalculatorTests;
 import calculatorprogram.calculators.Calculator;
 import calculatorprogram.calculators.GraphicCalculator;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,7 +31,7 @@ public class GraphicCalculatorTest {
         
     }
     @Test
-    public void operations() throws Calculator.Exceptions{
+    public void complexOperation1() throws Calculator.Exceptions{
         ArrayList<Double> results = graphCalc.results("x(x^2)+5-x", 1, 0, 0.1);
         expectdResults.add(5.0);
         expectdResults.add(4.901);
@@ -50,26 +47,15 @@ public class GraphicCalculatorTest {
         assertEquals(expectdResults, results);
     }
     @Test
-    public void operations2() throws Calculator.Exceptions{
+    public void complexOperation2() throws Calculator.Exceptions{
         ArrayList<Double> results = graphCalc.results("|2x|*(5)^x+100%", 1, -1, 1);
         expectdResults.add(1.4);
         expectdResults.add(1.);
         expectdResults.add(11.);
         assertEquals(expectdResults, results);
     }
-    @Test
-    public void operations3() throws Calculator.Exceptions{
-        ArrayList<Double> results = graphCalc.results("5x", -5, 5, 1);
-        assertEquals(expectdResults, results);
-    }
-    @Test
-    public void operations4() throws Calculator.Exceptions{
-        ArrayList<Double> results = graphCalc.results("5x", 0, 0, 1);
-        expectdResults.add(0.);
-        assertEquals(expectdResults, results);
-    }
-    @Test
-    public void operations5() throws Calculator.Exceptions{
+        @Test
+    public void complexOperation3() throws Calculator.Exceptions{
         ArrayList<Double> results = graphCalc.results("|x|*(5(5x))", 1, -4, 1);
         expectdResults.add(-400.);
         expectdResults.add(-225.);
@@ -80,7 +66,19 @@ public class GraphicCalculatorTest {
         assertEquals(expectdResults, results);
     }
     @Test
-     public void basicCalcOperationsWork() throws Calculator.Exceptions{
+    public void nonValidOperation() throws Calculator.Exceptions{
+        ArrayList<Double> results = graphCalc.results("5x", -5, 5, 1);
+        assertEquals(expectdResults, results);
+    }
+    @Test
+    public void emptyOperation() throws Calculator.Exceptions{
+        ArrayList<Double> results = graphCalc.results("5x", 0, 0, 1);
+        expectdResults.add(0.);
+        assertEquals(expectdResults, results);
+    }
+
+    @Test
+    public void AllOperationsTest() throws Calculator.Exceptions{
         ArrayList<Double> results = graphCalc.results("100%*e+π-2x!+x/(2^|-1|)", 1, 0, 1);
         expectdResults.add(3.859874);
         expectdResults.add(4.359874);

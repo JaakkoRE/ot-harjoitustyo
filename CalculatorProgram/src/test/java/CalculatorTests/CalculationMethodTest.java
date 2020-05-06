@@ -1,3 +1,5 @@
+package CalculatorTests;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,10 +7,7 @@
  */
 import calculatorprogram.calculators.CalculationMethods;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,13 +17,13 @@ import static org.junit.Assert.*;
  */
 public class CalculationMethodTest {
     CalculationMethods cm;
-     @Before
+    @Before
     public void setUp() {
         cm = new CalculationMethods();
 
     }
 
-     @Test
+    @Test
     public void basicOperations() {
         assertEquals(cm.sum(5, 5), 10.0, 0.1);
         assertEquals(cm.sum(5, -5), 0.0, 0.1);
@@ -39,7 +38,7 @@ public class CalculationMethodTest {
         assertEquals(cm.factorial(0), 1, 0.1);
 
     }
- @Test
+    @Test
     public void binomial() throws Exception {
        assertEquals(cm.binomial("-5","2"), 15.0,0.1);
        assertEquals(cm.binomial("5","-2"), 0.0,0.1);

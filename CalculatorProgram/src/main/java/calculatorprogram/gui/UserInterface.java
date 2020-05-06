@@ -1,10 +1,5 @@
-package calculatorProgram.gui;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package calculatorProgram.gui;
 /**
  *
  * @author Jaakko
@@ -58,7 +53,7 @@ public class UserInterface extends Application {
         Button databaseButton = new Button("Muistin hallinta");
         Button calcButton = new Button("Laskin");
         Button graphCalcButton = new Button("Graafinen laskin");
-        Button exitProgram = new Button("Lopeta");
+        Button exitProgram = new Button("Sammuta");
         exitProgram.setOnAction((event) -> {
            Platform.exit();
            System.exit(0); 
@@ -73,7 +68,7 @@ public class UserInterface extends Application {
         Layout.setCenter(startingLayout);
         //Database layout
         
-        database = new Database();
+        database = new Database(false);
         if(!database.isDatabase())
             database.creation();
         BorderPane databaseLayoutScreens = new BorderPane();
@@ -85,7 +80,7 @@ public class UserInterface extends Application {
         HBox openedGuideLayout = new HBox();
         Button getGuideMessege = new Button("?");
         BorderPane guideMessegeManager = new BorderPane();
-        Label guideMessege = new Label("Täällä voit poistaa ja lisätä arvoja muistiin, joita voit käyttää laskimissa." 
+        Label guideMessege = new Label("Täällä voit poistaa ja lisätä arvoja muistiin joita voit käyttää laskimissa." 
                 + " Voit käyttää arvoa laskimissa \nkirjottamalla arvon nimen lasku kenttään tai painamalla \"Näytä muistissa olevat arvot\" nappia. ");
         Button closeGuideMessege = new Button("Ok");
         openedGuideLayout.getChildren().addAll(guideMessege,closeGuideMessege);
@@ -674,7 +669,7 @@ public class UserInterface extends Application {
                 } else
                     previousResult1.setText(calculationResult + "");
             }
-            if(!(previousResult5.getText().isBlank()))
+            if(!previousResult5.getText().isBlank())
                 addToDataBaseRes5.setVisible(true);
             if(!previousResult4.getText().isBlank())
                 addToDataBaseRes4.setVisible(true);
@@ -685,15 +680,15 @@ public class UserInterface extends Application {
             if(!previousResult1.getText().isBlank())
                 addToDataBaseRes1.setVisible(true);
             
-            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().isBlank() || previousResult5.getText().equals("ääretön") || previousResult5.getText().equals("Arvoa ei löytynyt muistista"))
+            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().equals("Salasanaa ei ole annettu") || previousResult5.getText().isBlank() || previousResult5.getText().equals("ääretön") || previousResult5.getText().equals("Arvoa ei löytynyt muistista") || giveNameToValue5.isVisible())
                addToDataBaseRes5.setVisible(false); 
-            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().isBlank() || previousResult4.getText().equals("ääretön") || previousResult4.getText().equals("Arvoa ei löytynyt muistista"))
+            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().equals("Salasanaa ei ole annettu") || previousResult4.getText().isBlank() || previousResult4.getText().equals("ääretön") || previousResult4.getText().equals("Arvoa ei löytynyt muistista") || giveNameToValue4.isVisible())
                addToDataBaseRes4.setVisible(false); 
-            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().isBlank() || previousResult3.getText().equals("ääretön") || previousResult3.getText().equals("Arvoa ei löytynyt muistista"))
+            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().equals("Salasanaa ei ole annettu") || previousResult3.getText().isBlank() || previousResult3.getText().equals("ääretön") || previousResult3.getText().equals("Arvoa ei löytynyt muistista") || giveNameToValue3.isVisible())
                addToDataBaseRes3.setVisible(false); 
-            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().isBlank() || previousResult2.getText().equals("ääretön") || previousResult2.getText().equals("Arvoa ei löytynyt muistista"))
+            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().equals("Salasanaa ei ole annettu") || previousResult2.getText().isBlank() || previousResult2.getText().equals("ääretön") || previousResult2.getText().equals("Arvoa ei löytynyt muistista") || giveNameToValue2.isVisible())
                addToDataBaseRes2.setVisible(false); 
-            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().isBlank() || previousResult1.getText().equals("ääretön") || previousResult1.getText().equals("Arvoa ei löytynyt muistista"))
+            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().equals("Salasanaa ei ole annettu") || previousResult1.getText().isBlank() || previousResult1.getText().equals("ääretön") || previousResult1.getText().equals("Arvoa ei löytynyt muistista") || giveNameToValue1.isVisible())
                addToDataBaseRes1.setVisible(false); 
         });
         
@@ -842,7 +837,7 @@ public class UserInterface extends Application {
         binomialLayout.getChildren().addAll(binButtonFieldRow2,binButtonFieldRow3);
         binCalculate.setOnAction((event) -> {
             Calculator calc = new Calculator();
-                int calculationResult = 0;
+                long calculationResult = 0;
                 boolean error = false;
                 try{
                     if(permOrBin==1)
@@ -889,15 +884,15 @@ public class UserInterface extends Application {
             if(!previousResult1.getText().isBlank())
                 addToDataBaseRes1.setVisible(true);
             
-            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().isBlank())
+            if(previousResult5.getText().equals("Virheellinen syöte") || previousResult5.getText().equals("Salasanaa ei ole annettu") || previousResult5.getText().isBlank() || giveNameToValue1.isVisible())
                addToDataBaseRes5.setVisible(false); 
-            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().isBlank())
+            if(previousResult4.getText().equals("Virheellinen syöte") || previousResult4.getText().equals("Salasanaa ei ole annettu") || previousResult4.getText().isBlank() || giveNameToValue1.isVisible())
                addToDataBaseRes4.setVisible(false); 
-            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().isBlank())
+            if(previousResult3.getText().equals("Virheellinen syöte") || previousResult3.getText().equals("Salasanaa ei ole annettu") || previousResult3.getText().isBlank() || giveNameToValue1.isVisible())
                addToDataBaseRes3.setVisible(false); 
-            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().isBlank())
+            if(previousResult2.getText().equals("Virheellinen syöte") || previousResult2.getText().equals("Salasanaa ei ole annettu") || previousResult2.getText().isBlank() || giveNameToValue1.isVisible())
                addToDataBaseRes2.setVisible(false); 
-            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().isBlank())
+            if(previousResult1.getText().equals("Virheellinen syöte") || previousResult1.getText().equals("Salasanaa ei ole annettu") || previousResult1.getText().isBlank() || giveNameToValue1.isVisible())
                addToDataBaseRes1.setVisible(false); 
          });
         binScreenSwitch1.setOnAction((event) -> {
@@ -1763,7 +1758,7 @@ public class UserInterface extends Application {
             if (result==200000){
                     graphInd++;
                 }
-         //   if (result<=yUpperBound&&result>=yLowerBound){
+            if (result<=yUpperBound&&result>=yLowerBound || (yLowerBoundTextField.getText().isBlank() && yUpperBoundTextField.getText().isBlank())){
                 if (graphInd == 1)
             resultsSeries1.getData().add(new XYChart.Data(i,results.get(index)));
                 if (graphInd == 2)
@@ -1786,7 +1781,7 @@ public class UserInterface extends Application {
             resultsSeries10.getData().add(new XYChart.Data(i,results.get(index)));
                 if (graphInd > 10) 
                     graphErrorField.setText("Täynnä");
-        //    }
+            }
            
             index++;
         }
@@ -1854,15 +1849,17 @@ public class UserInterface extends Application {
             calcGetValue3.setVisible(true);
             calcGetValue4.setVisible(true);
             calcGetValue5.setVisible(true);
+            if(database.isPasswordGiven()) {
             earlierValuesCalc.setVisible(true);
             laterValuesCalc.setVisible(true);
+            }
             ArrayList<String> Names = database.getNames();
             HashMap<String,Double> Values = database.getValuesWithNames();
             
             if(Values.isEmpty()) {
                 if(database.isDatabase()) {
                     if(database.isPasswordGiven()==false) {
-                        errorMessegeDatabaseCalc.setText("Salasanaa ei ole annettu");
+                        errorMessegeDatabaseCalc.setText("Muistin salasanaa ei ole annettu");
                     } else {
                     errorMessegeDatabaseCalc.setText("Arvoja ei ole vielä lisätty");
                     }
@@ -2311,20 +2308,19 @@ public class UserInterface extends Application {
             graphQuickInd=1;
         });
         Layout.setCenter(startingLayout);
-        
         databaseButton.setOnAction((event) -> {
             Layout.setCenter(databaseLayoutScreens);
             Layout.setTop(backToStartScreen);
             window.setWidth(695);
-            window.setHeight(475);
+            window.setHeight(505);
             
         });
         
         calcButton.setOnAction((event) -> {
             Layout.setCenter(calcLayout);
             Layout.setTop(backToStartScreen);
-            window.setWidth(810);
-            window.setHeight(425);
+            window.setWidth(795);
+            window.setHeight(445);
             calcLayout.setRight(calculatorDatabase);
             binTextField=0;
             calcLayout.setCenter(calcFieldAndButton);
@@ -2335,8 +2331,8 @@ public class UserInterface extends Application {
         graphCalcButton.setOnAction((event) -> {
             Layout.setCenter(graphCalcLayout);
             Layout.setTop(backToStartScreen);
-            window.setWidth(985);
-            window.setHeight(835);
+            window.setWidth(995);
+            window.setHeight(850);
             graphCalcLayout.setRight(calculatorDatabase);
             binTextField=3;
 

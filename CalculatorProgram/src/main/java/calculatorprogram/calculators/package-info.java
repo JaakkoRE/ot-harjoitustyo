@@ -1,5 +1,5 @@
  /**
- * All calculator classes
+ * All calculation classes
  */
 
 package calculatorprogram.calculators;

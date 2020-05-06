@@ -1,37 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package calculatorprogram.calculators;
 
 import calculatorprogram.database.Database;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  *
  * @author Jaakko
  */
-public class Calculator {
 
-    private ArrayDeque<String> calculationStack;
+/**
+ * Class is meant for calculating input based on given String
+ */
+public class Calculator {
+    /**
+     * Stores each piece of the calculation. For example 5+2-3 in ArrayList form is {5,+,2,-,3}
+    */
     private ArrayList<String> calculationArrayList;
     private boolean brackets;
     private boolean absoluteValue;
     private boolean inf;
     private Database database;
     private boolean nameDoesntExistInDatabase;
+    private String errorMessegeNameDoesntExistInDatabase;
     private CalculationMethods cm;
     private boolean isInputValid;
 
 
     public Calculator() {
         cm = new CalculationMethods();
-        this.database = new Database();
-        this.calculationStack = new ArrayDeque<>();
+        this.database = new Database(false);
         this.calculationArrayList = new ArrayList<>();
     }
     
@@ -47,7 +46,7 @@ public class Calculator {
     public String calcArrayList(String text) {
         calcArrayListSetup(text);
         if (nameDoesntExistInDatabase) {
-            return "Arvoa ei löytynyt muistista";
+            return errorMessegeNameDoesntExistInDatabase;
         }
         if (!brackets && !absoluteValue) {
             calculate(this.calculationArrayList);
@@ -123,7 +122,7 @@ public class Calculator {
         }
     }
     
-     /**
+    /**
     * Method checks if the input given by the user is valid
     * 
     * 
@@ -160,8 +159,6 @@ public class Calculator {
     * 
     * @param s part from partcheckers parts[]
     * 
-    * @see brackets
-    * @see absoluteValue
     */
     public void partsContainsBracketsOrAbsoluteVal(String s) {
         if (s.equals(")")) {
@@ -183,6 +180,12 @@ public class Calculator {
         if (!database.isPasswordGiven() || s.equals("Nimellä ei ole arvoa") || s.equals("Tietokantaa ei ole vielä luotu")) {
             s = "0";
             nameDoesntExistInDatabase = true;
+            if (!database.isPasswordGiven()) {
+                errorMessegeNameDoesntExistInDatabase = "Salasanaa ei ole annettu";
+            } else {
+                errorMessegeNameDoesntExistInDatabase = "Arvoa ei löytynyt muistista";
+            }
+            return "0";
         }
         calculationArrayList.add(s);
         return s;
@@ -470,7 +473,6 @@ public class Calculator {
         }
         return true;
     }
-   
 
     public class Exceptions extends Exception {
 

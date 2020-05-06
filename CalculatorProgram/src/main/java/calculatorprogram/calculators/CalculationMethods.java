@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package calculatorprogram.calculators;
 
 import calculatorprogram.database.Database;
@@ -15,7 +11,7 @@ public class CalculationMethods {
     private boolean inf;
     private Database database;
     public CalculationMethods() {
-        database = new Database();
+        database = new Database(false);
     }
     public double sum(double x, double y) {
         return (double) x + (double) y;
@@ -47,13 +43,13 @@ public class CalculationMethods {
         return  a;
     }
     
-    public int factorial(double x) {
+    public long factorial(double x) {
 //        try {
 //            if (!(x == Math.floor(x)) && !Double.isInfinite(x)) {
 //                throw new Exceptions("kertoman arvo ei ole kokonaisluku");
 //            }
 //        } catch (Exception e) {}
-        int factorial = (int) x;
+        long factorial = (long) x;
         if (x == 0) {
             return 1;
         }
@@ -79,7 +75,7 @@ public class CalculationMethods {
     * 
     * @return solution
     */
-    public int binomial(String xS, String yS) throws Exception {
+    public long binomial(String xS, String yS) throws Exception {
         int y = valCorrector(yS);
         int x = valCorrector(xS);
         if (y < 0) {
@@ -88,7 +84,7 @@ public class CalculationMethods {
         if (x < 0) {
             x = -x + 1; 
         }
-        int[][] binom = new int[x + 1][y + 1];
+        long[][] binom = new long[x + 1][y + 1];
         binom[0][0] = 1;
         for (int i = 1; i <= x; i++) {
             binom[i][0] = 1;
@@ -108,16 +104,16 @@ public class CalculationMethods {
     * 
     * @return solution
     */
-    public int permutational(String xS, String yS) throws Exception {
+    public long permutational(String xS, String yS) throws Exception {
         int x = valCorrector(xS);  
         int y = valCorrector(yS);
         if (x < y) {
             return 0;
         }
         if (y == 1) {
-            return x;
+            return (int) x;
         }
-        return (int) (factorial(x) / factorial(x - y));
+        return (long) (factorial(x) / factorial(x - y));
     }
     
     /**

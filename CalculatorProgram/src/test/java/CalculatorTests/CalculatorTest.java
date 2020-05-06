@@ -110,4 +110,5 @@ public class CalculatorTest {
         assertEquals(calc.calcArrayList("2-(-5*(2^0+5))"), "32.0");
         assertEquals(calc.calcArrayList("2(5!+2)^2"), "29768.0");
     }
+    
 }

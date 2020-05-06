@@ -15,7 +15,7 @@ Sovelluksen tarkoitus on hoitaa perus graafisia ja ei graafisia laskutoimituksia
 
 ## Releaset
 [Viikko5](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/viikko5) <br>
-[Viikko6](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/Viikko6)
+[Viikko6](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/Viikko6) <br>
 [Loppupalautus](https://github.com/JaakkoRE/ot-harjoitustyo/releases/tag/loppupalautus) 
 ## Komentorivitoiminnot
 ### Testaus

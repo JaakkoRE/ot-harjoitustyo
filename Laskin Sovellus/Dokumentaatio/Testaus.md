@@ -10,7 +10,7 @@ Tietokantaa testataan erillisellä DatabaseTest.db tiedostolla. Testit hyödynt�
 
 ### Testauskattavuus
 
-Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen rivikattavuus on 90% ja haarautumakattavuus 77%
+Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen rivikattavuus on 90% ja haarautumakattavuus 75%
 
 <img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/Testaus%20kattavuus.png" width="700">
 

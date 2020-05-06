@@ -1,7 +1,7 @@
 # Arkkitehtuurikuvaus
 ## Rakenne
 Pakkausrakenne on seuraava:
-<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/PakkausKaavio.png" width="1000"> <br>
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/DokumentaatioKuvat/PakkausKaavio.png" width="1000"> <br>
 Pakkaus calculatorprogram.gui sisältää graafisen java fx tyylisen käyttöliittymän koodin. 
 
 Pakkaus calculatorprogram.calculators sisältää laskinohjelmien sovelluslogiikan.
@@ -13,7 +13,7 @@ Käyttöliittymä on toteutettu calculatorprogram.gui paketin sisällä olevassa
 
 ## Sovelluslogiikka
 Pakettikaavio/logiikka
-<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/SovellusLogiikka.png"> <br>
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/DokumentaatioKuvat/SovellusLogiikka.png"> <br>
  <br>
 Calculator luokka tarjoaa eri lasku metodit kuten 
 - calcArrayList(String text),  muuttaa String tyyppisen olion laskettavaan metodiin, lähettää laskun eteenpäin ja palauttaa tuloksen
@@ -55,12 +55,12 @@ Esimerkki arvo taulusta
 ## Päätoiminnallisuudet
 ### Miten graafinen laskin laskee funktion
 Kun graafisessa näkymässä on annettu vaadittavat tiedot laskusta (calculatable), x.n ylärajan (upperBound), x.n alarajan (lowerBound), x.n arvojen välin (precision) Esimerkissä on annettu 5x^2,3,2,1
-<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/Sekvenssi1.png">
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/DokumentaatioKuvat/Sekvenssi1.png">
 
 Laskun suorituksen jälkeen käyttöliittymä saa listan välin jokaisesta arvosta, tässä tapauksessa vain 20 ja 45 ja piirtää niiden perusteella kuvaajan.
 ### Miten tietokannasta haetaan tietoa
 Tietokannassa on valmiiksi arvo 9.81 nimellä g ja salasana on annettu. Sekvenssikaavio kuvaa miten laskettavassa tekstissä oleva vakion nimi muunnetaan vakioksi
-<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/Uusi%20kansio/Sekvenssi2.png">
+<img src="https://raw.githubusercontent.com/JaakkoRE/ot-harjoitustyo/master/Laskin%20Sovellus/Dokumentaatio/DokumentaatioKuvat/Sekvenssi2.png">
 
 Kun vakio on saatu tietokannasta, lasku jatketaan loppuun.
 ## Ohjelman rakenteeseen jääneet heikkoudet
